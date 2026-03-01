@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Testimonials grid</title>
+    <style>
+      /* simple reset & base */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: #ecf2f8; /* light grayish blue */
+        font-family:
+          "Barlow Semi Condensed", "Segoe UI", Roboto, Helvetica, Arial,
+          sans-serif;
+        line-height: 1.5;
+        padding: 2rem 1.5rem;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+      }
+
+      /* main grid – only grid, no flex */
+      .testimonial-grid {
+        max-width: 1200px;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.8rem;
+        margin: 0 auto;
+      }
+
+      /* card base styles */
+      .card {
+        background: white;
+        border-radius: 12px;
+        padding: 1.8rem 2rem 2rem 2rem;
+        box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.15);
+        transition: none;
+      }
+
+      .card-header {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        gap: 0 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .avatar img {
+        border-radius: 100%;
+        width: 38px;
+      }
+
+      .name {
+        font-size: 1.2rem;
+        font-weight: 600;
+        line-height: 1.3;
+      }
+
+      .verified {
+        font-size: 0.9rem;
+        opacity: 0.5;
+      }
+
+      /* main bold statement (like "I received a job offer...") */
+      .emphasis {
+        font-size: 1.4rem;
+        font-weight: 600;
+        line-height: 1.3;
+        margin-bottom: 1rem;
+      }
+
+      /* quoted text */
+      .quote {
+        opacity: 0.7;
+        font-size: 0.95rem;
+      }
+
+      /* card colors */
+      .card-purple {
+        background-color: #7541c8; /* deep purple */
+        color: white;
+      }
+      .card-gray {
+        background-color: #48556a; /* dark grayish blue */
+        color: white;
+      }
+      .card-white {
+        background-color: #ffffff;
+        color: #19212e;
+      }
+      .card-dark {
+        background-color: #19212e; /* near black */
+        color: white;
+      }
+
+      /* verified opacity adapts to background */
+      .card-purple .verified,
+      .card-gray .verified,
+      .card-dark .verified {
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .card-white .verified {
+        color: rgba(0, 0, 0, 0.5);
+      }
+
+      /* grid placement – desktop */
+      .daniel {
+        grid-column: span 2;
+      }
+      .jonathan {
+        grid-column: span 1;
+      }
+      .kira {
+        grid-column: 4 / 5;
+        grid-row: span 2;
+      }
+      .jeanette {
+        grid-column: 1 / 2;
+        grid-row: 2;
+      }
+      .patrick {
+        grid-column: span 2; /* covers col 2 & 3 */
+        grid-row: 2;
+      }
+
+      /* tiny tweak for exact quote spacing */
+      .quote p {
+        margin-top: 0.8rem;
+      }
+
+      /* no extra margins for last elements */
+      .card :last-child {
+        margin-bottom: 0;
+      }
+
+      /* ========== RESPONSIVE (mobile first) ========== */
+      @media screen and (max-width: 900px) {
+        .testimonial-grid {
+          gap: 1.2rem;
+        }
+        .card {
+          padding: 1.5rem;
+        }
+        .emphasis {
+          font-size: 1.2rem;
+        }
+      }
+
+      /* tablet / medium: switch to two columns */
+      @media screen and (max-width: 750px) {
+        .testimonial-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        /* reset all spans to auto */
+        .daniel,
+        .jonathan,
+        .kira,
+        .jeanette,
+        .patrick {
+          grid-column: auto;
+          grid-row: auto;
+        }
+        /* Kira loses row span, falls into natural order */
+      }
+
+      /* mobile: single column */
+      @media screen and (max-width: 550px) {
+        .testimonial-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* additional micro adjustments to keep text consistent */
+      hr {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="testimonial-grid">
+      <!-- DANIEL CLIFFORD – purple, spans 2 columns -->
+      <div class="card card-purple daniel">
+        <div class="card-header">
+          <span class="avatar"
+            ><img src="./images/image-daniel.jpg" alt=""
+          /></span>
+          <div>
+            <div class="name">Daniel Clifford</div>
+            <div class="verified">Verified Graduate</div>
+          </div>
+        </div>
+        <div class="emphasis">
+          I received a job offer mid-course, and the subjects I learned were
+          current, if not more so, in the company I joined. I honestly feel I
+          got every penny’s worth.
+        </div>
+        <div class="quote">
+          “I was an EMT for many years before I joined the bootcamp. I’ve been
+          looking to make a transition and have heard some people who had an
+          amazing experience here. I signed up for the free intro course and
+          found it incredibly fun! I enrolled shortly thereafter. The next 12
+          weeks was the best – and most grueling – time of my life. Since
+          completing the course, I’ve successfully switched careers, working as
+          a Software Engineer at a VR startup.”
+        </div>
+      </div>
+
+      <!-- JONATHAN WALTERS – gray -->
+      <div class="card card-gray jonathan">
+        <div class="card-header">
+          <span class="avatar"
+            ><img src="./images/image-jonathan.jpg" alt="jonathan"
+          /></span>
+          <div>
+            <div class="name">Jonathan Walters</div>
+            <div class="verified">Verified Graduate</div>
+          </div>
+        </div>
+        <div class="emphasis">
+          The team was very supportive and kept me motivated
+        </div>
+        <div class="quote">
+          “I started as a total newbie with virtually no coding skills. I now
+          work as a mobile engineer for a big company. This was one of the best
+          investments I’ve made in myself.”
+        </div>
+      </div>
+
+      <!-- KIRA WHITTLE – white, tall in right column (spans 2 rows) -->
+      <div class="card card-white kira">
+        <div class="card-header">
+          <span class="avatar"
+            ><img src="./images/image-kira.jpg" alt="kira"
+          /></span>
+          <div>
+            <div class="name">Kira Whittle</div>
+            <div class="verified">Verified Graduate</div>
+          </div>
+        </div>
+        <div class="emphasis">
+          Such a life-changing experience. Highly recommended!
+        </div>
+        <div class="quote">
+          “Before joining the bootcamp, I’ve never written a line of code. I
+          needed some structure from professionals who can help me learn
+          programming step by step. I was encouraged to enroll by a former
+          student of theirs who can only say wonderful things about the program.
+          The entire curriculum and staff did not disappoint. They were very
+          hands-on and I never had to wait long for assistance. The agile team
+          project, in particular, was outstanding. It took my learning to the
+          next level in a way that no tutorial could ever have. In fact, I’ve
+          often referred to it during interviews as an example of my development
+          experience. It certainly helped me land a job as a full-stack
+          developer after receiving multiple offers. 100% recommended!”
+        </div>
+      </div>
+
+      <!-- JEANETTE HARMON – white (first row of second line) -->
+      <div class="card card-white jeanette">
+        <div class="card-header">
+          <span class="avatar"
+            ><img src="./images/image-jeanette.jpg" alt="jeanette"
+          /></span>
+          <div>
+            <div class="name">Jeanette Harmon</div>
+            <div class="verified">Verified Graduate</div>
+          </div>
+        </div>
+        <div class="emphasis">
+          An overall wonderful and rewarding experience
+        </div>
+        <div class="quote">
+          "Thank you for the wonderful experience! I now have a job I really
+          enjoy, and make a good living while doing something I love."
+        </div>
+      </div>
+
+      <!-- PATRICK ABRAMS – dark, spans 2 columns (second line) -->
+      <div class="card card-dark patrick">
+        <div class="card-header">
+          <span class="avatar"
+            ><img src="./images/image-patrick.jpg" alt="patrick"
+          /></span>
+          <div>
+            <div class="name">Patrick Abrams</div>
+            <div class="verified">Verified Graduate</div>
+          </div>
+        </div>
+        <div class="emphasis">
+          Awesome teaching support from TAs who did the bootcamp themselves.
+          Getting guidance from them and learning from their experiences was
+          easy.
+        </div>
+        <div class="quote">
+          “The staff seem genuinely concerned about my progress which I find
+          really refreshing. The program gave me the confidence necessary to be
+          able to go out in the world and present myself as a capable junior
+          developer. The standard is above the rest. You will get the personal
+          attention you need from an incredible community of smart and amazing
+          people.”
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
