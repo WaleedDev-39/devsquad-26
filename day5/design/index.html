@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32x32.png">
+    <title>Frontend Mentor | Notifications page</title>
+    <link rel="stylesheet" href="output.css">
+</head>
+
+<body
+    class="bg-[hsl(210,60%,98%)] min-h-screen flex justify-center items-start py-16 px-4 font-['Plus_Jakarta_Sans'] max-md:py-0 max-md:px-0">
+
+    <main class="w-full max-w-[730px]">
+        <div
+            class="bg-white rounded-2xl shadow-[0_20px_60px_rgba(73,97,168,0.05)] px-[30px] pt-[33px] pb-0 max-md:rounded-none max-md:px-4 max-md:pt-6">
+
+            <!-- Header -->
+            <header class="flex items-center justify-between mb-[31px] max-md:mb-6">
+                <div class="flex items-center gap-[11px]">
+                    <h1 class="text-[24px] font-extrabold text-[hsl(224,21%,14%)] leading-none max-md:text-[20px]">
+                        Notifications</h1>
+                    <span id="unread-count"
+                        class="bg-[hsl(219,85%,26%)] text-white text-[16px] font-extrabold px-[13px] py-[2px] rounded-md leading-snug transition-all duration-300 max-md:text-[13px] max-md:px-[10px]">3</span>
+                </div>
+                <button id="mark-all-btn"
+                    class="bg-transparent border-none text-[16px] font-medium text-[hsl(219,14%,63%)] cursor-pointer transition-colors duration-200 hover:text-[hsl(219,85%,26%)] focus-visible:outline-2 focus-visible:outline-[hsl(219,85%,26%)] focus-visible:outline-offset-2 focus-visible:rounded max-md:text-[14px]">Mark
+                    all as read</button>
+            </header>
+
+            <!-- Notifications List -->
+            <ul id="notifications-list" class="list-none">
+
+                <!-- 1. Mark Webber — unread -->
+                <li class="notification unread flex items-start gap-[19px] p-[17px_20px] rounded-lg mb-2 transition-colors duration-300 cursor-default bg-[hsl(210,60%,98%)] hover:bg-[hsl(211,68%,94%)] max-md:gap-[13px] max-md:p-[16px_8px]"
+                    data-unread="true">
+                    <img src="../assets/images/avatar-mark-webber.webp" alt="Mark Webber"
+                        class="w-[45px] h-[45px] rounded-full shrink-0 object-cover max-md:w-[39px] max-md:h-[39px]">
+                    <div class="flex-1 min-w-0">
+                        <p class="text-[16px] leading-[1.35] text-[hsl(219,12%,42%)] break-words max-md:text-[14px]">
+                            <a href="#"
+                                class="name font-extrabold text-[hsl(224,21%,14%)] no-underline transition-colors duration-200 hover:text-[hsl(219,85%,26%)] focus-visible:outline-2 focus-visible:outline-[hsl(219,85%,26%)] focus-visible:outline-offset-2 focus-visible:rounded-sm">Mark
+                                Webber</a>
+                            reacted to your recent post
+                            <a href="#"
+                                class="font-extrabold text-[hsl(219,12%,42%)] no-underline transition-colors duration-200 hover:text-[hsl(219,85%,26%)] focus-visible:outline-2 focus-visible:outline-[hsl(219,85%,26%)] focus-visible:outline-offset-2 focus-visible:rounded-sm">My
+                                first tournament today!</a>
+                            <span
+                                class="unread-dot inline-block w-2 h-2 bg-[hsl(1,90%,64%)] rounded-full ml-[6px] align-middle transition-all duration-300"></span>
+                        </p>
+                        <p class="text-[16px] text-[hsl(219,14%,63%)] mt-[3px] leading-snug max-md:text-[14px]">1m ago
+                        </p>
+                    </div>
+                </li>
+
+                <!-- 2. Angela Gray — unread -->
+                <li class="notification unread flex items-start gap-[19px] p-[17px_20px] rounded-lg mb-2 transition-colors duration-300 cursor-default bg-[hsl(210,60%,98%)] hover:bg-[hsl(211,68%,94%)] max-md:gap-[13px] max-md:p-[16px_8px]"
+                    data-unread="true">
+                    <img src="../assets/images/avatar-angela-gray.webp" alt="Angela Gray"
+                        class="w-[45px] h-[45px] rounded-full shrink-0 object-cover max-md:w-[39px] max-md:h-[39px]">
+                    <div class="flex-1 min-w-0">
+                        <p class="text-[16px] leading-[1.35] text-[hsl(219,12%,42%)] break-words max-md:text-[14px]">
+                            <a href="#"
+                                class="name font-extrabold text-[hsl(224,21%,14%)] no-underline transition-colors duration-200 hover:text-[hsl(219,85%,26%)] focus-visible:outline-2 focus-visible:outline-[hsl(219,85%,26%)] focus-visible:outline-offset-2 focus-visible:rounded-sm">Angela
+                                Gray</a>
+                            followed you
+                            <span
+                                class="unread-dot inline-block w-2 h-2 bg-[hsl(1,90%,64%)] rounded-full ml-[6px] align-middle transition-all duration-300"></span>
+                        </p>
+                        <p class="text-[16px] text-[hsl(219,14%,63%)] mt-[3px] leading-snug max-md:text-[14px]">5m ago
+                        </p>
+                    </div>
+                </li>
+
+                <!-- 3. Jacob Thompson — unread -->
+                <li class="notification unread flex items-start gap-[19px] p-[17px_20px] rounded-lg mb-2 transition-colors duration-300 cursor-default bg-[hsl(210,60%,98%)] hover:bg-[hsl(211,68%,94%)] max-md:gap-[13px] max-md:p-[16px_8px]"
+                    data-unread="true">
+                    <img src="../assets/images/avatar-jacob-thompson.webp" alt="Jacob Thompson"
+                        class="w-[45px] h-[45px] rounded-full shrink-0 object-cover max-md:w-[39px] max-md:h-[39px]">
+                    <div class="flex-1 min-w-0">
+                        <p class="text-[16px] leading-[1.35] text-[hsl(219,12%,42%)] break-words max-md:text-[14px]">
+                            <a href="#"
+                                class="name font-extrabold text-[hsl(224,21%,14%)] no-underline transition-colors duration-200 hover:text-[hsl(219,85%,26%)] focus-visible:outline-2 focus-visible:outline-[hsl(219,85%,26%)] focus-visible:outline-offset-2 focus-visible:rounded-sm">Jacob
+                                Thompson</a>
+                            has joined your group
+                            <a href="#"
+                                class="font-extrabold text-[hsl(219,85%,26%)] no-underline transition-colors duration-200 hover:underline focus-visible:outline-2 focus-visible:outline-[hsl(219,85%,26%)] focus-visible:outline-offset-2 focus-visible:rounded-sm">Chess
+                                Club</a>
+                            <span
+                                class="unread-dot inline-block w-2 h-2 bg-[hsl(1,90%,64%)] rounded-full ml-[6px] align-middle transition-all duration-300"></span>
+                        </p>
+                        <p class="text-[16px] text-[hsl(219,14%,63%)] mt-[3px] leading-snug max-md:text-[14px]">1 day
+                            ago</p>
+                    </div>
+                </li>
+
+                <!-- 4. Rizky Hasanuddin — read (with message box) -->
+                <li class="notification flex items-start gap-[19px] p-[17px_20px] rounded-lg mb-2 transition-colors duration-300 cursor-default hover:bg-[hsl(210,60%,98%)] max-md:gap-[13px] max-md:p-[16px_8px]"
+                    data-unread="false">
+                    <img src="../assets/images/avatar-rizky-hasanuddin.webp" alt="Rizky Hasanuddin"
+                        class="w-[45px] h-[45px] rounded-full shrink-0 object-cover max-md:w-[39px] max-md:h-[39px]">
+                    <div class="flex-1 min-w-0">
+                        <p class="text-[16px] leading-[1.35] text-[hsl(219,12%,42%)] break-words max-md:text-[14px]">
+                            <a href="#"
+                                class="name font-extrabold text-[hsl(224,21%,14%)] no-underline transition-colors duration-200 hover:text-[hsl(219,85%,26%)] focus-visible:outline-2 focus-visible:outline-[hsl(219,85%,26%)] focus-visible:outline-offset-2 focus-visible:rounded-sm">Rizky
+                                Hasanuddin</a>
+                            sent you a private message
+                        </p>
+                        <p class="text-[16px] text-[hsl(219,14%,63%)] mt-[3px] leading-snug max-md:text-[14px]">5 days
+                            ago</p>
+                        <div
+                            class="mt-[13px] p-[17px_20px] border border-[hsl(205,33%,90%)] rounded-[5px] text-[16px] leading-[1.35] text-[hsl(219,12%,42%)] cursor-pointer transition-colors duration-200 hover:bg-[hsl(211,68%,94%)] max-md:text-[14px] max-md:p-[13px_16px]">
+                            Hello, thanks for setting up the Chess Club. I've been a member for a few weeks now and I'm
+                            already having lots of fun and improving my game.
+                        </div>
+                    </div>
+                </li>
+
+                <!-- 5. Kimberly Smith — read (with picture) -->
+                <li class="notification flex items-start gap-[19px] p-[17px_20px] rounded-lg mb-2 transition-colors duration-300 cursor-default hover:bg-[hsl(210,60%,98%)] max-md:gap-[13px] max-md:p-[16px_8px]"
+                    data-unread="false">
+                    <img src="../assets/images/avatar-kimberly-smith.webp" alt="Kimberly Smith"
+                        class="w-[45px] h-[45px] rounded-full shrink-0 object-cover max-md:w-[39px] max-md:h-[39px]">
+                    <div class="flex-1 min-w-0">
+                        <p class="text-[16px] leading-[1.35] text-[hsl(219,12%,42%)] break-words max-md:text-[14px]">
+                            <a href="#"
+                                class="name font-extrabold text-[hsl(224,21%,14%)] no-underline transition-colors duration-200 hover:text-[hsl(219,85%,26%)] focus-visible:outline-2 focus-visible:outline-[hsl(219,85%,26%)] focus-visible:outline-offset-2 focus-visible:rounded-sm">Kimberly
+                                Smith</a>
+                            commented on your picture
+                        </p>
+                        <p class="text-[16px] text-[hsl(219,14%,63%)] mt-[3px] leading-snug max-md:text-[14px]">1 week
+                            ago</p>
+                    </div>
+                    <a href="#" class="shrink-0 ml-auto group focus-visible:outline-none">
+                        <img src="../assets/images/image-chess.webp" alt="Chess"
+                            class="w-[45px] h-[45px] rounded-[7px] object-cover border-2 border-transparent transition-colors duration-200 group-hover:border-[hsl(211,68%,94%)] group-focus-visible:border-[hsl(219,85%,26%)] max-md:w-[39px] max-md:h-[39px]">
+                    </a>
+                </li>
+
+                <!-- 6. Nathan Peterson — read -->
+                <li class="notification flex items-start gap-[19px] p-[17px_20px] rounded-lg mb-2 transition-colors duration-300 cursor-default hover:bg-[hsl(210,60%,98%)] max-md:gap-[13px] max-md:p-[16px_8px]"
+                    data-unread="false">
+                    <img src="../assets/images/avatar-nathan-peterson.webp" alt="Nathan Peterson"
+                        class="w-[45px] h-[45px] rounded-full shrink-0 object-cover max-md:w-[39px] max-md:h-[39px]">
+                    <div class="flex-1 min-w-0">
+                        <p class="text-[16px] leading-[1.35] text-[hsl(219,12%,42%)] break-words max-md:text-[14px]">
+                            <a href="#"
+                                class="name font-extrabold text-[hsl(224,21%,14%)] no-underline transition-colors duration-200 hover:text-[hsl(219,85%,26%)] focus-visible:outline-2 focus-visible:outline-[hsl(219,85%,26%)] focus-visible:outline-offset-2 focus-visible:rounded-sm">Nathan
+                                Peterson</a>
+                            reacted to your recent post
+                            <a href="#"
+                                class="font-extrabold text-[hsl(219,12%,42%)] no-underline transition-colors duration-200 hover:text-[hsl(219,85%,26%)] focus-visible:outline-2 focus-visible:outline-[hsl(219,85%,26%)] focus-visible:outline-offset-2 focus-visible:rounded-sm">5
+                                end-game strategies to increase your win rate</a>
+                        </p>
+                        <p class="text-[16px] text-[hsl(219,14%,63%)] mt-[3px] leading-snug max-md:text-[14px]">2 weeks
+                            ago</p>
+                    </div>
+                </li>
+
+                <!-- 7. Anna Kim — read -->
+                <li class="notification flex items-start gap-[19px] p-[17px_20px] rounded-lg mb-0 pb-[25px] transition-colors duration-300 cursor-default hover:bg-[hsl(210,60%,98%)] max-md:gap-[13px] max-md:p-[16px_8px] max-md:pb-5"
+                    data-unread="false">
+                    <img src="../assets/images/avatar-anna-kim.webp" alt="Anna Kim"
+                        class="w-[45px] h-[45px] rounded-full shrink-0 object-cover max-md:w-[39px] max-md:h-[39px]">
+                    <div class="flex-1 min-w-0">
+                        <p class="text-[16px] leading-[1.35] text-[hsl(219,12%,42%)] break-words max-md:text-[14px]">
+                            <a href="#"
+                                class="name font-extrabold text-[hsl(224,21%,14%)] no-underline transition-colors duration-200 hover:text-[hsl(219,85%,26%)] focus-visible:outline-2 focus-visible:outline-[hsl(219,85%,26%)] focus-visible:outline-offset-2 focus-visible:rounded-sm">Anna
+                                Kim</a>
+                            left the group
+                            <a href="#"
+                                class="font-extrabold text-[hsl(219,85%,26%)] no-underline transition-colors duration-200 hover:underline focus-visible:outline-2 focus-visible:outline-[hsl(219,85%,26%)] focus-visible:outline-offset-2 focus-visible:rounded-sm">Chess
+                                Club</a>
+                        </p>
+                        <p class="text-[16px] text-[hsl(219,14%,63%)] mt-[3px] leading-snug max-md:text-[14px]">2 weeks
+                            ago</p>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
