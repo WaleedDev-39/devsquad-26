@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="output.css" />
+  </head>
+  <body>
+    <div>
+      <!-- navbar -->
+      <div>
+        <nav
+          class="flex justify-between items-center font-medium text-[18px] mx-[120px] my-[30px]"
+        >
+          <div>
+            <img
+              src="./images/LOGO 1.png"
+              width="215px"
+              height="53px"
+              alt="logo"
+              class="cursor-pointer"
+            />
+          </div>
+          <div class="flex gap-10">
+            <a
+              href="#"
+              class="hover:bg-[#FC8A06] hover:text-white transition-all px-3 py-2 rounded-[120px]"
+              >Home</a
+            >
+            <a
+              href=""
+              class="hover:bg-[#FC8A06] hover:text-white transition-all px-3 py-2 rounded-[120px]"
+              >Special Offers</a
+            >
+            <a
+              href=""
+              class="hover:bg-[#FC8A06] hover:text-white transition-all px-3 py-2 rounded-[120px]"
+              >Restaurants</a
+            >
+            <a
+              href=""
+              class="hover:bg-[#FC8A06] hover:text-white transition-all px-3 py-2 rounded-[120px]"
+              >Track Order</a
+            >
+          </div>
+          <div class="flex items-center gap-[9px] cursor-pointer">
+            <span
+              class="flex items-center justify-center w-[64px] h-[61px] bg-black rounded-full"
+            >
+              <img
+                src="./images/cart.png"
+                width="34px"
+                height="34px"
+                alt="cart"
+              />
+            </span>
+            <span>Cart</span>
+          </div>
+        </nav>
+      </div>
+
+      <!-- main section -->
+      <div class="text-white relative">
+        <div
+          class="relative flex justify-center items-center gap-20 p-10 mx-20 rounded-lg bg-[url(./images/burger-1.png)] bg-cover bg-center bg-no-repeat max-h-[477px] -z-20"
+        >
+          <div class="absolute inset-0 bg-[#03081F]/90 -z-10 rounded-lg"></div>
+          <div class="flex flex-col justify-end w-[60%]">
+            <h5 class="text-[20px]">I'm Lovin it!</h5>
+            <h2 class="font-semibold text-[48px] mb-5">
+              McDonald’s East London
+            </h2>
+            <div class="flex gap-[17px]">
+              <a
+                href=""
+                class="font-semibold text-[16px] flex gap-2 items-center border-1 border-white rounded-[120px] px-[25px] py-2"
+                ><img src="./images/note-btn.png" width="34px" height="34px" />
+                Minimum Order: 12 GBP</a
+              >
+              <a
+                href=""
+                class="font-semibold text-[16px] flex gap-2 items-center border-1 border-white rounded-[120px] px-[25px] py-2"
+                ><img src="./images/bike-btn.png" width="34px" height="34px" />
+                Delivery in 20-25 Minutes</a
+              >
+            </div>
+          </div>
+          <div class="w-[40%] relative">
+            <img src="./images/burger-1.png" alt="burger" class="z-10" />
+            <img
+              src="./images/review.png"
+              alt="review"
+              class="absolute top-22 -left-15"
+            />
+          </div>
+        </div>
+        <div
+          class="relative left-20 bottom-8 text-[18px] font-semibold rounded-r-[12px] bg-[#FC8A06] w-[335px] flex gap-2 justify-center items-center py-4"
+        >
+          <img src="./images/Clock.png" alt="" />
+          <p>Open until 3:00 AM</p>
+        </div>
+      </div>
+
+      <!-- food section -->
+      <div>
+        <!-- search section -->
+        <div class="flex justify-between items-center mx-30">
+          <h3 class="text-[32px] font-bold">
+            All Offers from McDonald’s East London
+          </h3>
+          <div class="flex gap-2 border-1 rounded-[120px] pl-5 pr-10 py-2">
+            <label for="search"
+              ><img src="./images/search-icon.png" alt=""
+            /></label>
+            <input
+              type="text"
+              id="search"
+              name="search"
+              class="outline-none border-none"
+              placeholder="Search from menu..."
+            />
+          </div>
+        </div>
+        <!-- categories section -->
+        <div class="mt-[46px]">
+          <div
+            class="flex justify-between items-center bg-[#FC8A06] text-white font-bold text-[15px] px-[95px] py-[30px]"
+          >
+            <a
+              href=""
+              class="hover:bg-black px-3 py-1 rounded-[120px] transition-all"
+              >Offers</a
+            >
+            <a
+              href=""
+              class="hover:bg-black px-3 py-1 rounded-[120px] transition-all"
+              >Burgers</a
+            >
+            <a
+              href=""
+              class="hover:bg-black px-3 py-1 rounded-[120px] transition-all"
+              >Fries</a
+            >
+            <a
+              href=""
+              class="hover:bg-black px-3 py-1 rounded-[120px] transition-all"
+              >Snacks</a
+            >
+            <a
+              href=""
+              class="hover:bg-black px-3 py-1 rounded-[120px] transition-all"
+              >Salads</a
+            >
+            <a
+              href=""
+              class="hover:bg-black px-3 py-1 rounded-[120px] transition-all"
+              >Cold drinks</a
+            >
+            <a
+              href=""
+              class="hover:bg-black px-3 py-1 rounded-[120px] transition-all"
+              >Happy Meal®</a
+            >
+            <a
+              href=""
+              class="hover:bg-black px-3 py-1 rounded-[120px] transition-all"
+              >Desserts</a
+            >
+            <a
+              href=""
+              class="hover:bg-black px-3 py-1 rounded-[120px] transition-all"
+              >Hot drinks</a
+            >
+            <a
+              href=""
+              class="hover:bg-black px-3 py-1 rounded-[120px] transition-all"
+              >Sauces</a
+            >
+            <a
+              href=""
+              class="hover:bg-black px-3 py-1 rounded-[120px] transition-all"
+              >Orbit®</a
+            >
+          </div>
+        </div>
+
+        <!-- burgers section -->
+        <div class="mx-20 mb-15">
+          <div>
+            <h3 class="font-bold text-[44px] my-5">Burgers</h3>
+            <!-- cards -->
+            <div>
+              <div class="grid grid-cols-3 gap-2">
+                <!-- 1 -->
+                <div
+                  class="flex items-center gap-3 p-4 bg-[#FDFDFD] rounded-[12px] shadow-2xl cursor-pointer"
+                >
+                  <div class="flex flex-col gap-3">
+                    <h4 class="font-semibold text-[20px] leading-5">
+                      Royal Cheese Burger with extra Fries
+                    </h4>
+                    <p class="text-[14px]">
+                      1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium
+                    </p>
+                    <p class="font-bold text-[18px]">GBP 23.10</p>
+                  </div>
+                  <div class="relative">
+                    <img src="./images/burger.png" alt="burger" class="" />
+                    <div
+                      class="absolute top-13 right-[0px] rounded-br-[6px] rounded-tl-[45px] bg-white/90 pl-5 pr-3 pt-4 pb-2"
+                    >
+                      <img src="./images/Plus.png" alt="" width="32px" />
+                    </div>
+                  </div>
+                </div>
+                <!-- 2 -->
+                <div
+                  class="flex items-center gap-3 p-4 bg-[#FDFDFD] rounded-[12px] shadow-2xl cursor-pointer"
+                >
+                  <div class="flex flex-col gap-3">
+                    <h4 class="font-semibold text-[20px] leading-5">
+                      Royal Cheese Burger with extra Fries
+                    </h4>
+                    <p class="text-[14px]">
+                      1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium
+                    </p>
+                    <p class="font-bold text-[18px]">GBP 23.10</p>
+                  </div>
+                  <div class="relative">
+                    <img src="./images/burger.png" alt="burger" class="" />
+                    <div
+                      class="absolute top-13 right-[0px] rounded-br-[6px] rounded-tl-[45px] bg-white/90 pl-5 pr-3 pt-4 pb-2"
+                    >
+                      <img src="./images/Plus.png" alt="" width="32px" />
+                    </div>
+                  </div>
+                </div>
+                <!-- 3 -->
+                <div
+                  class="flex items-center gap-3 p-4 bg-[#FDFDFD] rounded-[12px] shadow-2xl cursor-pointer"
+                >
+                  <div class="flex flex-col gap-3">
+                    <h4 class="font-semibold text-[20px] leading-5">
+                      Royal Cheese Burger with extra Fries
+                    </h4>
+                    <p class="text-[14px]">
+                      1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium
+                    </p>
+                    <p class="font-bold text-[18px]">GBP 23.10</p>
+                  </div>
+                  <div class="relative">
+                    <img src="./images/burger.png" alt="burger" class="" />
+                    <div
+                      class="absolute top-13 right-[0px] rounded-br-[6px] rounded-tl-[45px] bg-white/90 pl-5 pr-3 pt-4 pb-2"
+                    >
+                      <img src="./images/Plus.png" alt="" width="32px" />
+                    </div>
+                  </div>
+                </div>
+                <!-- 4 -->
+                <div
+                  class="flex items-center gap-3 p-4 bg-[#FDFDFD] rounded-[12px] shadow-2xl cursor-pointer"
+                >
+                  <div class="flex flex-col gap-3">
+                    <h4 class="font-semibold text-[20px] leading-5">
+                      Royal Cheese Burger with extra Fries
+                    </h4>
+                    <p class="text-[14px]">
+                      1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium
+                    </p>
+                    <p class="font-bold text-[18px]">GBP 23.10</p>
+                  </div>
+                  <div class="relative">
+                    <img src="./images/burger.png" alt="burger" class="" />
+                    <div
+                      class="absolute top-13 right-[0px] rounded-br-[6px] rounded-tl-[45px] bg-white/90 pl-5 pr-3 pt-4 pb-2"
+                    >
+                      <img src="./images/Plus.png" alt="" width="32px" />
+                    </div>
+                  </div>
+                </div>
+                <!-- 5 -->
+                <div
+                  class="flex items-center gap-3 p-4 bg-[#FDFDFD] rounded-[12px] shadow-2xl cursor-pointer"
+                >
+                  <div class="flex flex-col gap-3">
+                    <h4 class="font-semibold text-[20px] leading-5">
+                      Royal Cheese Burger with extra Fries
+                    </h4>
+                    <p class="text-[14px]">
+                      1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium
+                    </p>
+                    <p class="font-bold text-[18px]">GBP 23.10</p>
+                  </div>
+                  <div class="relative">
+                    <img src="./images/burger.png" alt="burger" class="" />
+                    <div
+                      class="absolute top-13 right-[0px] rounded-br-[6px] rounded-tl-[45px] bg-white/90 pl-5 pr-3 pt-4 pb-2"
+                    >
+                      <img src="./images/Plus.png" alt="" width="32px" />
+                    </div>
+                  </div>
+                </div>
+                <!-- 6 -->
+                <div
+                  class="flex items-center gap-3 p-4 bg-[#FDFDFD] rounded-[12px] shadow-2xl cursor-pointer"
+                >
+                  <div class="flex flex-col gap-3">
+                    <h4 class="font-semibold text-[20px] leading-5">
+                      Royal Cheese Burger with extra Fries
+                    </h4>
+                    <p class="text-[14px]">
+                      1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium
+                    </p>
+                    <p class="font-bold text-[18px]">GBP 23.10</p>
+                  </div>
+                  <div class="relative">
+                    <img src="./images/burger.png" alt="burger" class="" />
+                    <div
+                      class="absolute top-13 right-[0px] rounded-br-[6px] rounded-tl-[45px] bg-white/90 pl-5 pr-3 pt-4 pb-2"
+                    >
+                      <img src="./images/Plus.png" alt="" width="32px" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- fries section -->
+        <div class="mx-20 mb-15">
+          <div>
+            <h3 class="font-bold text-[44px] text-[#FC8A06]">Fries</h3>
+            <!-- cards -->
+            <div>
+              <div class="grid grid-cols-3 gap-2">
+                <!-- 1 -->
+                <div
+                  class="flex items-center gap-3 p-4 bg-[#FDFDFD] rounded-[12px] shadow-2xl cursor-pointer"
+                >
+                  <div class="flex flex-col gap-3">
+                    <h4 class="font-semibold text-[20px] leading-5">
+                      Royal Cheese Burger with extra Fries
+                    </h4>
+                    <p class="text-[14px]">
+                      1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium
+                    </p>
+                    <p class="font-bold text-[18px]">GBP 23.10</p>
+                  </div>
+                  <div class="relative">
+                    <img src="./images/fries-1.png" alt="burger" class="" />
+                    <div
+                      class="absolute top-13 right-[0px] rounded-br-[6px] rounded-tl-[45px] bg-white/90 pl-5 pr-3 pt-4 pb-2"
+                    >
+                      <img src="./images/Plus.png" alt="" width="32px" />
+                    </div>
+                  </div>
+                </div>
+                <!-- 2 -->
+                <div
+                  class="flex items-center gap-3 p-4 bg-[#FDFDFD] rounded-[12px] shadow-2xl cursor-pointer"
+                >
+                  <div class="flex flex-col gap-3">
+                    <h4 class="font-semibold text-[20px] leading-5">
+                      Royal Cheese Burger with extra Fries
+                    </h4>
+                    <p class="text-[14px]">
+                      1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium
+                    </p>
+                    <p class="font-bold text-[18px]">GBP 23.10</p>
+                  </div>
+                  <div class="relative">
+                    <img src="./images/fries-1.png" alt="burger" class="" />
+                    <div
+                      class="absolute top-13 right-[0px] rounded-br-[6px] rounded-tl-[45px] bg-white/90 pl-5 pr-3 pt-4 pb-2"
+                    >
+                      <img src="./images/Plus.png" alt="" width="32px" />
+                    </div>
+                  </div>
+                </div>
+                <!-- 3 -->
+                <div
+                  class="flex items-center gap-3 p-4 bg-[#FDFDFD] rounded-[12px] shadow-2xl cursor-pointer"
+                >
+                  <div class="flex flex-col gap-3">
+                    <h4 class="font-semibold text-[20px] leading-5">
+                      Royal Cheese Burger with extra Fries
+                    </h4>
+                    <p class="text-[14px]">
+                      1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium
+                    </p>
+                    <p class="font-bold text-[18px]">GBP 23.10</p>
+                  </div>
+                  <div class="relative">
+                    <img src="./images/fries-1.png" alt="burger" class="" />
+                    <div
+                      class="absolute top-13 right-[0px] rounded-br-[6px] rounded-tl-[45px] bg-white/90 pl-5 pr-3 pt-4 pb-2"
+                    >
+                      <img src="./images/Plus.png" alt="" width="32px" />
+                    </div>
+                  </div>
+                </div>
+                <!-- 4 -->
+                <div
+                  class="flex items-center gap-3 p-4 bg-[#FDFDFD] rounded-[12px] shadow-2xl cursor-pointer"
+                >
+                  <div class="flex flex-col gap-3">
+                    <h4 class="font-semibold text-[20px] leading-5">
+                      Royal Cheese Burger with extra Fries
+                    </h4>
+                    <p class="text-[14px]">
+                      1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium
+                    </p>
+                    <p class="font-bold text-[18px]">GBP 23.10</p>
+                  </div>
+                  <div class="relative">
+                    <img src="./images/fries-1.png" alt="burger" class="" />
+                    <div
+                      class="absolute top-13 right-[0px] rounded-br-[6px] rounded-tl-[45px] bg-white/90 pl-5 pr-3 pt-4 pb-2"
+                    >
+                      <img src="./images/Plus.png" alt="" width="32px" />
+                    </div>
+                  </div>
+                </div>
+                <!-- 5 -->
+                <div
+                  class="flex items-center gap-3 p-4 bg-[#FDFDFD] rounded-[12px] shadow-2xl cursor-pointer"
+                >
+                  <div class="flex flex-col gap-3">
+                    <h4 class="font-semibold text-[20px] leading-5">
+                      Royal Cheese Burger with extra Fries
+                    </h4>
+                    <p class="text-[14px]">
+                      1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium
+                    </p>
+                    <p class="font-bold text-[18px]">GBP 23.10</p>
+                  </div>
+                  <div class="relative">
+                    <img src="./images/fries-1.png" alt="burger" class="" />
+                    <div
+                      class="absolute top-13 right-[0px] rounded-br-[6px] rounded-tl-[45px] bg-white/90 pl-5 pr-3 pt-4 pb-2"
+                    >
+                      <img src="./images/Plus.png" alt="" width="32px" />
+                    </div>
+                  </div>
+                </div>
+                <!-- 6 -->
+                <div
+                  class="flex items-center gap-3 p-4 bg-[#FDFDFD] rounded-[12px] shadow-2xl cursor-pointer"
+                >
+                  <div class="flex flex-col gap-3">
+                    <h4 class="font-semibold text-[20px] leading-5">
+                      Royal Cheese Burger with extra Fries
+                    </h4>
+                    <p class="text-[14px]">
+                      1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium
+                    </p>
+                    <p class="font-bold text-[18px]">GBP 23.10</p>
+                  </div>
+                  <div class="relative">
+                    <img src="./images/fries-1.png" alt="burger" class="" />
+                    <div
+                      class="absolute top-13 right-[0px] rounded-br-[6px] rounded-tl-[45px] bg-white/90 pl-5 pr-3 pt-4 pb-2"
+                    >
+                      <img src="./images/Plus.png" alt="" width="32px" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- cold drinks section -->
+        <div class="mx-20 mb-15">
+          <div>
+            <h3 class="font-bold text-[44px] text-[#FC8A06]">Cold Drinks</h3>
+            <!-- cards -->
+            <div>
+              <div class="grid grid-cols-3 gap-2">
+                <!-- 1 -->
+                <div
+                  class="flex items-center gap-3 p-4 bg-[#FDFDFD] rounded-[12px] shadow-2xl cursor-pointer"
+                >
+                  <div class="flex flex-col gap-3">
+                    <h4 class="font-semibold text-[20px] leading-5">
+                      Royal Cheese Burger with extra Fries
+                    </h4>
+                    <p class="text-[14px]">
+                      1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium
+                    </p>
+                    <p class="font-bold text-[18px]">GBP 23.10</p>
+                  </div>
+                  <div class="relative">
+                    <img src="./images/drink-1.png" alt="burger" class="" />
+                    <div
+                      class="absolute top-13 right-[0px] rounded-br-[6px] rounded-tl-[45px] bg-white/90 pl-5 pr-3 pt-4 pb-2"
+                    >
+                      <img src="./images/Plus.png" alt="" width="32px" />
+                    </div>
+                  </div>
+                </div>
+                <!-- 2 -->
+                <div
+                  class="flex items-center gap-3 p-4 bg-[#FDFDFD] rounded-[12px] shadow-2xl cursor-pointer"
+                >
+                  <div class="flex flex-col gap-3">
+                    <h4 class="font-semibold text-[20px] leading-5">
+                      Royal Cheese Burger with extra Fries
+                    </h4>
+                    <p class="text-[14px]">
+                      1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium
+                    </p>
+                    <p class="font-bold text-[18px]">GBP 23.10</p>
+                  </div>
+                  <div class="relative">
+                    <img src="./images/drink-2.png" alt="burger" class="" />
+                    <div
+                      class="absolute top-13 right-[0px] rounded-br-[6px] rounded-tl-[45px] bg-white/90 pl-5 pr-3 pt-4 pb-2"
+                    >
+                      <img src="./images/Plus.png" alt="" width="32px" />
+                    </div>
+                  </div>
+                </div>
+                <!-- 3 -->
+                <div
+                  class="flex items-center gap-3 p-4 bg-[#FDFDFD] rounded-[12px] shadow-2xl cursor-pointer"
+                >
+                  <div class="flex flex-col gap-3">
+                    <h4 class="font-semibold text-[20px] leading-5">
+                      Royal Cheese Burger with extra Fries
+                    </h4>
+                    <p class="text-[14px]">
+                      1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium
+                    </p>
+                    <p class="font-bold text-[18px]">GBP 23.10</p>
+                  </div>
+                  <div class="relative">
+                    <img src="./images/drink-3.png" alt="burger" class="" />
+                    <div
+                      class="absolute top-13 right-[0px] rounded-br-[6px] rounded-tl-[45px] bg-white/90 pl-5 pr-3 pt-4 pb-2"
+                    >
+                      <img src="./images/Plus.png" alt="" width="32px" />
+                    </div>
+                  </div>
+                </div>
+                <!-- 4 -->
+                <div
+                  class="flex items-center gap-3 p-4 bg-[#FDFDFD] rounded-[12px] shadow-2xl cursor-pointer"
+                >
+                  <div class="flex flex-col gap-3">
+                    <h4 class="font-semibold text-[20px] leading-5">
+                      Royal Cheese Burger with extra Fries
+                    </h4>
+                    <p class="text-[14px]">
+                      1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium
+                    </p>
+                    <p class="font-bold text-[18px]">GBP 23.10</p>
+                  </div>
+                  <div class="relative">
+                    <img src="./images/drink-4.png" alt="burger" class="" />
+                    <div
+                      class="absolute top-13 right-[0px] rounded-br-[6px] rounded-tl-[45px] bg-white/90 pl-5 pr-3 pt-4 pb-2"
+                    >
+                      <img src="./images/Plus.png" alt="" width="32px" />
+                    </div>
+                  </div>
+                </div>
+                <!-- 5 -->
+                <div
+                  class="flex items-center gap-3 p-4 bg-[#FDFDFD] rounded-[12px] shadow-2xl cursor-pointer"
+                >
+                  <div class="flex flex-col gap-3">
+                    <h4 class="font-semibold text-[20px] leading-5">
+                      Royal Cheese Burger with extra Fries
+                    </h4>
+                    <p class="text-[14px]">
+                      1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium
+                    </p>
+                    <p class="font-bold text-[18px]">GBP 23.10</p>
+                  </div>
+                  <div class="relative">
+                    <img src="./images/drink-5.png" alt="burger" class="" />
+                    <div
+                      class="absolute top-13 right-[0px] rounded-br-[6px] rounded-tl-[45px] bg-white/90 pl-5 pr-3 pt-4 pb-2"
+                    >
+                      <img src="./images/Plus.png" alt="" width="32px" />
+                    </div>
+                  </div>
+                </div>
+                <!-- 6 -->
+                <div
+                  class="flex items-center gap-3 p-4 bg-[#FDFDFD] rounded-[12px] shadow-2xl cursor-pointer"
+                >
+                  <div class="flex flex-col gap-3">
+                    <h4 class="font-semibold text-[20px] leading-5">
+                      Royal Cheese Burger with extra Fries
+                    </h4>
+                    <p class="text-[14px]">
+                      1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium
+                    </p>
+                    <p class="font-bold text-[18px]">GBP 23.10</p>
+                  </div>
+                  <div class="relative">
+                    <img src="./images/drink-6.png" alt="burger" class="" />
+                    <div
+                      class="absolute top-13 right-[0px] rounded-br-[6px] rounded-tl-[45px] bg-white/90 pl-5 pr-3 pt-4 pb-2"
+                    >
+                      <img src="./images/Plus.png" alt="" width="32px" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- info section -->
+      <div>
+        <div class="grid grid-cols-3 mx-10 shadow-2xl">
+          <div class="leading-10 bg-[#FBFBFB] pl-5 py-20 rounded-l-[12px]">
+            <h3 class="flex gap-2 font-bold text-[26px] mb-4">
+              <img src="./images/Tracking.png" alt="locations-img" /> Delivery
+              information
+            </h3>
+            <p>
+              <span class="font-bold">Monday:</span>12:00 AM–3:00 AM, 8:00
+              AM–3:00 AM
+            </p>
+            <p><span class="font-bold">Tuesday:</span> 8:00 AM–3:00 AM</p>
+            <p><span class="font-bold">Wednesday:</span> 8:00 AM–3:00 AM</p>
+            <p><span class="font-bold">Thursday:</span> 8:00 AM–3:00 AM</p>
+            <p><span class="font-bold">Friday:</span> 8:00 AM–3:00 AM</p>
+            <p><span class="font-bold">Saturday:</span> 8:00 AM–3:00 AM</p>
+            <p><span class="font-bold">Sunday:</span>8:00 AM–12:00 AM</p>
+            <p>
+              <span class="font-bold">Estimated time until delivery:</span>20
+              min
+            </p>
+          </div>
+
+          <div class="leading-10 bg-[#FBFBFB] pr-5 py-20">
+            <h3 class="flex gap-2 font-bold text-[32px] mb-4">
+              <img src="./images/ID Verified.png" alt="locations-img" /> Contact
+              information
+            </h3>
+            <p>
+              If you have allergies or other dietary restrictions, please
+              contact the restaurant. The restaurant will provide food-specific
+              information upon request.
+            </p>
+            <div class="font-bold">Phone number</div>
+            <p>+934443-43</p>
+            <div class="font-bold">Website</div>
+            <p>http://mcdonalds.uk/</p>
+          </div>
+
+          <div class="leading-10 bg-[#03081F] text-white px-10 py-20 rounded-r-[12px]">
+            <h3 class="flex gap-2 font-bold text-[26px] mb-4">
+              <img src="./images/Clock-2.png" alt="locations-img" />
+              Operational Times
+            </h3>
+            <p>
+              <span class="font-bold">Monday:</span> 8:00
+              AM–3:00 AM
+            </p>
+            <p><span class="font-bold">Tuesday:</span> 8:00 AM–3:00 AM</p>
+            <p><span class="font-bold">Wednesday:</span> 8:00 AM–3:00 AM</p>
+            <p><span class="font-bold">Thursday:</span> 8:00 AM–3:00 AM</p>
+            <p><span class="font-bold">Friday:</span> 8:00 AM–3:00 AM</p>
+            <p><span class="font-bold">Saturday:</span> 8:00 AM–3:00 AM</p>
+            <p><span class="font-bold">Sunday:</span>8:00 AM–12:00 AM</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
