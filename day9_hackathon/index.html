@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuizMaster</title>
+  <link rel="stylesheet" href="output.css" />
+</head>
+
+<body>
+  <!-- Home page start -->
+  <div id="homePage" class="overflow-x-clip hidden">
+    <!-- navbar -->
+    <div id="navbar">
+      <nav class="flex justify-between items-center px-[40px] py-[20.5px] border-b-[1.5px] border-gray-300">
+        <div><img src="./images/logo.png" alt="logo" /></div>
+
+        <div class="flex justify-between items-center gap-[36px] font-medium text-[14px]">
+          <a href="">Home</a>
+          <a href="">Quizzes</a>
+          <a href="">Leaderboard</a>
+          <a href="">Profile</a>
+          <img src="./images/bell.png" alt="bell-icon" />
+          <img src="./images/pfp.png" alt="profile-pic" />
+          <a id="logOut_btn" href=""
+            class="rounded-[8px] bg-[#0D78F2] text-white md:px-[20px] md:py-[12px] py-[6px] w-1/2 font-bold text-[16px]">Log
+            Out</a>
+        </div>
+      </nav>
+    </div>
+
+    <!-- hero section -->
+    <div class="flex justify-center items-center mt-5">
+      <div
+        class="bg-[url('./images/hero_image.png')] bg-no-repeat bg-center bg-cover md:mx-20 mx-8 text-center md:pt-[240px] pt-5 md:pb-[124px] pb-5 text-white">
+        <div class="md:block flex flex-col flex-wrap justify-center items-center">
+          <h3 class="font-extrabold lg:text-[48px] md:text-[38px] mb-[16px]">
+            Welcome to QuizMaster
+          </h3>
+          <p class="mb-[35px] lg:text-[16px] md:text-[14px] text-[10px] md:px-10 px-7 md:text-center text-justify">
+            Test your knowledge with our engaging quizzes. Compete with
+            friends and climb the leaderboard. Start your quiz journey today!
+          </p>
+          <a href=""
+            class="rounded-[8px] bg-[#0D78F2] md:px-[20px] md:py-[12px] py-[6px] w-1/2 font-bold text-[16px]">Get
+            Started</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- key features section -->
+    <div class="lg:mx-40 md:mx-20 mx-10">
+      <div>
+        <h3 class="font-extrabold text-[36px] text-[#121417]">
+          Key Features
+        </h3>
+        <p class="text-[16px] text-[#121417] text-justify">
+          Explore the exciting features that make QuizMaster the ultimate quiz
+          app.
+        </p>
+      </div>
+      <!-- features cards -->
+      <div class="grid md:grid-cols-3 grid-cols-1 gap-[12px] my-[40px]">
+        <div class="border-1 border-[#DBE0E5] rounded-[8px] p-[17px] pb-[38px]">
+          <img src="./images/clock.png" alt="clock" class="mb-[12px]" />
+          <h5 class="font-bold text-[16px] text-[#121417]">Timer Quizzes</h5>
+          <p class="text-[14px] text-[#61738A]">
+            Challenge yourself with timed quizzes to test your speed and
+            accuracy.
+          </p>
+        </div>
+        <div class="border-1 border-[#DBE0E5] rounded-[8px] p-[17px] pb-[38px]">
+          <img src="./images/trophy.png" alt="trophy" class="mb-[12px]" />
+          <h5 class="font-bold text-[16px] text-[#121417]">Timer Quizzes</h5>
+          <p class="text-[14px] text-[#61738A]">
+            Challenge yourself with timed quizzes to test your speed and
+            accuracy.
+          </p>
+        </div>
+        <div class="border-1 border-[#DBE0E5] rounded-[8px] p-[17px] pb-[38px]">
+          <img src="./images/track.png" alt="track" class="mb-[12px]" />
+          <h5 class="font-bold text-[16px] text-[#121417]">Timer Quizzes</h5>
+          <p class="text-[14px] text-[#61738A]">
+            Challenge yourself with timed quizzes to test your speed and
+            accuracy.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Home page ends -->
+
+  <!-- Sign up page start -->
+
+  <div id="signUp_Page" class="overflow-x-clip hidden">
+    <section>
+      <div>
+        <div>
+          <!-- navbar -->
+          <div id="navbar">
+            <nav class="flex justify-between items-center px-[40px] py-[20.5px] border-b-[1.5px] border-gray-300">
+              <div>
+                <img src="./images/logo.png" alt="logo" />
+              </div>
+
+              <div>
+                <a href=""
+                  class="text-white rounded-[8px] bg-[#0D78F2] hover:bg-[#116dd6] md:px-[20px] px-3 md:py-[12px] py-[6px] w-full font-bold text-[16px] cursor-pointer transition-all">Sign
+                  In</a>
+              </div>
+            </nav>
+          </div>
+
+          <!-- sign up form -->
+          <div class="flex flex-col justify-center items-center gap-10 mt-10">
+            <h4 class="font-bold text-[28px]">Create your account</h4>
+            <form id="signUp_Form" action=""
+              class="flex flex-col justify-center items-center gap-5 min-w-[350px] md:px-5 px-8">
+              <input id="name" type="text" placeholder="Full Name"
+                class="border-1 border-[#DBE0E5] max-w-[350px] w-full px-5 py-[8px] rounded-[8px] outline-none" />
+              <input id="email" type="email" placeholder="Email"
+                class="border-1 border-[#DBE0E5] max-w-[350px] w-full px-5 py-[8px] rounded-[8px] outline-none" />
+              <input id="password" type="password" placeholder="Password"
+                class="border-1 border-[#DBE0E5] max-w-[350px] w-full px-5 py-[8px] rounded-[8px] outline-none" />
+              <input id="confirmPassword" type="password" placeholder="Confirm Password"
+                class="border-1 border-[#DBE0E5] max-w-[350px] w-full px-5 py-[8px] rounded-[8px] outline-none" />
+              <button type="submit"
+                class="text-white rounded-[8px] bg-[#0D78F2] hover:bg-[#116dd6] md:px-[20px] md:py-[12px] py-[6px] w-full font-bold text-[16px] cursor-pointer transition-all">
+                Sign Up
+              </button>
+            </form>
+            <p>
+              Already have an account?
+              <a id="signIn_btn" href="" class="hover:text-[#0D78F2] cursor-pointer transition-all signIn_btn">Sign
+                In</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Sign up page ends -->
+
+  <!-- Sign in page start -->
+
+  <div id="signIn_Page" class="overflow-x-clip hidden">
+    <section>
+      <div>
+        <div>
+          <!-- navbar -->
+          <div id="navbar">
+            <nav class="flex justify-between items-center px-[40px] py-[20.5px] border-b-[1.5px] border-gray-300">
+              <div>
+                <img src="./images/logo.png" alt="logo" />
+              </div>
+
+              <div>
+                <a href=""
+                  class="text-white rounded-[8px] bg-[#0D78F2] hover:bg-[#116dd6] md:px-[20px] px-3 md:py-[12px] py-[6px] w-full font-bold text-[16px] cursor-pointer transition-all signUp_btn">Sign
+                  Up</a>
+              </div>
+            </nav>
+          </div>
+
+          <!-- sign in form -->
+          <div class="flex flex-col justify-center items-center gap-10 mt-10">
+            <h4 class="font-bold text-[28px]">Welcome Back</h4>
+            <form id="signIn_Form" action=""
+              class="flex flex-col justify-center items-center gap-5 min-w-[350px] md:px-5 px-8">
+              <input id="email" type="email" placeholder="Email"
+                class="border-1 border-[#DBE0E5] max-w-[350px] w-full px-5 py-[8px] rounded-[8px] outline-none" />
+              <input id="password" type="password" placeholder="Password"
+                class="border-1 border-[#DBE0E5] max-w-[350px] w-full px-5 py-[8px] rounded-[8px] outline-none" />
+              <button type="submit"
+                class="text-white rounded-[8px] bg-[#0D78F2] hover:bg-[#116dd6] md:px-[20px] md:py-[12px] py-[6px] w-full font-bold text-[16px] cursor-pointer transition-all">
+                Sign In
+              </button>
+            </form>
+            <p>
+              Don't have an account?
+              <a href="" class="hover:text-[#0D78F2] cursor-pointer transition-all signUp_btn">Sign up</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Sign in page ends -->
+
+  <!-- Quiz selection page start -->
+
+  <div id="quizSelectPage" class="overflow-x-clip hidden">
+    <section>
+      <div>
+        <div>
+          <!-- navbar -->
+          <div id="navbar">
+            <nav class="flex justify-between items-center px-[40px] py-[20.5px] border-b-[1.5px] border-gray-300">
+              <div class="flex justify-between items-center gap-7">
+                <img src="./images/logo.png" alt="logo" />
+                <div class="flex justify-between items-center gap-5">
+                  <a href="">Home</a>
+                  <a href="">Quizzes</a>
+                  <a href="">Leaderboard</a>
+                  <a href="">Profile</a>
+                  <img src="./images/bell.png" alt="bell-icon" class="cursor-pointer" />
+                </div>
+              </div>
+
+              <div class="flex justify-between items-center gap-[36px] font-medium text-[14px]">
+                <input type="text" placeholder="Search" class="outline-none border-0 bg-[#E5E8EB] p-2 rounded-[8px]" />
+                <img src="./images/pfp.png" alt="profile-pic" class="cursor-pointer" />
+              </div>
+            </nav>
+          </div>
+
+          <!-- Categories -->
+          <div class="lg:mx-40 md:mx-20 mx-5 lg:my-10 my-5">
+            <div>
+              <h4 class="font-bold md:text-[38px] text-[24px] mb-5 md:text-left text-center">
+                Select a Quiz
+              </h4>
+              <div class="flex gap-2 items-center overflow-x-auto no-scrollbar">
+                <span class="bg-[#E5E8EB] px-2 py-1 rounded-[8px]">All</span>
+                <span class="bg-[#E5E8EB] px-2 py-1 rounded-[8px]">Science</span>
+                <span class="bg-[#E5E8EB] px-2 py-1 rounded-[8px]">History</span>
+                <span class="bg-[#E5E8EB] px-2 py-1 rounded-[8px]">Literature</span>
+                <span class="bg-[#E5E8EB] px-2 py-1 rounded-[8px]">Mathematics</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Featured quizzes -->
+          <div class="lg:mx-40 mx-5 lg:my-10 my-5">
+            <h5 class="font-bold md:text-2xl text-[18px] mb-5">
+              Featured Quizzes
+            </h5>
+            <div class="grid md:grid-cols-3 grid-cols-1 gap-3">
+              <div class="flex flex-col gap-2">
+                <img src="./images/burger-1.png" alt="" />
+                <div>
+                  <h5 class="font-semibold">Lorem, ipsum dolor.</h5>
+                  <p class="text-[14px]">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  </p>
+                </div>
+              </div>
+              <div class="flex flex-col gap-2">
+                <img src="" alt="" />
+                <div>
+                  <h5 class="font-semibold">Lorem, ipsum dolor.</h5>
+                  <p class="text-[14px]">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  </p>
+                </div>
+              </div>
+              <div class="flex flex-col gap-2">
+                <img src="./images/burger-1.png" alt="" />
+                <div>
+                  <h5 class="font-semibold">Lorem, ipsum dolor.</h5>
+                  <p class="text-[14px]">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- All quizzes -->
+          <div class="lg:mx-40 mx-5 lg:my-10 my-5">
+            <div>
+              <h4 class="font-bold text-xl mb-8">All Quizzes</h4>
+              <div class="md:flex justify-between items-center">
+                <div>
+                  <h5 class="font-semibold text-[15px]">General knowledge</h5>
+                  <p class="text-[12px] mb-3">
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                  </p>
+                </div>
+                <img src="" alt="" class="w-full md:w-[250px]" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Quiz selection page ends -->
+
+  <!-- Quiz timer page start -->
+
+  <div id="quizPage" class="overflow-x-clip hidden">
+    <!-- navbar -->
+    <div>
+      <nav class="flex justify-between items-center px-[40px] py-[20.5px] border-b-[1.5px] border-gray-300">
+        <div><img src="./images/logo.png" alt="logo" /></div>
+
+        <div class="flex justify-between items-center gap-[36px] font-medium text-[14px]">
+          <a href="">Home</a>
+          <a href="">Quizzes</a>
+          <a href="">Leaderboard</a>
+          <a href="">Profile</a>
+          <img src="./images/bell.png" alt="bell-icon" />
+          <img src="./images/pfp.png" alt="profile-pic" />
+        </div>
+      </nav>
+    </div>
+    <!-- Progress bar -->
+    <div class="lg:mx-40 md:mx-20 mx-5 lg:my-10 my-5">
+      <div>
+        <h4 class="font-semibold">Progress</h4>
+        <!-- Custom progress bar -->
+        <div id="progressTrack" class="w-full h-2 bg-gray-200 rounded-full mt-2 mb-1">
+          <div id="progressFill" class="h-full rounded-full transition-all duration-300"
+            style="width: 0%; background-color: #121417;">
+          </div>
+        </div>
+        <!-- dynamic question numbers -->
+        <p id="questionCounter" class="text-sm text-[#61738A]">
+          Question <span>1</span> of <span>4</span>
+        </p>
+      </div>
+
+      <!-- dynamic timer -->
+      <div class="grid grid-cols-3 mt-5">
+        <div class="flex flex-col justify-center items-center">
+          <div class="bg-[#F0F2F5] rounded-[8px] text-center md:px-20 px-8 py-2 font-semibold">
+            00
+          </div>
+          <div class="text-xs text-[#61738A] font-medium mt-2">Hours</div>
+        </div>
+        <div class="flex flex-col justify-center items-center">
+          <div class="bg-[#F0F2F5] rounded-[8px] text-center md:px-20 px-8 py-2 font-semibold">
+            00
+          </div>
+          <div class="text-xs text-[#61738A] font-medium mt-2">Minutes</div>
+        </div>
+        <div class="flex flex-col justify-center items-center">
+          <div class="bg-[#F0F2F5] rounded-[8px] text-center md:px-20 px-8 py-2 font-semibold">
+            00
+          </div>
+          <div class="text-xs text-[#61738A] font-medium mt-2">Seconds</div>
+        </div>
+      </div>
+
+      <!-- dynamic questions -->
+      <div>
+        <h4 class="my-5 font-bold md:text-[28px] text-[18px]">
+          What is the capital of France?
+        </h4>
+        <!-- options -->
+        <div class="flex flex-col justify-center gap-2">
+          <label for="option_1"
+            class="flex items-center gap-3 border-1 border-[#DBE0E5] px-4 py-2 rounded-[8px] cursor-pointer">
+            <input type="radio" name="option" id="option_1" />
+            <span name="option" class="cursor-pointer">London</span>
+          </label>
+
+          <label for="option_2"
+            class="flex items-center gap-3 border-1 border-[#DBE0E5] px-4 py-2 rounded-[8px] cursor-pointer">
+            <input type="radio" name="option" id="option_2" />
+            <span name="option" class="cursor-pointer">London</span>
+          </label>
+
+          <label for="option_3"
+            class="flex items-center gap-3 border-1 border-[#DBE0E5] px-4 py-2 rounded-[8px] cursor-pointer">
+            <input type="radio" name="option" id="option_3" />
+            <span name="option" class="cursor-pointer">London</span>
+          </label>
+
+          <label for="option_4"
+            class="flex items-center gap-3 border-1 border-[#DBE0E5] px-4 py-2 rounded-[8px] cursor-pointer">
+            <input type="radio" name="option" id="option_4" />
+            <span name="option" class="cursor-pointer">London</span>
+          </label>
+
+          <div class="flex justify-between items-center mt-[12px]">
+            <span>
+              <a href=""
+                class="text-black rounded-[8px] bg-[#F0F2F5] hover:bg-[#d5d6d8] md:px-[20px] px-3 md:py-[12px] py-[6px] w-full font-bold text-[16px] cursor-pointer transition-all">Previous</a>
+            </span>
+            <span>
+              <a href=""
+                class="text-white rounded-[8px] bg-[#0D78F2] hover:bg-[#116dd6] md:px-[20px] px-3 md:py-[12px] py-[6px] w-full font-bold text-[16px] cursor-pointer transition-all">Next</a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz timer page ends -->
+
+  <!-- Quiz result page start -->
+
+  <div id="resultPage" class="overflow-x-clip hidden">
+    <!-- navbar -->
+    <div>
+      <nav class="flex justify-between items-center px-[40px] py-[20.5px] border-b-[1.5px] border-gray-300">
+        <div><img src="./images/logo.png" alt="logo" /></div>
+
+        <div class="flex justify-between items-center gap-[36px] font-medium text-[14px]">
+          <a href="">Home</a>
+          <a href="">Quizzes</a>
+          <a href="">Leaderboard</a>
+          <a href="">Profile</a>
+          <img src="./images/bell.png" alt="bell-icon" />
+          <img src="./images/pfp.png" alt="profile-pic" />
+        </div>
+      </nav>
+    </div>
+
+    <!-- dynamic data for result -->
+    <div>
+      <div class="lg:mx-40 md:mx-20 mx-5 lg:my-10 my-5">
+        <h4 class="text-center font-bold text-[28px]">Quiz Results</h4>
+        <div>
+          <div class="flex justify-between items-center text-[14px]">
+            <span>Quiz Completed</span>
+            <span>100%</span>
+          </div>
+          <div id="progressTrack" class="w-full h-2 bg-gray-200 rounded-full mt-2 mb-1">
+            <div id="progressFill" class="h-full rounded-full transition-all duration-300"
+              style="width: 100%; background-color: #121417;">
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-[8px] bg-[#F0F2F5] p-5 mt-5">
+          <span class="text-[16px] font-medium">Score</span>
+          <h5 class="text-[24px] font-bold">
+            <span>8</span>/<span>10</span>
+          </h5>
+        </div>
+
+        <p class="text-[16px] md:text-center text-justify leading-[24px] text-[#121417] mt-5">
+          Congratulations, <span>Sarah</span>! You've completed the quiz with
+          a score of <span>8</span> out of <span>10</span>. Your performance
+          indicates a strong understanding of the subject matter. Keep up the
+          excellent work!
+        </p>
+
+        <!-- buttons -->
+        <div class="flex flex-col flex-col-reverse md:gap-10 gap-2 justify-between items-center md:mt-10 mt-5">
+          <a href=""
+            class="text-black rounded-[8px] bg-[#F0F2F5] hover:bg-[#d5d6d8] md:px-[20px] px-3 md:py-[12px] py-[10px] md:inline block w-full md:w-auto font-bold text-[16px] text-center cursor-pointer transition-all">Take
+            Another Quiz</a>
+
+          <a href=""
+            class="text-white rounded-[8px] bg-[#0D78F2] hover:bg-[#116dd6] md:px-[20px] px-3 md:py-[12px] py-[10px] md:inline block w-full md:w-auto font-bold text-[16px] text-center cursor-pointer transition-all">Review
+            Answers</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz result page ends -->
+
+  <!-- Quiz answers review page start -->
+
+  <div id="reviewPage" class="overflow-x-clip hidden">
+    <!-- navbar -->
+    <div>
+      <nav class="flex justify-between items-center px-[40px] py-[20.5px] border-b-[1.5px] border-gray-300">
+        <div><img src="./images/logo.png" alt="logo" /></div>
+
+        <div class="flex justify-between items-center gap-[36px] font-medium text-[14px]">
+          <a href="">Home</a>
+          <a href="">Quizzes</a>
+          <a href="">Leaderboard</a>
+          <a href="">Profile</a>
+          <img src="./images/bell.png" alt="bell-icon" />
+          <img src="./images/pfp.png" alt="profile-pic" />
+        </div>
+      </nav>
+    </div>
+    <!-- answers -->
+    <div class="lg:mx-40 md:mx-20 mx-5 lg:my-10 my-5">
+      <div>
+        <h4 class="font-bold md:text-[32px] text-[20px] text-center mb-2">
+          Review Incorrect Answers
+        </h4>
+        <!-- dynamic data -->
+        <div class="mb-2">
+          <h5 class="font-bold text-[18px]">Question <span>1</span></h5>
+          <p>What is the capital of France?</p>
+          <p>Your answer: <span class="font-semibold">Berlin</span></p>
+          <p>Correct answer: <span class="font-semibold">Paris</span></p>
+        </div>
+      </div>
+      <!-- button -->
+      <div class="flex justify-end items-center">
+        <a href=""
+          class="text-white rounded-[8px] bg-[#0D78F2] hover:bg-[#116dd6] md:px-[20px] px-3 md:py-[12px] py-[10px] md:inline block w-full md:w-auto font-bold text-[16px] text-center cursor-pointer transition-all">Back
+          to Quizzes</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz answers review page ends -->
+
+  <!-- profile page start -->
+
+  <div id="profilePage" class="overflow-x-clip hidden">
+    <!-- navbar -->
+    <div>
+      <nav class="flex justify-between items-center px-[40px] py-[20.5px] border-b-[1.5px] border-gray-300">
+        <div><img src="./images/logo.png" alt="logo" /></div>
+
+        <div class="flex justify-between items-center gap-[36px] font-medium text-[14px]">
+          <a href="">Home</a>
+          <a href="">Quizzes</a>
+          <a href="">Leaderboard</a>
+          <a href="">Profile</a>
+          <img src="./images/bell.png" alt="bell-icon" />
+          <img src="./images/pfp.png" alt="profile-pic" />
+        </div>
+      </nav>
+    </div>
+
+    <!-- dynamic profile data -->
+    <div class="lg:mx-40 md:mx-20 mx-5 lg:my-10 my-5">
+      <div class="text-center">
+        <img src="./images/pfp.png" alt="profile-pic" class="mx-auto w-[128px] h-[128px]" />
+        <h5 class="font-bold text-[22px] text-[#121417]">Sophia Bennett</h5>
+        <p class="text-[#61738A]">Quiz Enthusiast</p>
+        <p class="text-[#61738A]">Joined 2021</p>
+      </div>
+
+      <div>
+        <div>
+          <h5 class="border-b-1 border-[#DBE0E5] py-3 text-[14px] font-bold cursor-pointer">
+            Profile
+          </h5>
+        </div>
+        <!-- personal information -->
+        <div>
+          <h5 class="py-8 text-[22px] font-bold cursor-pointer">
+            Personal Information
+          </h5>
+
+          <div class="grid md:grid-cols-[30%_70%] grid-cols-1 gap-5">
+            <span class="border-t-1 py-5 border-[#DBE0E5]">
+              <p class="text-[#61738A]">Name</p>
+              <p class="whitespace-nowrap">Sophia Bennett</p>
+            </span>
+            <div class="border-t-1 py-5 border-[#DBE0E5] w-full">
+              <p class="text-[#61738A]">Email</p>
+              <p>sophia.bennett@email.com</p>
+            </div>
+
+            <div class="border-t-1 py-5 border-[#DBE0E5]">
+              <p class="text-[#61738A]">Bio</p>
+              <p>
+                Avid quiz taker and trivia lover. Always up for a challenge!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- quiz history -->
+      <div>
+        <h4 class="text-[22px] font-bold mb-5">Quiz History</h4>
+
+        <div class="border-1 rounded-[8px] border-[#DBE0E5]">
+          <table class="border-collapse w-full text-left rounded-[8px] mt-5 md:text-[16px] text-[12px]">
+            <tr>
+              <th class="p-2">Quiz Name</th>
+              <th class="p-2">Score</th>
+              <th class="p-2">Date</th>
+            </tr>
+
+            <tr class="">
+              <td class="border-t border-[#DBE0E5] px-2 py-2">
+                <span>General knowledge</span>
+              </td>
+              <td class="border-t border-[#DBE0E5] px-2 py-2 text-[#61738A]">
+                <span>75</span>/<span>100</span>
+              </td>
+              <td class="border-t border-[#DBE0E5] px-2 py-2 text-[#61738A]">
+                <span>2023-08-15</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- profile page ends -->
+
+  <!-- Script tag -->
+  <script src="./app.js"></script>
+</body>
+
+</html>
