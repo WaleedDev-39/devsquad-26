@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tian - Product Designer</title>
+    <link rel="stylesheet" href="output.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        .font-archivo {
+            font-family: 'Archivo Black', sans-serif;
+        }
+
+        .font-inter {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-white dark:bg-black text-black dark:text-white font-inter transition-colors duration-300 min-h-screen relative overflow-x-hidden">
+
+    <!-- Header Navigation -->
+    <header
+        class="flex items-center justify-between px-6 lg:px-12 py-6 relative z-10 font-inter max-w-7xl mx-auto w-full">
+        <!-- Logo -->
+        <div class="flex items-center gap-2">
+            <!-- 4 dot icon -->
+            <img src="images/Logo(black).png" alt="Tian Logo" class="h-6 w-auto block dark:hidden">
+            <img src="images/Logo(white).png" alt="Tian Logo" class="h-6 w-auto hidden dark:block">
+            <span class="text-xl font-bold lowercase tracking-tight">tian</span>
+        </div>
+
+        <!-- Desktop Nav Links -->
+        <nav class="hidden lg:flex items-center gap-8 text-gray-600 dark:text-gray-300 font-medium">
+            <a href="#"
+                class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-400">Home</a>
+            <a href="#" class="hover:text-black dark:hover:text-white transition-colors">Portfolio</a>
+            <a href="#" class="hover:text-black dark:hover:text-white transition-colors">Skills</a>
+            <a href="#" class="hover:text-black dark:hover:text-white transition-colors">About Me</a>
+        </nav>
+
+        <!-- Right Side: Dark Mode Toggle, Action Button, Mobile Menu Toggle -->
+        <div class="flex items-center gap-4">
+            <!-- Toggle Switch -->
+            <button id="themeToggle"
+                class="relative inline-flex items-center h-8 w-14 rounded-full bg-gray-200 dark:bg-gray-800 transition-colors focus:outline-none">
+                <!-- Sun Icon side -->
+                <span class="absolute left-1">
+                    <svg class="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                </span>
+                <!-- Moon Icon side -->
+                <span class="absolute right-1 text-gray-300 transition-colors duration-300">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </span>
+                <!-- Toggle Thumb -->
+                <span id="themeThumb"
+                    class="inline-block w-6 h-6 transform bg-black dark:bg-yellow-400 rounded-full transition-transform translate-x-1 dark:translate-x-7 z-10 shadow-sm"></span>
+            </button>
+
+            <!-- Desktop Action Button -->
+            <a href="#"
+                class="hidden lg:inline-flex bg-gray-900 dark:bg-[#8B5CF6] text-white px-8 py-2.5 rounded-lg font-medium transition-colors">
+                <span class="block dark:hidden">Button</span>
+                <span class="hidden dark:block">Contact Me</span>
+            </a>
+
+            <!-- Mobile Hamburger Button -->
+            <button id="mobileMenuBtn" class="lg:hidden p-2 text-black dark:text-white focus:outline-none">
+                <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Sidebar overlay and menu -->
+    <div id="mobileSidebar"
+        class="fixed inset-0 z-50 transform translate-x-full transition-transform duration-300 lg:hidden font-inter flex">
+        <!-- Close overlay background -->
+        <div id="sidebarOverlay" class="w-1/4 bg-black/50 backdrop-blur-sm"></div>
+        <!-- Menu Panel -->
+        <div
+            class="w-3/4 bg-white dark:bg-[#111] h-full p-6 shadow-xl flex flex-col border-l border-gray-100 dark:border-gray-800">
+            <div class="flex justify-end mb-8">
+                <button id="closeMenuBtn"
+                    class="p-2 text-black dark:text-white focus:outline-none bg-gray-100 dark:bg-gray-800 rounded-full">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <nav class="flex flex-col gap-6 text-xl">
+                <!-- Active link -->
+                <a href="#"
+                    class="font-bold bg-gradient-to-r from-pink-500 to-yellow-400 text-transparent bg-clip-text">Home</a>
+                <a href="#"
+                    class="font-medium text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white">Portfolio</a>
+                <a href="#"
+                    class="font-medium text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white">Skills</a>
+                <a href="#"
+                    class="font-medium text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white">About
+                    Me</a>
+                <!-- Mobile Action Button -->
+                <a href="#"
+                    class="mt-8 inline-flex justify-center bg-gray-900 dark:bg-[#8B5CF6] text-white px-6 py-3.5 rounded-xl font-medium">
+                    <span class="block dark:hidden">Button</span>
+                    <span class="hidden dark:block">Contact Me</span>
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="grid grid-cols-1 lg:grid-cols-2 lg:min-h-[calc(100vh-100px)] max-w-7xl mx-auto w-full relative">
+
+        <!-- Left Column: Text Content -->
+        <!-- Center strictly on mobile/tablet -->
+        <div
+            class="flex flex-col justify-center items-center lg:items-start text-center lg:text-left px-6 lg:px-12 pt-12 pb-20 lg:pb-12 z-10 w-full relative">
+
+            <!-- Floating Sparkle (Desktop only) -->
+            <img src="images/star(black).png" alt="Sparkle"
+                class="hidden lg:block absolute top-[10%] right-[10%] w-8 h-8 dark:hidden z-10 opacity-80">
+            <img src="images/star(white).png" alt="Sparkle"
+                class="hidden dark:lg:block absolute top-[10%] right-[10%] w-8 h-8 z-10 opacity-80">
+
+            <!-- Responsive Typography adjustments for EXACT match -->
+            <h1
+                class="font-archivo text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-[5.5rem] leading-[0.95] tracking-tight uppercase mb-4 flex flex-col items-center lg:items-start text-[#111] dark:text-white">
+                <span>Product</span>
+                <span>Designer</span>
+            </h1>
+
+            <!-- Gradient Name -->
+            <h2
+                class="font-inter font-bold text-2xl md:text-[1.75rem] lg:text-3xl mb-10 lg:mb-12 bg-gradient-to-r from-[#EA445A] to-[#FACC15] text-transparent bg-clip-text uppercase tracking-wide flex items-center gap-2">
+                CRISTIAN MUÑOZ
+            </h2>
+
+            <!-- Social Icons Row -->
+            <div class="flex items-center justify-center lg:justify-start gap-3 sm:gap-4 mb-12 sm:mb-14 flex-wrap">
+                <!-- Instagram -->
+                <a href="#"
+                    class="shrink-0 w-12 h-12 flex items-center justify-center border border-gray-200 dark:border-gray-800 rounded-xl bg-white dark:bg-black hover:-translate-y-1 transition-transform shadow-sm dark:shadow-none">
+                    <img src="images/Instagram(black).png" alt="Instagram" class="w-5 h-5 block dark:hidden">
+                    <img src="images/instagram(white).png" alt="Instagram" class="w-5 h-5 hidden dark:block">
+                </a>
+                <!-- Figma -->
+                <a href="#"
+                    class="shrink-0 w-12 h-12 flex items-center justify-center border border-gray-200 dark:border-gray-800 rounded-xl bg-white dark:bg-black hover:-translate-y-1 transition-transform shadow-sm dark:shadow-none">
+                    <img src="images/Figma(black).png" alt="Figma" class="w-5 h-5 block dark:hidden">
+                    <img src="images/Figma(white).png" alt="Figma" class="w-5 h-5 hidden dark:block">
+                </a>
+                <!-- LinkedIn -->
+                <a href="#"
+                    class="shrink-0 w-12 h-12 flex items-center justify-center border border-gray-200 dark:border-gray-800 rounded-xl bg-white dark:bg-black hover:-translate-y-1 transition-transform shadow-sm dark:shadow-none">
+                    <img src="images/linkedin(black).png" alt="LinkedIn" class="w-5 h-5 block dark:hidden">
+                    <img src="images/linkedin(white).png" alt="LinkedIn" class="w-5 h-5 hidden dark:block">
+                </a>
+                <!-- Twitter/X -->
+                <a href="#"
+                    class="shrink-0 w-12 h-12 flex items-center justify-center border border-gray-200 dark:border-gray-800 rounded-xl bg-white dark:bg-black hover:-translate-y-1 transition-transform shadow-sm dark:shadow-none">
+                    <img src="images/twitter(black).png" alt="Twitter" class="w-5 h-5 block dark:hidden">
+                    <img src="images/twitter(white).png" alt="Twitter" class="w-5 h-5 hidden dark:block">
+                </a>
+                <!-- Telegram -->
+                <a href="#"
+                    class="shrink-0 w-12 h-12 flex items-center justify-center border border-gray-200 dark:border-gray-800 rounded-xl bg-white dark:bg-black hover:-translate-y-1 transition-transform shadow-sm dark:shadow-none">
+                    <img src="images/telegram(black).png" alt="Telegram" class="w-5 h-5 block dark:hidden">
+                    <img src="images/telegram(white).png" alt="Telegram" class="w-5 h-5 hidden dark:block">
+                </a>
+                <!-- Medium -->
+                <a href="#"
+                    class="shrink-0 w-12 h-12 flex items-center justify-center border border-gray-200 dark:border-gray-800 rounded-xl bg-white dark:bg-black hover:-translate-y-1 transition-transform shadow-sm dark:shadow-none">
+                    <img src="images/Medium Logo(black).png" alt="Medium" class="w-5 h-5 block dark:hidden">
+                    <img src="images/Medium Logo(white).png" alt="Medium" class="w-5 h-5 hidden dark:block">
+                </a>
+            </div>
+
+            <!-- CV Button -->
+            <!-- Mobile: full width. Desktop: inline content width. -->
+            <a href="#"
+                class="w-full sm:w-[90%] lg:w-auto inline-flex items-center justify-center lg:justify-between gap-4 bg-[#111827] dark:bg-[#262626] text-white px-8 py-4 lg:py-4 lg:px-6 rounded-2xl lg:rounded-xl hover:opacity-90 transition-opacity mx-auto lg:mx-0">
+                <span class="font-inter font-medium text-[1.05rem] lg:text-base">Download Curriculum Vitae</span>
+                <span class="flex items-center justify-center w-7 h-7 rounded-full border border-white shrink-0 ml-2">
+                    <svg class="w-4 h-4 ml-[1px]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                    </svg>
+                </span>
+            </a>
+
+        </div>
+
+        <!-- Right Column: Hero Image (Hidden on Tablet/Mobile) -->
+        <!-- Center the image cleanly to the right side -->
+        <div class="hidden lg:flex items-center justify-end pr-12 lg:pr-10 xl:pr-6 pb-12 pt-6 relative w-full h-full">
+            <div
+                class="w-full max-w-[420px] xl:max-w-[480px] aspect-[4/5] relative overflow-hidden rounded-[2.5rem] bg-gray-100 dark:bg-gray-900 border border-transparent dark:border-gray-800">
+                <img src="images/car_bg.png" alt="Car Background" class="absolute inset-0 w-full h-full object-cover">
+            </div>
+        </div>
+    </main>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Dark Mode Logic
+        const htmlContext = document.documentElement;
+        const themeToggle = document.getElementById('themeToggle');
+
+        // Check preference
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlContext.classList.add('dark');
+        } else {
+            htmlContext.classList.remove('dark');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            htmlContext.classList.toggle('dark');
+            if (htmlContext.classList.contains('dark')) {
+                localStorage.theme = 'dark';
+            } else {
+                localStorage.theme = 'light';
+            }
+        });
+
+        // Mobile Menu Logic
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const closeMenuBtn = document.getElementById('closeMenuBtn');
+        const mobileSidebar = document.getElementById('mobileSidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        function openMenu() {
+            mobileSidebar.classList.remove('translate-x-full');
+            document.body.style.overflow = 'hidden'; // Prevent scroll
+        }
+
+        function closeMenu() {
+            mobileSidebar.classList.add('translate-x-full');
+            document.body.style.overflow = '';
+        }
+
+        mobileMenuBtn.addEventListener('click', openMenu);
+        closeMenuBtn.addEventListener('click', closeMenu);
+        sidebarOverlay.addEventListener('click', closeMenu);
+    </script>
+</body>
+
+</html>
