@@ -31,3 +31,5 @@ app.listen(PORT, () => {
   console.log(`Server started at port:${PORT}`);
   console.log(`Swagger Docs available at http://localhost:${PORT}/api-docs`);
 });
+
+module.exports = app;
