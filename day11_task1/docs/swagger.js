@@ -1,5 +1,6 @@
 const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
+const path = require("path");
 
 const options = {
     definition: {
@@ -15,6 +16,10 @@ const options = {
                 url: "http://localhost:3000",
                 description: "Development server",
             },
+            {
+                url: "/",
+                description: "Production server",
+            }
         ],
         components: {
             securitySchemes: {
@@ -31,13 +36,22 @@ const options = {
             },
         ],
     },
-    apis: ["./routes/*.js"], // Path to the API docs inside routes array
+    apis: [path.join(__dirname, "../routes/*.js")], // Absolute path for Vercel
 };
 
 const swaggerSpec = swaggerJsdoc(options);
 
+const CSS_URL = "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
+
 const setupSwagger = (app) => {
-    app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+    app.use(
+        "/api-docs",
+        swaggerUi.serve,
+        swaggerUi.setup(swaggerSpec, {
+            customCssUrl: CSS_URL,
+            customSiteTitle: "Task Manager API Docs",
+        })
+    );
 };
 
 module.exports = setupSwagger;
