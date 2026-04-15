@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Satoshi:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Integral CF font (used in the design for headings) ── */
+@font-face {
+  font-family: 'Integral CF';
+  src: url('/fonts/IntegralCF-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-satoshi: 'Satoshi', system-ui, sans-serif;
+  --font-integral: 'Integral CF', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-satoshi);
+  background-color: #ffffff;
+  color: #000000;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Typography ── */
+.font-integral {
+  font-family: var(--font-integral), 'Arial Black', system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* ── Custom scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #888; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #555; }
+
+/* ── Price range slider ── */
+.price-slider [data-testid='thumb'] {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #000;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 2px #000;
+  cursor: grab;
+  outline: none;
+}
+.price-slider [data-testid='track'] {
+  height: 4px;
+  background: #F0F0F0;
+  border-radius: 2px;
+}
+[data-testid='track-0'] { background: #F0F0F0; }
+[data-testid='track-1'] { background: #000; }
+[data-testid='track-2'] { background: #F0F0F0; }
+
+/* ── Star rating ── */
+.star-full { color: #FFC633; }
+.star-half { color: #FFC633; }
+.star-empty { color: #E0E0E0; }
+
+/* ── Swiper overrides ── */
+.swiper-pagination-bullet-active { background: #000 !important; }
+.swiper-button-next, .swiper-button-prev {
+  color: #000 !important;
+  width: 40px !important;
+  height: 40px !important;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.swiper-button-next::after, .swiper-button-prev::after { font-size: 14px !important; }
+
+/* ── Toast ── */
+.toast-sale {
+  background: #000;
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* ── Announcement bar ── */
+.announcement-bar {
+  background-color: #000;
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+  padding: 10px 24px;
+  position: relative;
+}
+
+/* ── Transitions ── */
+.transition-all { transition: all 0.2s ease; }
+
+/* ── Product card hover ── */
+.product-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.product-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+
+/* ── Filter drawer overlay ── */
+.filter-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 40;
+  animation: fadeIn 0.2s ease;
+}
+.filter-drawer {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 80%;
+  max-width: 360px;
+  background: #fff;
+  z-index: 50;
+  overflow-y: auto;
+  animation: slideInLeft 0.3s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideInLeft { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+@keyframes slideInRight { from { transform: translateX(100%); } to { transform: translateX(0); } }
+
+/* ── Notification toast animation ── */
+@keyframes slideDown {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.sale-notification { animation: slideDown 0.3s ease; }

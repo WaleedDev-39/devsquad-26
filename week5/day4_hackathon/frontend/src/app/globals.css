@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: 59 63 140; /* #3B3F8C */
+    --secondary: 255 215 0; /* #FFD700 */
+    --background: 245 246 250; /* #F5F6FA */
+  }
+
+  body {
+    @apply antialiased text-gray-800 bg-[#F5F6FA];
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-white px-6 py-2 rounded-md hover:bg-primary-dark transition duration-300 font-medium;
+  }
+  
+  .btn-outline {
+    @apply border-2 border-primary text-primary px-6 py-2 rounded-md hover:bg-primary hover:text-white transition duration-300 font-medium whitespace-nowrap;
+  }
+  
+  .input-field {
+    @apply w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition duration-200 mt-1;
+  }
+}

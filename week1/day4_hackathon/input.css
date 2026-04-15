@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+
+
+body {
+    background: black;
+    height: 100%;
+}
+
+.main-section {
+    background: url('./public/home-bg.png');
+    width: 1745.55px;
+    height: 1329.62px;
+    z-index: -100;
+}
+
+.collections {
+    background: url('./public/home-bg.png');
+    width: 1745.55px;
+    height: 1329.62px;
+    z-index: -100;
+}

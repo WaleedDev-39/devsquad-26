@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tian — Product Designer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body
+    class="bg-white dark:bg-black text-black dark:text-white font-['Inter',sans-serif] transition-colors duration-300 min-h-screen overflow-x-hidden">
+
+    <!-- HEADER / NAVIGATION BAR                        -->
+    <header class="flex items-center justify-between px-5 md:px-10 lg:px-24 py-5 lg:py-6 w-full max-w-[1440px] mx-auto">
+
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-2 z-10">
+            <img src="images/Logo(black).png" alt="Tian Logo" class="h-5 w-auto block dark:hidden">
+            <img src="images/Logo(white).png" alt="Tian Logo" class="h-5 w-auto hidden dark:block">
+        </a>
+
+        <!-- Desktop Navigation Links (hidden on mobile/tablet) -->
+        <nav class="hidden lg:flex items-center gap-10">
+            <a href="#" data-nav="home"
+                class="nav-link text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors active-nav">Home</a>
+            <a href="#" data-nav="portfolio"
+                class="nav-link text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors">Portfolio</a>
+            <a href="#" data-nav="skills"
+                class="nav-link text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors">Skills</a>
+            <a href="#" data-nav="about"
+                class="nav-link text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors">About
+                Me</a>
+        </nav>
+
+        <!-- Right Side: Toggle + Button + Hamburger -->
+        <div class="flex items-center gap-3 md:gap-4 z-10">
+
+            <!-- Theme Toggle Switch -->
+            <button id="themeToggle" aria-label="Toggle dark mode"
+                class="relative inline-flex items-center h-[28px] w-[56px] rounded-full transition-colors duration-300 focus:outline-none bg-[#111111] dark:bg-[#FFEC70] cursor-pointer shrink-0">
+                <!-- Sun icon (visible in light mode on left) -->
+                <span
+                    class="absolute right-[6px] top-1/2 -translate-y-1/2 text-yellow-300 dark:text-transparent pointer-events-none">
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </span>
+                <!-- Moon icon (visible in dark mode on right) -->
+                <span
+                    class="absolute left-[6px] top-1/2 -translate-y-1/2 text-transparent dark:text-black pointer-events-none">
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                    </svg>
+                </span>
+                <!-- Toggle Thumb -->
+                <span id="themeThumb"
+                    class="absolute top-[2px] left-[2px] dark:left-[30px] w-[24px] h-[24px] bg-white rounded-full shadow-md transition-all duration-300"></span>
+            </button>
+
+            <!-- Desktop Action Button (hidden mobile) -->
+            <a href="#"
+                class="hidden md:inline-flex items-center justify-center bg-[#1F1F1F] dark:bg-[#7C3AED] text-white text-sm font-medium px-7 py-2.5 rounded-[4px] transition-colors hover:opacity-90">
+                <span class="block dark:hidden">Contact Me</span>
+                <span class="hidden dark:block">Contact Me</span>
+            </a>
+
+            <!-- Hamburger Button (visible on mobile/tablet < lg) -->
+            <button id="menuOpenBtn" aria-label="Open menu"
+                class="lg:hidden flex flex-col justify-center items-center gap-[5px] p-1 cursor-pointer">
+                <span class="block w-6 h-[2px] bg-black dark:bg-white rounded-full transition-colors"></span>
+                <span class="block w-6 h-[2px] bg-black dark:bg-white rounded-full transition-colors"></span>
+                <span class="block w-6 h-[2px] bg-black dark:bg-white rounded-full transition-colors"></span>
+            </button>
+        </div>
+    </header>
+
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- MOBILE / TABLET SIDEBAR NAVIGATION             -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <div id="sidebarOverlay"
+        class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden">
+    </div>
+
+    <aside id="sidebar"
+        class="fixed top-0 right-0 h-full w-[280px] md:w-[320px] bg-white dark:bg-[#111] z-50 shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out lg:hidden flex flex-col">
+        <!-- Sidebar Header -->
+        <div class="flex items-center justify-between px-6 py-5">
+            <a href="#" class="flex items-center gap-2">
+                <img src="images/Logo(black).png" alt="Tian Logo" class="h-5 w-auto block dark:hidden">
+                <img src="images/Logo(white).png" alt="Tian Logo" class="h-5 w-auto hidden dark:block">
+                <span class="text-lg font-bold tracking-tight lowercase">tian</span>
+            </a>
+            <button id="menuCloseBtn" aria-label="Close menu"
+                class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 cursor-pointer">
+                <svg class="w-4 h-4 text-black dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Sidebar Divider -->
+        <div class="h-px bg-gray-200 dark:bg-gray-800 mx-6"></div>
+
+        <!-- Sidebar Nav Links -->
+        <nav class="flex flex-col gap-2 px-6 pt-6">
+            <a href="#" data-nav="home"
+                class="sidebar-link active-sidebar text-base font-semibold py-3 px-4 rounded-xl transition-all duration-200">Home</a>
+            <a href="#" data-nav="portfolio"
+                class="sidebar-link text-base font-medium py-3 px-4 rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 transition-all duration-200">Portfolio</a>
+            <a href="#" data-nav="skills"
+                class="sidebar-link text-base font-medium py-3 px-4 rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 transition-all duration-200">Skills</a>
+            <a href="#" data-nav="about"
+                class="sidebar-link text-base font-medium py-3 px-4 rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 transition-all duration-200">About
+                Me</a>
+        </nav>
+
+        <!-- Sidebar Action Button -->
+        <div class="mt-auto px-6 pb-8">
+            <a href="#"
+                class="flex items-center justify-center w-full bg-[#1F2937] dark:bg-[#8B5CF6] text-white text-sm font-medium px-6 py-3.5 rounded-xl transition-colors hover:opacity-90">
+                <span class="block dark:hidden">Button</span>
+                <span class="hidden dark:block">Contact Me</span>
+            </a>
+        </div>
+    </aside>
+
+
+    <!-- HERO SECTION                                   -->
+    <main class="w-full max-w-[1440px] mx-auto px-5 md:px-10 lg:px-24 lg:min-h-[calc(100vh-88px)] flex items-center my-10">
+
+        <div class="grid grid-cols-1 lg:grid-cols-[50%_50%] gap-8 lg:gap-0 w-full items-center py-8 md:py-12 lg:py-0">
+
+            <!-- LEFT COLUMN: Text Content -->
+            <div class="flex flex-col items-center lg:items-start text-center lg:text-left relative order-1">
+
+                <!-- Headline -->
+                <h1
+                    class="font-['Anton',sans-serif] text-[5rem] sm:text-[5.5rem] md:text-[11rem] lg:text-[9rem] xl:text-[11rem] uppercase leading-[0.9] tracking-tight mb-2 md:mb-3">
+                    <span class="block">Product</span>
+                    <span class="block">Designer</span>
+                </h1>
+
+                <!-- Gradient Name -->
+                <h2 class="
+    font-['Anton',sans-serif]
+    text-[3rem] sm:text-[3rem] md:text-[6.5rem] lg:text-[5.2rem]
+    uppercase whitespace-nowrap tracking-tight xl:tracking-widest
+    mb-10 md:mb-14 lg:mb-16
+    bg-gradient-to-r from-[#FF6B9B] via-[#FF9A76] to-[#FFD93D] text-transparent bg-clip-text">
+                    CRISTIAN MUÑOZ
+                </h2>
+
+                <!-- Social Media Icons Row -->
+                <div class="flex items-center justify-between w-[90%] gap-4 lg:gap-5 mb-10 md:mb-12 lg:mb-12 ">
+                    <!-- Instagram -->
+                    <a href="#"
+                        class="group w-12 h-12 lg:w-14 lg:h-14 flex items-center justify-center rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-transparent hover:-translate-y-1 transition-all duration-200">
+                        <img src="images/Instagram(black).png" alt="Instagram" class="w-5 h-5 block dark:hidden">
+                        <img src="images/instagram(white).png" alt="Instagram" class="w-5 h-5 hidden dark:block">
+                    </a>
+                    <!-- Figma -->
+                    <a href="#"
+                        class="group w-11 h-11 md:w-12 md:h-12 flex items-center justify-center rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-transparent hover:-translate-y-1 transition-all duration-200">
+                        <img src="images/Figma(black).png" alt="Figma" class="w-5 h-5 block dark:hidden">
+                        <img src="images/Figma(white).png" alt="Figma" class="w-5 h-5 hidden dark:block">
+                    </a>
+                    <!-- LinkedIn -->
+                    <a href="#"
+                        class="group w-11 h-11 md:w-12 md:h-12 flex items-center justify-center rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-transparent hover:-translate-y-1 transition-all duration-200">
+                        <img src="images/linkedin(black).png" alt="LinkedIn" class="w-5 h-5 block dark:hidden">
+                        <img src="images/linkedin(white).png" alt="LinkedIn" class="w-5 h-5 hidden dark:block">
+                    </a>
+                    <!-- Twitter/X -->
+                    <a href="#"
+                        class="group w-11 h-11 md:w-12 md:h-12 flex items-center justify-center rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-transparent hover:-translate-y-1 transition-all duration-200">
+                        <img src="images/twitter(black).png" alt="Twitter" class="w-5 h-5 block dark:hidden">
+                        <img src="images/twitter(white).png" alt="Twitter" class="w-5 h-5 hidden dark:block">
+                    </a>
+                    <!-- Telegram -->
+                    <a href="#"
+                        class="group w-11 h-11 md:w-12 md:h-12 flex items-center justify-center rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-transparent hover:-translate-y-1 transition-all duration-200">
+                        <img src="images/telegram(black).png" alt="Telegram" class="w-5 h-5 block dark:hidden">
+                        <img src="images/telegram(white).png" alt="Telegram" class="w-5 h-5 hidden dark:block">
+                    </a>
+                    <!-- Medium -->
+                    <a href="#"
+                        class="group w-11 h-11 md:w-12 md:h-12 flex items-center justify-center rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-transparent hover:-translate-y-1 transition-all duration-200">
+                        <img src="images/Medium Logo(black).png" alt="Medium" class="w-5 h-5 block dark:hidden">
+                        <img src="images/Medium Logo(white).png" alt="Medium" class="w-5 h-5 hidden dark:block">
+                    </a>
+                </div>
+
+                <!-- CTA Button — Download CV -->
+                <a href="#"
+                    class="inline-flex items-center justify-center w-[90%]  gap-5 bg-[#292929] dark:bg-[#292929] text-white px-2 py-4 lg:py-[18px]  hover:opacity-90 transition-opacity text-center">
+                    <span
+                        class="font-medium text-[0.8rem] md:text-[0.95rem] text-center md:text-base whitespace-nowrap ">Download
+                        Curriculum Vitae
+                    </span>
+                    <span
+                        class="flex items-center justify-center w-7 h-7 rounded-full border-[1.5px] border-white/60 shrink-0">
+                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                            stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </span>
+                </a>
+            </div>
+
+            <!-- RIGHT COLUMN: Hero Image + Sparkle (Desktop only) -->
+            <div class="hidden lg:flex items-center justify-end relative order-2">
+
+                <!-- Sparkle/Star decoration -->
+                <img src="images/star(black).png" alt="Sparkle"
+                    class="absolute top-0 -left-[60px] w-20 h-20 block dark:hidden z-10">
+                <img src="images/star(white).png" alt="Sparkle"
+                    class="absolute top-0 -left-[60px] w-20 h-20 hidden dark:block z-10">
+
+                <!-- Car Image -->
+                <div class="w-[90%] aspect-[4/5] overflow-hidden">
+                    <img src="images/car_bg.png" alt="Car in neon alley" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- JAVASCRIPT                                     -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <script>
+        // ── Dark Mode Toggle ──────────────────────────
+        const html = document.documentElement;
+        const themeToggle = document.getElementById('themeToggle');
+
+        // Init from saved preference or system
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+
+        // ── Mobile Sidebar Toggle ─────────────────────
+        const menuOpenBtn = document.getElementById('menuOpenBtn');
+        const menuCloseBtn = document.getElementById('menuCloseBtn');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        function openSidebar() {
+            sidebar.classList.remove('translate-x-full');
+            sidebarOverlay.classList.remove('opacity-0', 'pointer-events-none');
+            sidebarOverlay.classList.add('opacity-100');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSidebar() {
+            sidebar.classList.add('translate-x-full');
+            sidebarOverlay.classList.add('opacity-0', 'pointer-events-none');
+            sidebarOverlay.classList.remove('opacity-100');
+            document.body.style.overflow = '';
+        }
+
+        menuOpenBtn.addEventListener('click', openSidebar);
+        menuCloseBtn.addEventListener('click', closeSidebar);
+        sidebarOverlay.addEventListener('click', closeSidebar);
+
+
+        // ── Active Navigation State ───────────────────
+        // Desktop nav links
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                navLinks.forEach(l => l.classList.remove('active-nav'));
+                link.classList.add('active-nav');
+            });
+        });
+
+        // Sidebar nav links
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                sidebarLinks.forEach(l => l.classList.remove('active-sidebar'));
+                link.classList.add('active-sidebar');
+
+                // Also sync desktop nav
+                const navId = link.dataset.nav;
+                navLinks.forEach(l => {
+                    l.classList.remove('active-nav');
+                    if (l.dataset.nav === navId) l.classList.add('active-nav');
+                });
+
+                // Close sidebar after selection with a small delay
+                setTimeout(closeSidebar, 200);
+            });
+        });
+    </script>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- INLINE STYLES for active nav states            -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <style>
+        /* Active desktop nav link — gradient text */
+
+
+        /* Active sidebar link — gradient background pill */
+        .sidebar-link.active-sidebar {
+            background: linear-gradient(to right, #EA445A, #FF9A76, #FACC15);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+    </style>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors from style guide */
+  --color-primary: hsl(180, 29%, 50%);         /* Desaturated Dark Cyan */
+  --color-neutral-bg: hsl(180, 52%, 96%);      /* Light Grayish Cyan (Background) */
+  --color-neutral-filter: hsl(180, 31%, 95%);  /* Light Grayish Cyan (Filter Tablets) */
+  --color-neutral-dark: hsl(180, 8%, 52%);     /* Dark Grayish Cyan */
+  --color-neutral-very-dark: hsl(180, 14%, 20%); /* Very Dark Grayish Cyan */
+  --color-card: #ffffff;
+  
+  --font-spartan: "League Spartan", sans-serif;
+}
+
+.dark {
+  --color-neutral-bg: hsl(180, 14%, 8%);
+  --color-neutral-filter: hsl(180, 14%, 15%);
+  --color-neutral-dark: hsl(180, 8%, 65%);
+  --color-neutral-very-dark: hsl(180, 20%, 90%);
+  --color-card: hsl(180, 14%, 12%);
+}
+
+@layer base {
+  body {
+    background-color: var(--color-neutral-bg);
+    color: var(--color-neutral-very-dark);
+    font-family: var(--font-spartan);
+    font-size: 15px;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+  }
+}
+
+/* Custom utilities if needed */
+@layer utilities {
+  .shadow-card {
+    box-shadow: 0 15px 25px -10px rgba(92, 165, 165, 0.4);
+  }
+}

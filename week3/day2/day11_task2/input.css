@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@theme {
+    --color-primary-purple: #8B5CF6;
+    --color-gradient-pink: #EA445A;
+    --color-gradient-orange: #FF9A76;
+    --color-gradient-yellow: #FACC15;
+    --color-dark-bg: #000000;
+    --color-light-bg: #FFFFFF;
+    --color-dark-charcoal: #1F2937;
+    --color-dark-surface: #111111;
+    --color-toggle-yellow: #FACC15;
+}
+
+@variant dark (&:where(.dark, .dark *));
+
+/* ===== Google Fonts Import ===== */
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap');
