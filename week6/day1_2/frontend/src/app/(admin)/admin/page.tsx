@@ -136,15 +136,15 @@ export default function AdminDashboard() {
                 <div key={idx} className="flex justify-between items-center px-2 py-1">
                   <div className="flex gap-4 items-center">
                     <div className="w-14 h-14 bg-gray-100 rounded-xl overflow-hidden relative">
-                       <Image src={getImageUrl(item.images?.[0]) || '/placeholder.png'} alt={item.name} fill className="object-cover" />
+                       <Image src={getImageUrl(item.images?.[0]) || '/placeholder.png'} alt={item.name || 'Product'} fill className="object-cover" />
                     </div>
                     <div className="max-w-[100px]">
-                      <h4 className="font-bold text-sm truncate">{item.name}</h4>
-                      <p className="text-xs text-gray-500 mt-0.5">₹{item.price.toFixed(2)}</p>
+                      <h4 className="font-bold text-sm truncate">{item.name || 'Unnamed Product'}</h4>
+                      <p className="text-xs text-gray-500 mt-0.5">₹{(item.price || 0).toFixed(2)}</p>
                     </div>
                   </div>
                   <div className="text-right">
-                     <p className="font-bold text-sm">₹{item.price.toFixed(2)}</p>
+                     <p className="font-bold text-sm">₹{(item.price || 0).toFixed(2)}</p>
                      <p className="text-xs text-gray-500 mt-0.5">{item.reviewCount || 0} reviews</p>
                   </div>
                 </div>

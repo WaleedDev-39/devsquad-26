@@ -31,7 +31,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pr
       </button>
 
       <div className="flex items-center gap-1">
-        {[...new Set(pages)].map((p, i) =>
+        {Array.from(new Set(pages)).map((p, i) =>
           p === '...' ? (
             <span key={`dots-${i}`} className="px-2 text-gray-400">...</span>
           ) : (

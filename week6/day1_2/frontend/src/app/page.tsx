@@ -124,10 +124,10 @@ function ProductsSection({ title, href, queryFn }: { title: string; href: string
 // ─── Browse By Style ─────────────────────────────────────────
 function BrowseByStyle() {
   const styles = [
-    { label: 'Casual', img: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400', href: '/shop?style=Casual' },
-    { label: 'Formal', img: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=400', href: '/shop?style=Formal' },
-    { label: 'Party', img: 'https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?w=400', href: '/shop?style=Party' },
-    { label: 'Gym', img: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400', href: '/shop?style=Gym' },
+    { label: 'Casual', img: '/assets/casual.png', href: '/shop?style=Casual' },
+    { label: 'Formal', img: '/assets/formal.png', href: '/shop?style=Formal' },
+    { label: 'Party', img: '/assets/party.png', href: '/shop?style=Party' },
+    { label: 'Gym', img: '/assets/gym.png', href: '/shop?style=Gym' },
   ];
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

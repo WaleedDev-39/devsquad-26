@@ -80,6 +80,7 @@ export interface Order {
   discount: number;
   deliveryFee: number;
   total: number;
+  totalAmount?: number;
   promoCode: string | null;
   status: 'pending' | 'confirmed' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
   loyaltyPointsEarned: number;

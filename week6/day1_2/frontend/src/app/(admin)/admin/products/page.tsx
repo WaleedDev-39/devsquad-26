@@ -76,9 +76,9 @@ export default function AdminProducts() {
                 )}
               </div>
               <div className="pt-1">
-                <h3 className="font-bold text-gray-900 border-b border-transparent truncate max-w-[150px]">{product.name}</h3>
-                <p className="text-xs text-gray-500 mt-0.5 mb-2">{product.category}</p>
-                <div className="font-bold text-sm">₹{product.price.toFixed(2)}</div>
+                <h3 className="font-bold text-gray-900 border-b border-transparent truncate max-w-[150px]">{product.name || 'Unnamed Product'}</h3>
+                <p className="text-xs text-gray-500 mt-0.5 mb-2">{product.category || 'Uncategorized'}</p>
+                <div className="font-bold text-sm">₹{(product.price || 0).toFixed(2)}</div>
               </div>
             </div>
 

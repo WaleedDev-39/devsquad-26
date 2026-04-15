@@ -57,10 +57,14 @@ export default function AdminUsersPage() {
   });
 
   const filtered = users.filter(u => {
+    const name = u.name || '';
+    const email = u.email || '';
+    const role = u.role || 'user';
+
     const matchSearch =
-      u.name.toLowerCase().includes(search.toLowerCase()) ||
-      u.email.toLowerCase().includes(search.toLowerCase());
-    const matchRole = roleFilter === 'all' || u.role === roleFilter;
+      name.toLowerCase().includes(search.toLowerCase()) ||
+      email.toLowerCase().includes(search.toLowerCase());
+    const matchRole = roleFilter === 'all' || role === roleFilter;
     return matchSearch && matchRole;
   });
 
@@ -149,10 +153,10 @@ export default function AdminUsersPage() {
                       <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#003B73] to-blue-400 flex items-center justify-center text-white font-bold text-sm shrink-0">
                         {u.name?.charAt(0).toUpperCase() || '?'}
                       </div>
-                      <span className="font-bold text-gray-900">{u.name}</span>
+                      <span className="font-bold text-gray-900">{u.name || 'Unknown User'}</span>
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-gray-500">{u.email}</td>
+                  <td className="px-6 py-4 text-gray-500">{u.email || 'No Email'}</td>
                   <td className="px-6 py-4">
                     {isSuperAdmin && u._id !== currentUser?._id ? (
                       <select
@@ -166,8 +170,8 @@ export default function AdminUsersPage() {
                         ))}
                       </select>
                     ) : (
-                      <span className={`text-xs font-bold px-3 py-1.5 rounded-full border inline-flex ${roleBadge(u.role)}`}>
-                        {u.role === 'superadmin' ? 'Super Admin' : u.role.charAt(0).toUpperCase() + u.role.slice(1)}
+                      <span className={`text-xs font-bold px-3 py-1.5 rounded-full border inline-flex ${roleBadge(u.role || 'user')}`}>
+                        {(u.role || 'user') === 'superadmin' ? 'Super Admin' : (u.role || 'user').charAt(0).toUpperCase() + (u.role || 'user').slice(1)}
                       </span>
                     )}
                   </td>
@@ -178,7 +182,7 @@ export default function AdminUsersPage() {
                     </div>
                   </td>
                   <td className="px-6 py-4 text-gray-500">
-                    {new Date(u.createdAt).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
+                    {u.createdAt ? new Date(u.createdAt).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }) : 'N/A'}
                   </td>
                   {isSuperAdmin && (
                     <td className="px-6 py-4 text-center">

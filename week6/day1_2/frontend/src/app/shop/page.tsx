@@ -18,7 +18,7 @@ const SORT_OPTIONS = [
   { label: 'Price: High to Low', value: 'price-desc' },
 ];
 
-export default function ShopPage() {
+function ShopContent() {
   const searchParams = useSearchParams();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [sortOpen, setSortOpen] = useState(false);
@@ -150,5 +150,15 @@ export default function ShopPage() {
         onFiltersChange={(f) => { setFilters(f); setDrawerOpen(false); }}
       />
     </div>
+  );
+}
+
+import { Suspense } from 'react';
+
+export default function ShopPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ShopContent />
+    </Suspense>
   );
 }
