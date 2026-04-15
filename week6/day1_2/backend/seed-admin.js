@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+require('dotenv').config();
 
 const MONGO_URI = process.env.MONGODB_URI;
 const adminEmail = 'admin@shopco.com';
