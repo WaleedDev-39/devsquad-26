@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-const MONGO_URI = 'mongodb://localhost:27017/shopco';
+const MONGO_URI = process.env.MONGODB_URI;
 const adminEmail = 'admin@shopco.com';
 const adminPassword = 'admin123';
 
@@ -10,7 +10,7 @@ async function seed() {
   try {
     await mongoose.connect(MONGO_URI);
     console.log('Connected.');
-
+ 
     const hp = await bcrypt.hash(adminPassword, 10);
     const result = await mongoose.connection.collection('users').updateOne(
       { email: adminEmail },
