@@ -49,11 +49,11 @@ export default function ProfilePage() {
         <div className="lg:col-span-1 space-y-4">
           <div className="border border-gray-200 rounded-2xl p-6 text-center">
             <div className="w-20 h-20 rounded-full bg-black text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-              {user.name.charAt(0).toUpperCase()}
+              {(user.name || user.email || 'U').charAt(0).toUpperCase()}
             </div>
-            <h2 className="font-bold text-lg">{user.name}</h2>
-            <p className="text-gray-400 text-sm mt-1">{user.email}</p>
-            <span className="inline-block mt-2 text-xs font-medium bg-gray-100 px-3 py-1 rounded-full capitalize">{user.role}</span>
+            <h2 className="font-bold text-lg">{user.name || 'User'}</h2>
+            <p className="text-gray-400 text-sm mt-1">{user.email || 'No email'}</p>
+            <span className="inline-block mt-2 text-xs font-medium bg-gray-100 px-3 py-1 rounded-full capitalize">{user.role || 'user'}</span>
           </div>
 
           {/* Loyalty points */}
