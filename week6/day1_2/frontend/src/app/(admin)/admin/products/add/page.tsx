@@ -288,7 +288,7 @@ export default function AddProductPage() {
                 className={inputCls}
               />
               <p className="text-xs text-gray-500 mt-1">
-                Specific loyalty points a user earns from this product. Leave 0 to use the default 1 point per $1 spent rule.
+                Specific loyalty points a user earns from this product. Leave 0 to use the default 1 point per ₹1 spent rule.
               </p>
             </div>
           </div>

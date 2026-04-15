@@ -283,7 +283,7 @@ export default function ProductDetailPage() {
             {[
               { q: 'What is the return policy?', a: 'We offer a 30-day return policy for all unworn items with tags attached.' },
               { q: 'How long does shipping take?', a: 'Standard shipping takes 5-7 business days. Express shipping is 2-3 business days.' },
-              { q: 'How do I earn loyalty points?', a: 'You earn 1 point for every $1 spent. Points can be redeemed for discounts on future purchases.' },
+              { q: 'How do I earn loyalty points?', a: 'You earn 1 point for every ₹1 spent. Points can be redeemed for discounts on future purchases.' },
             ].map((faq, i) => (
               <div key={i} className="border border-gray-100 rounded-xl p-5">
                 <p className="font-medium text-sm">{faq.q}</p>

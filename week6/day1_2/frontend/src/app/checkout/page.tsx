@@ -127,7 +127,7 @@ export default function CheckoutPage() {
                     className="w-4 h-4 accent-black"
                   />
                   <span className="text-sm font-medium">
-                    🪙 Use my {user.loyaltyPoints} loyalty points (Save ${(user.loyaltyPoints * 0.01).toFixed(2)})
+                    🪙 Use my {user.loyaltyPoints} loyalty points (Save ₹{(user.loyaltyPoints * 0.01).toFixed(2)})
                   </span>
                 </label>
               </div>

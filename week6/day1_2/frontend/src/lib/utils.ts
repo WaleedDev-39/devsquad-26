@@ -3,7 +3,7 @@ export function cn(...classes: (string | undefined | null | false)[]) {
 }
 
 export function formatPrice(price: number): string {
-  return `$${price.toLocaleString()}`;
+  return `₹${price.toLocaleString()}`;
 }
 
 export function calcDiscountedPrice(original: number, percent: number): number {

@@ -7,6 +7,8 @@ const nextConfig = {
       { protocol: 'https', hostname: 'source.unsplash.com' },
       // Allow locally-served backend uploads in development
       { protocol: 'http', hostname: 'localhost', port: '5000' },
+      // Allow Render-served backend uploads in production
+      { protocol: 'https', hostname: 'week6-eccomerce-store-backend.onrender.com' },
     ],
   },
   env: {

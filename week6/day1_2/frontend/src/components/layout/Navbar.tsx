@@ -59,7 +59,7 @@ export default function Navbar() {
 
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">
-            <span className="font-integral text-xl sm:text-2xl tracking-tight font-black"><img src="./logo.png" alt="logo" /></span>
+            <span className="font-integral text-xl sm:text-2xl tracking-tight font-black"><img src="/logo.png" alt="logo" /></span>
           </Link>
 
           {/* Desktop nav links */}

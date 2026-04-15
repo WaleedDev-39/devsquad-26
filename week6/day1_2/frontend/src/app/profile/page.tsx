@@ -64,9 +64,9 @@ export default function ProfilePage() {
             </div>
             <p className="font-integral text-3xl font-black text-yellow-600">{user.loyaltyPoints.toLocaleString()}</p>
             <p className="text-xs text-gray-500 mt-2">
-              Worth {formatPrice(Math.floor(user.loyaltyPoints * 0.01))} • 1 point = $0.01
+              Worth {formatPrice(Math.floor(user.loyaltyPoints * 0.01))} • 1 point = ₹0.01
             </p>
-            <p className="text-xs text-gray-400 mt-1">Earn 1 point per $1 spent</p>
+            <p className="text-xs text-gray-400 mt-1">Earn 1 point per ₹1 spent</p>
           </div>
 
           {/* Quick links */}
