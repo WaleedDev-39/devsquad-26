@@ -67,6 +67,7 @@ export default function LoginPage() {
                 type={showPass ? 'text' : 'password'}
                 placeholder="Enter your password"
                 value={form.password}
+                autoComplete="current-password"
                 onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
                 className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-black transition-colors pr-10"
               />

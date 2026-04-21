@@ -73,7 +73,14 @@ export class AuthService {
   }
 
   private signToken(user: UserDocument) {
-    return this.jwtService.sign({ sub: user._id.toString(), email: user.email, role: user.role });
+    return this.jwtService.sign({ 
+      sub: user._id.toString(), 
+      email: user.email, 
+      role: user.role,
+      name: user.name,
+      avatar: user.avatar || null,
+      provider: user.provider || 'local',
+    });
   }
 
   private sanitize(user: UserDocument) {
