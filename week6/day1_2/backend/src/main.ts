@@ -25,6 +25,10 @@ async function bootstrap() {
 
   const port = process.env.PORT || 5000;
   await app.listen(port, '0.0.0.0');
-  console.log(`🚀 SHOP.CO Backend running on http://localhost:${port}`);
+  console.log(`🚀 SHOP.CO Backend v2.1 (OAuth Fixed) running on http://localhost:${port}`);
+  console.log(`🔑 JWT_SECRET configured: ${!!process.env.JWT_SECRET}`);
+  console.log(`🔑 GOOGLE_CLIENT_ID configured: ${!!process.env.GOOGLE_CLIENT_ID}`);
+  console.log(`🌐 FRONTEND_URL: ${process.env.FRONTEND_URL}`);
+  console.log(`🌐 API_URL: ${process.env.API_URL}`);
 }
 bootstrap();
