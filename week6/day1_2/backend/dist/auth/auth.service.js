@@ -67,7 +67,7 @@ let AuthService = class AuthService {
         return { token, user: this.sanitize(user) };
     }
     async login(dto) {
-        const user = await this.userModel.findOne({ email: dto.email });
+        const user = await this.userModel.findOne({ email: dto.email.toLowerCase() });
         if (!user)
             throw new common_1.UnauthorizedException('Invalid credentials');
         const valid = await bcrypt.compare(dto.password, user.password);
