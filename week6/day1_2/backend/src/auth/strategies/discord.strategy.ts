@@ -10,7 +10,7 @@ export class DiscordStrategy extends PassportStrategy(Strategy, 'discord') {
       clientID: process.env.DISCORD_CLIENT_ID || 'dummy',
       clientSecret: process.env.DISCORD_CLIENT_SECRET || 'dummy',
       callbackURL: process.env.API_URL 
-        ? `${process.env.API_URL}/api/auth/discord/callback` 
+        ? `${process.env.API_URL.replace(/\/api$/, '')}/api/auth/discord/callback` 
         : 'http://localhost:5000/api/auth/discord/callback',
       scope: ['identify', 'email'],
     });
