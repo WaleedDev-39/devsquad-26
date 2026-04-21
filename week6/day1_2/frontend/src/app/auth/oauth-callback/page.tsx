@@ -12,34 +12,46 @@ function CallbackHandler() {
 
   useEffect(() => {
     const token = searchParams.get('token');
+    const error = searchParams.get('error');
 
-    if (token) {
-      // Temporarily store token so getMe can use it
-      localStorage.setItem('shopco_token', token);
-
-      // Fetch user details
-      authApi.getMe()
-        .then((res) => {
-          setAuth(res.data, token);
-          toast.success(`Welcome back, ${res.data.name}! 👋`);
-          
-          // Redirect based on role
-          if (res.data.role === 'admin' || res.data.role === 'superadmin') {
-            router.push('/admin');
-          } else {
-            router.push('/');
-          }
-        })
-        .catch((err) => {
-          console.error('OAuth Error:', err);
-          localStorage.removeItem('shopco_token');
-          toast.error('Authentication failed. Please try again.');
-          router.push('/auth/login');
-        });
-    } else {
-      toast.error('No authentication token found.');
+    // Guard: backend redirected with an error
+    if (error) {
+      toast.error(`Login failed: ${error}. Please try again.`);
       router.push('/auth/login');
+      return;
     }
+
+    // Guard: token is missing or is the literal string "undefined"
+    if (!token || token === 'undefined' || token === 'null') {
+      console.error('OAuth callback received invalid token:', token);
+      toast.error('Authentication failed: no valid token received. Please try again.');
+      router.push('/auth/login');
+      return;
+    }
+
+    console.log('OAuth callback: received token (first 20 chars):', token.substring(0, 20) + '...');
+
+    // Store token so axios interceptor can use it for the /me request
+    localStorage.setItem('shopco_token', token);
+
+    // Fetch full user profile
+    authApi.getMe()
+      .then((res) => {
+        setAuth(res.data, token);
+        toast.success(`Welcome, ${res.data.name}! 🎉`);
+
+        if (res.data.role === 'admin' || res.data.role === 'superadmin') {
+          router.push('/admin');
+        } else {
+          router.push('/');
+        }
+      })
+      .catch((err) => {
+        console.error('OAuth Error calling /auth/me:', err.response?.status, err.response?.data);
+        localStorage.removeItem('shopco_token');
+        toast.error('Authentication failed. Please try again.');
+        router.push('/auth/login');
+      });
   }, [searchParams, router, setAuth]);
 
   return (
