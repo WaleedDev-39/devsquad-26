@@ -20,6 +20,10 @@ export declare class AuthService {
     }> & {
         __v: number;
     }>;
+    validateOAuthLogin(profile: any): Promise<{
+        token: string;
+        user: any;
+    }>;
     private signToken;
     private sanitize;
 }

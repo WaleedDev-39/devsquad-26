@@ -1,3 +1,4 @@
+import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
@@ -17,4 +18,11 @@ export declare class AuthController {
     }> & {
         __v: number;
     }>;
+    googleAuth(): Promise<void>;
+    googleAuthRedirect(req: any, res: Response): Promise<void>;
+    githubAuth(): Promise<void>;
+    githubAuthRedirect(req: any, res: Response): Promise<void>;
+    discordAuth(): Promise<void>;
+    discordAuthRedirect(req: any, res: Response): Promise<void>;
+    private handleOAuthRedirect;
 }

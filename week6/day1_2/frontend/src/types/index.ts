@@ -32,6 +32,8 @@ export interface User {
   email: string;
   role: 'user' | 'admin' | 'superadmin';
   loyaltyPoints: number;
+  avatar?: string;
+  provider?: string;
   createdAt: string;
 }
 

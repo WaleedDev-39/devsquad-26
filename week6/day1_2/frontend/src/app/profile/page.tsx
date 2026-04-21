@@ -48,12 +48,39 @@ export default function ProfilePage() {
         {/* Profile card */}
         <div className="lg:col-span-1 space-y-4">
           <div className="border border-gray-200 rounded-2xl p-6 text-center">
-            <div className="w-20 h-20 rounded-full bg-black text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-              {(user.name || user.email || 'U').charAt(0).toUpperCase()}
+            <div className="relative inline-block mb-4">
+              {user.avatar ? (
+                <img src={user.avatar} alt={user.name} className="w-20 h-20 rounded-full object-cover border-2 border-white shadow-sm" />
+              ) : (
+                <div className="w-20 h-20 rounded-full bg-black text-white flex items-center justify-center text-2xl font-bold">
+                  {(user.name || user.email || 'U').charAt(0).toUpperCase()}
+                </div>
+              )}
+              {user.provider && user.provider !== 'local' && (
+                <div className="absolute -bottom-1 -right-1 bg-white p-1 rounded-full border border-gray-100 shadow-sm">
+                  <img 
+                    src={
+                      user.provider === 'google' ? 'https://www.svgrepo.com/show/475656/google-color.svg' :
+                      user.provider === 'github' ? 'https://www.svgrepo.com/show/512317/github-142.svg' :
+                      user.provider === 'discord' ? 'https://www.svgrepo.com/show/353655/discord-icon.svg' :
+                      ''
+                    } 
+                    className="w-4 h-4" 
+                    alt={user.provider} 
+                  />
+                </div>
+              )}
             </div>
             <h2 className="font-bold text-lg">{user.name || 'User'}</h2>
             <p className="text-gray-400 text-sm mt-1">{user.email || 'No email'}</p>
-            <span className="inline-block mt-2 text-xs font-medium bg-gray-100 px-3 py-1 rounded-full capitalize">{user.role || 'user'}</span>
+            <div className="flex items-center justify-center gap-2 mt-3">
+              <span className="text-[10px] font-bold bg-black text-white px-2 py-0.5 rounded uppercase tracking-wider">{user.role || 'user'}</span>
+              {user.provider && (
+                <span className="text-[10px] font-bold bg-gray-100 text-gray-500 px-2 py-0.5 rounded uppercase tracking-wider flex items-center gap-1">
+                  via {user.provider}
+                </span>
+              )}
+            </div>
           </div>
 
           {/* Loyalty points */}

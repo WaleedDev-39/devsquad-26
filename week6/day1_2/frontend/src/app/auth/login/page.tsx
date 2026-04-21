@@ -86,6 +86,34 @@ export default function LoginPage() {
           </button>
         </form>
 
+        <div className="relative my-8 text-center">
+          <div className="absolute inset-0 flex items-center">
+            <span className="w-full border-t border-gray-200"></span>
+          </div>
+          <span className="relative px-4 bg-white text-gray-500 text-xs uppercase tracking-wider">Or continue with</span>
+        </div>
+
+        <div className="grid grid-cols-3 gap-3">
+          <a
+            href={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/auth/google`}
+            className="flex items-center justify-center p-3 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors group"
+          >
+            <img src="https://purepng.com/public/uploads/large/purepng.com-google-logo-2015brandlogobrand-logoiconssymbolslogosgoogle-6815229372333mqrr.png" className=" group-hover:scale-110 transition-transform" alt="Google" />
+          </a>
+          <a
+            href={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/auth/github`}
+            className="flex items-center justify-center p-3 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors group"
+          >
+            <img src="https://www.svgrepo.com/show/512317/github-142.svg" className="w-5 h-5 group-hover:scale-110 transition-transform" alt="GitHub" />
+          </a>
+          <a
+            href={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/auth/discord`}
+            className="flex items-center justify-center p-3 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors group"
+          >
+            <img src="https://www.svgrepo.com/show/353655/discord-icon.svg" className="w-5 h-5 group-hover:scale-110 transition-transform" alt="Discord" />
+          </a>
+        </div>
+
         <p className="text-center text-sm text-gray-500 mt-6">
           Don't have an account?{' '}
           <Link href="/auth/register" className="font-medium text-black underline hover:no-underline">

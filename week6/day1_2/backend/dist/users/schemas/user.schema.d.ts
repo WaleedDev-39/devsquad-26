@@ -8,10 +8,13 @@ export declare enum UserRole {
 export declare class User {
     name: string;
     email: string;
-    password: string;
+    password?: string;
     role: UserRole;
     loyaltyPoints: number;
     isActive: boolean;
+    provider: string;
+    providerId?: string;
+    avatar?: string;
 }
 export declare const UserSchema: import("mongoose").Schema<User, import("mongoose").Model<User, any, any, any, Document<unknown, any, User, any, {}> & User & {
     _id: import("mongoose").Types.ObjectId;

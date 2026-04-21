@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
+const passport_1 = require("@nestjs/passport");
 const auth_service_1 = require("./auth.service");
 const register_dto_1 = require("./dto/register.dto");
 const login_dto_1 = require("./dto/login.dto");
@@ -30,7 +31,27 @@ let AuthController = class AuthController {
         return this.authService.login(dto);
     }
     getMe(req) {
-        return this.authService.getMe(req.user.userId);
+        return this.authService.getMe(req.user.sub || req.user.userId);
+    }
+    async googleAuth() {
+    }
+    async googleAuthRedirect(req, res) {
+        return this.handleOAuthRedirect(req, res);
+    }
+    async githubAuth() {
+    }
+    async githubAuthRedirect(req, res) {
+        return this.handleOAuthRedirect(req, res);
+    }
+    async discordAuth() {
+    }
+    async discordAuthRedirect(req, res) {
+        return this.handleOAuthRedirect(req, res);
+    }
+    handleOAuthRedirect(req, res) {
+        const user = req.user;
+        const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+        return res.redirect(`${frontendUrl}/auth/oauth-callback?token=${user.token}`);
     }
 };
 exports.AuthController = AuthController;
@@ -57,6 +78,54 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "getMe", null);
+__decorate([
+    (0, common_1.Get)('google'),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('google')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "googleAuth", null);
+__decorate([
+    (0, common_1.Get)('google/callback'),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('google')),
+    __param(0, (0, common_1.Request)()),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "googleAuthRedirect", null);
+__decorate([
+    (0, common_1.Get)('github'),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('github')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "githubAuth", null);
+__decorate([
+    (0, common_1.Get)('github/callback'),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('github')),
+    __param(0, (0, common_1.Request)()),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "githubAuthRedirect", null);
+__decorate([
+    (0, common_1.Get)('discord'),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('discord')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "discordAuth", null);
+__decorate([
+    (0, common_1.Get)('discord/callback'),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('discord')),
+    __param(0, (0, common_1.Request)()),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "discordAuthRedirect", null);
 exports.AuthController = AuthController = __decorate([
     (0, swagger_1.ApiTags)('Auth'),
     (0, common_1.Controller)('auth'),

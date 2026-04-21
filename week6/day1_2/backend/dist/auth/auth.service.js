@@ -82,6 +82,30 @@ let AuthService = class AuthService {
             throw new common_1.UnauthorizedException('User not found');
         return user;
     }
+    async validateOAuthLogin(profile) {
+        const { email, name, provider, providerId, avatar } = profile;
+        let user = await this.userModel.findOne({ email: email?.toLowerCase() });
+        if (user) {
+            if (user.provider === 'local' || !user.providerId) {
+                user.provider = provider;
+                user.providerId = providerId;
+                user.avatar = user.avatar || avatar;
+                await user.save();
+            }
+        }
+        else {
+            user = await this.userModel.create({
+                email: email.toLowerCase(),
+                name,
+                provider,
+                providerId,
+                avatar,
+                isActive: true,
+            });
+        }
+        const token = this.signToken(user);
+        return { token, user: this.sanitize(user) };
+    }
     signToken(user) {
         return this.jwtService.sign({ sub: user._id, email: user.email, role: user.role });
     }

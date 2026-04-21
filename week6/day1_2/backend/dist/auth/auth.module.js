@@ -15,6 +15,9 @@ const config_1 = require("@nestjs/config");
 const auth_controller_1 = require("./auth.controller");
 const auth_service_1 = require("./auth.service");
 const jwt_strategy_1 = require("./jwt.strategy");
+const google_strategy_1 = require("./strategies/google.strategy");
+const github_strategy_1 = require("./strategies/github.strategy");
+const discord_strategy_1 = require("./strategies/discord.strategy");
 const user_schema_1 = require("../users/schemas/user.schema");
 let AuthModule = class AuthModule {
 };
@@ -34,7 +37,7 @@ exports.AuthModule = AuthModule = __decorate([
             mongoose_1.MongooseModule.forFeature([{ name: user_schema_1.User.name, schema: user_schema_1.UserSchema }]),
         ],
         controllers: [auth_controller_1.AuthController],
-        providers: [auth_service_1.AuthService, jwt_strategy_1.JwtStrategy],
+        providers: [auth_service_1.AuthService, jwt_strategy_1.JwtStrategy, google_strategy_1.GoogleStrategy, github_strategy_1.GithubStrategy, discord_strategy_1.DiscordStrategy],
         exports: [jwt_1.JwtModule, auth_service_1.AuthService],
     })
 ], AuthModule);

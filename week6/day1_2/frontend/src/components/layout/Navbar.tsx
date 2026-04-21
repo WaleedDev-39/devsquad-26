@@ -144,9 +144,13 @@ export default function Navbar() {
 
             {/* User */}
             {isLoggedIn ? (
-              <Link href="/profile" className="p-2 rounded-lg hover:bg-gray-100 flex items-center gap-1.5">
-                <User size={20} />
-                <span className="hidden sm:block text-sm font-medium truncate max-w-[80px]">
+              <Link href="/profile" className="p-1 sm:p-2 rounded-lg hover:bg-gray-100 flex items-center gap-2">
+                {user?.avatar ? (
+                  <img src={user.avatar} alt={user.name} className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover border border-gray-200" />
+                ) : (
+                  <User size={20} />
+                )}
+                <span className="hidden sm:block text-xs font-semibold truncate max-w-[80px]">
                   {user?.name?.split(' ')[0]}
                 </span>
               </Link>

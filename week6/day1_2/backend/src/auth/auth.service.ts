@@ -42,6 +42,36 @@ export class AuthService {
     return user;
   }
 
+  async validateOAuthLogin(profile: any) {
+    const { email, name, provider, providerId, avatar } = profile;
+    
+    // Check if user exists by email
+    let user = await this.userModel.findOne({ email: email?.toLowerCase() });
+
+    if (user) {
+      // Auto-link account: update provider details if they aren't complete
+      if (user.provider === 'local' || !user.providerId) {
+        user.provider = provider;
+        user.providerId = providerId;
+        user.avatar = user.avatar || avatar;
+        await user.save();
+      }
+    } else {
+      // Create new user, without a password since it's OAuth
+      user = await this.userModel.create({
+        email: email.toLowerCase(),
+        name,
+        provider,
+        providerId,
+        avatar,
+        isActive: true,
+      });
+    }
+
+    const token = this.signToken(user);
+    return { token, user: this.sanitize(user) };
+  }
+
   private signToken(user: UserDocument) {
     return this.jwtService.sign({ sub: user._id, email: user.email, role: user.role });
   }
