@@ -36,7 +36,7 @@ export class DiscordStrategy extends PassportStrategy(Strategy, 'discord') {
       avatar: avatarUrl,
     };
 
-    const { user } = await this.authService.validateOAuthLogin(userProfile);
-    done(null, user);
+    const result = await this.authService.validateOAuthLogin(userProfile);
+    done(null, result);
   }
 }

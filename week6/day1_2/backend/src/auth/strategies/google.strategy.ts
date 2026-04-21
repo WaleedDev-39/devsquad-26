@@ -32,7 +32,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       avatar: photos[0]?.value,
     };
 
-    const { user } = await this.authService.validateOAuthLogin(userProfile);
-    done(null, user);
+    const result = await this.authService.validateOAuthLogin(userProfile);
+    done(null, result);
   }
 }
