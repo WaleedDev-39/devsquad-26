@@ -68,11 +68,17 @@ export class AuthController {
   }
 
   private handleOAuthRedirect(req: any, res: Response) {
-    const user = req.user;
+    const result = req.user;
     const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
     
-    // Redirect to frontend with token in query param
-    // The frontend should pick this up and store it
-    return res.redirect(`${frontendUrl}/auth/oauth-callback?token=${user.token}`);
+    console.log('Redirecting to frontend after OAuth login for:', result?.user?.email);
+    console.log('Token generated:', !!result?.token);
+    
+    if (!result?.token) {
+      console.error('CRITICAL: OAuth result is missing the token!');
+      return res.redirect(`${frontendUrl}/auth/login?error=token_missing`);
+    }
+
+    return res.redirect(`${frontendUrl}/auth/oauth-callback?token=${result.token}`);
   }
 }
