@@ -6,7 +6,7 @@ import { useMutation } from '@tanstack/react-query';
 import { authApi } from '@/lib/api';
 import { useAuthStore } from '@/store/authStore';
 import toast from 'react-hot-toast';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, Github, Chrome, MessageSquare } from 'lucide-react';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -88,6 +88,37 @@ export default function RegisterPage() {
             {isPending ? 'Creating account...' : 'Create Account'}
           </button>
         </form>
+
+        <div className="relative my-8 text-center">
+          <div className="absolute inset-0 flex items-center">
+            <span className="w-full border-t border-gray-200"></span>
+          </div>
+          <span className="relative px-4 bg-white text-gray-500 text-xs uppercase tracking-wider">Or continue with</span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <a
+            href={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/auth/google`}
+            className="flex items-center justify-center gap-2 p-3 border border-gray-200 rounded-xl hover:bg-gray-50 transition-all hover:shadow-sm group"
+          >
+            <Chrome className="w-5 h-5 text-blue-500 group-hover:scale-110 transition-transform" />
+            <span className="text-xs font-semibold sm:hidden">Google</span>
+          </a>
+          <a
+            href={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/auth/github`}
+            className="flex items-center justify-center gap-2 p-3 border border-gray-200 rounded-xl hover:bg-gray-50 transition-all hover:shadow-sm group"
+          >
+            <Github className="w-5 h-5 group-hover:scale-110 transition-transform" />
+            <span className="text-xs font-semibold sm:hidden">GitHub</span>
+          </a>
+          <a
+            href={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/auth/discord`}
+            className="flex items-center justify-center gap-2 p-3 border border-gray-200 rounded-xl hover:bg-gray-50 transition-all hover:shadow-sm group"
+          >
+            <MessageSquare className="w-5 h-5 text-indigo-500 group-hover:scale-110 transition-transform" />
+            <span className="text-xs font-semibold sm:hidden">Discord</span>
+          </a>
+        </div>
 
         <p className="text-center text-sm text-gray-500 mt-6">
           Already have an account?{' '}

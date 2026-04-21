@@ -6,7 +6,7 @@ import { useMutation } from '@tanstack/react-query';
 import { authApi } from '@/lib/api';
 import { useAuthStore } from '@/store/authStore';
 import toast from 'react-hot-toast';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, Github, Chrome, MessageSquare } from 'lucide-react';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -93,24 +93,27 @@ export default function LoginPage() {
           <span className="relative px-4 bg-white text-gray-500 text-xs uppercase tracking-wider">Or continue with</span>
         </div>
 
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <a
-            href={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/auth/google`}
-            className="flex items-center justify-center p-3 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors group"
+            href={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/auth/google`}
+            className="flex items-center justify-center gap-2 p-3 border border-gray-200 rounded-xl hover:bg-gray-50 transition-all hover:shadow-sm group"
           >
-            <img src="https://purepng.com/public/uploads/large/purepng.com-google-logo-2015brandlogobrand-logoiconssymbolslogosgoogle-6815229372333mqrr.png" className=" group-hover:scale-110 transition-transform" alt="Google" />
+            <Chrome className="w-5 h-5 text-blue-500 group-hover:scale-110 transition-transform" />
+            <span className="text-xs font-semibold sm:hidden">Google</span>
           </a>
           <a
-            href={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/auth/github`}
-            className="flex items-center justify-center p-3 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors group"
+            href={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/auth/github`}
+            className="flex items-center justify-center gap-2 p-3 border border-gray-200 rounded-xl hover:bg-gray-50 transition-all hover:shadow-sm group"
           >
-            <img src="https://www.svgrepo.com/show/512317/github-142.svg" className="w-5 h-5 group-hover:scale-110 transition-transform" alt="GitHub" />
+            <Github className="w-5 h-5 group-hover:scale-110 transition-transform" />
+            <span className="text-xs font-semibold sm:hidden">GitHub</span>
           </a>
           <a
-            href={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/auth/discord`}
-            className="flex items-center justify-center p-3 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors group"
+            href={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/auth/discord`}
+            className="flex items-center justify-center gap-2 p-3 border border-gray-200 rounded-xl hover:bg-gray-50 transition-all hover:shadow-sm group"
           >
-            <img src="https://www.svgrepo.com/show/353655/discord-icon.svg" className="w-5 h-5 group-hover:scale-110 transition-transform" alt="Discord" />
+            <MessageSquare className="w-5 h-5 text-indigo-500 group-hover:scale-110 transition-transform" />
+            <span className="text-xs font-semibold sm:hidden">Discord</span>
           </a>
         </div>
 
