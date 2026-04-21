@@ -4,18 +4,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Integral CF font (used in the design for headings) ── */
-@font-face {
-  font-family: 'Integral CF';
-  src: url('/fonts/IntegralCF-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
+/* ── Integral CF font fallback (relying on system fonts since local file is missing) ── */
 
 :root {
-  --font-satoshi: 'Satoshi', system-ui, sans-serif;
-  --font-integral: 'Integral CF', system-ui, sans-serif;
+  --font-satoshi: 'Satoshi', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-integral: 'Arial Black', 'Impact', system-ui, sans-serif;
 }
 
 * {
