@@ -107,7 +107,15 @@ let AuthService = class AuthService {
         return { token, user: this.sanitize(user) };
     }
     signToken(user) {
-        return this.jwtService.sign({ sub: user._id, email: user.email, role: user.role });
+        return this.jwtService.sign({
+            sub: user._id.toString(),
+            email: user.email,
+            role: user.role,
+            name: user.name,
+            avatar: user.avatar || null,
+            provider: user.provider || 'local',
+            loyaltyPoints: user.loyaltyPoints || 0,
+        });
     }
     sanitize(user) {
         const { password, ...rest } = user.toObject();

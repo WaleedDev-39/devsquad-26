@@ -49,6 +49,7 @@ function CallbackHandler() {
         role: decoded.role || 'user',
         avatar: decoded.avatar || null,
         provider: decoded.provider || 'local',
+        loyaltyPoints: decoded.loyaltyPoints || 0,
       };
 
       // Persist token and user in auth store + localStorage

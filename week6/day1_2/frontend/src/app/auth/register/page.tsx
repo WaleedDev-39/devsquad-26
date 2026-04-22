@@ -102,7 +102,7 @@ export default function RegisterPage() {
             className="flex items-center justify-center gap-2 p-3 border border-gray-200 rounded-xl hover:bg-gray-50 transition-all hover:shadow-sm group"
           >
             <Chrome className="w-5 h-5 text-blue-500 group-hover:scale-110 transition-transform" />
-            <span className="text-xs font-semibold sm:hidden">Google</span>
+            <span className="text-xs font-semibold sm:hidden"></span>
           </a>
           <a
             href={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/auth/github`}

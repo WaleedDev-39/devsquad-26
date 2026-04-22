@@ -14,17 +14,20 @@ const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 const passport_github2_1 = require("passport-github2");
 const auth_service_1 = require("../auth.service");
+const config_1 = require("@nestjs/config");
 let GithubStrategy = class GithubStrategy extends (0, passport_1.PassportStrategy)(passport_github2_1.Strategy, 'github') {
-    constructor(authService) {
+    constructor(authService, configService) {
         super({
-            clientID: process.env.GITHUB_CLIENT_ID || 'dummy',
-            clientSecret: process.env.GITHUB_CLIENT_SECRET || 'dummy',
-            callbackURL: process.env.API_URL
-                ? `${process.env.API_URL}/api/auth/github/callback`
+            clientID: configService.get('GITHUB_CLIENT_ID'),
+            clientSecret: configService.get('GITHUB_CLIENT_SECRET'),
+            callbackURL: configService.get('API_URL')
+                ? `${configService.get('API_URL').replace(/\/api$/, '')}/api/auth/github/callback`
                 : 'http://localhost:5000/api/auth/github/callback',
             scope: ['user:email'],
         });
         this.authService = authService;
+        this.configService = configService;
+        console.log('GithubStrategy initialized with Client ID:', configService.get('GITHUB_CLIENT_ID')?.substring(0, 10) + '...');
     }
     async validate(accessToken, refreshToken, profile, done) {
         const { id, displayName, username, emails, photos } = profile;
@@ -36,13 +39,14 @@ let GithubStrategy = class GithubStrategy extends (0, passport_1.PassportStrateg
             name: displayName || username,
             avatar: photos?.[0]?.value,
         };
-        const { user } = await this.authService.validateOAuthLogin(userProfile);
-        done(null, user);
+        const result = await this.authService.validateOAuthLogin(userProfile);
+        done(null, result);
     }
 };
 exports.GithubStrategy = GithubStrategy;
 exports.GithubStrategy = GithubStrategy = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [auth_service_1.AuthService])
+    __metadata("design:paramtypes", [auth_service_1.AuthService,
+        config_1.ConfigService])
 ], GithubStrategy);
 //# sourceMappingURL=github.strategy.js.map

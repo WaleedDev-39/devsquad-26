@@ -14,17 +14,20 @@ const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 const passport_discord_1 = require("passport-discord");
 const auth_service_1 = require("../auth.service");
+const config_1 = require("@nestjs/config");
 let DiscordStrategy = class DiscordStrategy extends (0, passport_1.PassportStrategy)(passport_discord_1.Strategy, 'discord') {
-    constructor(authService) {
+    constructor(authService, configService) {
         super({
-            clientID: process.env.DISCORD_CLIENT_ID || 'dummy',
-            clientSecret: process.env.DISCORD_CLIENT_SECRET || 'dummy',
-            callbackURL: process.env.API_URL
-                ? `${process.env.API_URL}/api/auth/discord/callback`
+            clientID: configService.get('DISCORD_CLIENT_ID'),
+            clientSecret: configService.get('DISCORD_CLIENT_SECRET'),
+            callbackURL: configService.get('API_URL')
+                ? `${configService.get('API_URL').replace(/\/api$/, '')}/api/auth/discord/callback`
                 : 'http://localhost:5000/api/auth/discord/callback',
             scope: ['identify', 'email'],
         });
         this.authService = authService;
+        this.configService = configService;
+        console.log('DiscordStrategy initialized with Client ID:', configService.get('DISCORD_CLIENT_ID')?.substring(0, 10) + '...');
     }
     async validate(accessToken, refreshToken, profile, done) {
         const { id, username, email, avatar } = profile;
@@ -36,13 +39,14 @@ let DiscordStrategy = class DiscordStrategy extends (0, passport_1.PassportStrat
             name: username,
             avatar: avatarUrl,
         };
-        const { user } = await this.authService.validateOAuthLogin(userProfile);
-        done(null, user);
+        const result = await this.authService.validateOAuthLogin(userProfile);
+        done(null, result);
     }
 };
 exports.DiscordStrategy = DiscordStrategy;
 exports.DiscordStrategy = DiscordStrategy = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [auth_service_1.AuthService])
+    __metadata("design:paramtypes", [auth_service_1.AuthService,
+        config_1.ConfigService])
 ], DiscordStrategy);
 //# sourceMappingURL=discord.strategy.js.map

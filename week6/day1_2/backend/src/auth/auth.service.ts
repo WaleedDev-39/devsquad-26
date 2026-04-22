@@ -80,6 +80,7 @@ export class AuthService {
       name: user.name,
       avatar: user.avatar || null,
       provider: user.provider || 'local',
+      loyaltyPoints: user.loyaltyPoints || 0,
     });
   }
 

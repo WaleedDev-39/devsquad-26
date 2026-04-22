@@ -14,17 +14,20 @@ const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 const passport_google_oauth20_1 = require("passport-google-oauth20");
 const auth_service_1 = require("../auth.service");
+const config_1 = require("@nestjs/config");
 let GoogleStrategy = class GoogleStrategy extends (0, passport_1.PassportStrategy)(passport_google_oauth20_1.Strategy, 'google') {
-    constructor(authService) {
+    constructor(authService, configService) {
         super({
-            clientID: process.env.GOOGLE_CLIENT_ID || 'dummy',
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET || 'dummy',
-            callbackURL: process.env.API_URL
-                ? `${process.env.API_URL}/api/auth/google/callback`
+            clientID: configService.get('GOOGLE_CLIENT_ID'),
+            clientSecret: configService.get('GOOGLE_CLIENT_SECRET'),
+            callbackURL: configService.get('API_URL')
+                ? `${configService.get('API_URL').replace(/\/api$/, '')}/api/auth/google/callback`
                 : 'http://localhost:5000/api/auth/google/callback',
             scope: ['email', 'profile'],
         });
         this.authService = authService;
+        this.configService = configService;
+        console.log('GoogleStrategy initialized with Client ID:', configService.get('GOOGLE_CLIENT_ID')?.substring(0, 10) + '...');
     }
     async validate(accessToken, refreshToken, profile, done) {
         const { id, name, emails, photos } = profile;
@@ -35,13 +38,14 @@ let GoogleStrategy = class GoogleStrategy extends (0, passport_1.PassportStrateg
             name: `${name.givenName || ''} ${name.familyName || ''}`.trim() || emails[0].value.split('@')[0],
             avatar: photos[0]?.value,
         };
-        const { user } = await this.authService.validateOAuthLogin(userProfile);
-        done(null, user);
+        const result = await this.authService.validateOAuthLogin(userProfile);
+        done(null, result);
     }
 };
 exports.GoogleStrategy = GoogleStrategy;
 exports.GoogleStrategy = GoogleStrategy = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [auth_service_1.AuthService])
+    __metadata("design:paramtypes", [auth_service_1.AuthService,
+        config_1.ConfigService])
 ], GoogleStrategy);
 //# sourceMappingURL=google.strategy.js.map
