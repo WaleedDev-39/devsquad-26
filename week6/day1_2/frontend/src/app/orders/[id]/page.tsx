@@ -1,4 +1,5 @@
 'use client';
+import { useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
@@ -21,6 +22,8 @@ const STATUS_STEPS = ['confirmed', 'processing', 'shipped', 'delivered'];
 
 export default function OrderDetailPage() {
   const { id } = useParams<{ id: string }>();
+  const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
+  const defaultFallback = 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400';
 
   const { data, isLoading } = useQuery({
     queryKey: ['order', id],
@@ -103,7 +106,15 @@ export default function OrderDetailPage() {
           {order.items.map((item, i) => (
             <div key={i} className="flex gap-4 py-4 first:pt-0 last:pb-0">
               <div className="relative w-16 h-16 bg-[#F2F0F1] rounded-xl overflow-hidden flex-shrink-0">
-                {item.image && <Image src={getImageUrl(item.image)} alt={item.name} fill className="object-cover" />}
+                {item.image && (
+                  <Image 
+                    src={failedImages[item.image] ? defaultFallback : (getImageUrl(item.image) || defaultFallback)} 
+                    alt={item.name} 
+                    fill 
+                    className="object-cover" 
+                    onError={() => setFailedImages(p => ({ ...p, [item.image]: true }))}
+                  />
+                )}
               </div>
               <div className="flex-1">
                 <p className="font-medium text-sm">{item.name}</p>

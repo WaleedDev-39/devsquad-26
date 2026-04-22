@@ -22,10 +22,13 @@ export default function ProductDetailPage() {
   const addItem = useCartStore((s) => s.addItem);
 
   const [activeImg, setActiveImg] = useState(0);
+  const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
   const [selectedColor, setSelectedColor] = useState('');
   const [selectedSize, setSelectedSize] = useState('');
   const [qty, setQty] = useState(1);
   const [activeTab, setActiveTab] = useState<'details' | 'reviews' | 'faq'>('reviews');
+
+  const defaultFallback = 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400';
 
   const { data, isLoading } = useQuery({
     queryKey: ['product', id],
@@ -103,18 +106,25 @@ export default function ProductDetailPage() {
                   activeImg === i ? 'border-black' : 'border-transparent hover:border-gray-300'
                 )}
               >
-                <Image src={getImageUrl(img) || ''} alt={`${product.name} ${i + 1}`} fill className="object-cover" />
+                <Image 
+                  src={failedImages[img] ? defaultFallback : (getImageUrl(img) || defaultFallback)} 
+                  alt={`${product.name} ${i + 1}`} 
+                  fill 
+                  className="object-cover" 
+                  onError={() => setFailedImages(p => ({ ...p, [img]: true }))}
+                />
               </button>
             ))}
           </div>
           {/* Main image */}
           <div className="relative flex-1 bg-[#F2F0F1] rounded-2xl overflow-hidden min-h-[300px] sm:min-h-[500px]">
             <Image
-              src={getImageUrl(product.images?.[activeImg] || product.images?.[0]) || 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400'}
+              src={failedImages[product.images?.[activeImg] || product.images?.[0]] ? defaultFallback : (getImageUrl(product.images?.[activeImg] || product.images?.[0]) || defaultFallback)}
               alt={product.name}
               fill
               className="object-contain p-4"
               priority
+              onError={() => setFailedImages(p => ({ ...p, [product.images?.[activeImg] || product.images?.[0]]: true }))}
             />
           </div>
         </div>

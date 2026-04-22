@@ -1,4 +1,5 @@
 'use client';
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Product } from '@/types';
@@ -9,7 +10,9 @@ import SaleBadge from '@/components/shared/SaleBadge';
 interface Props { product: Product; }
 
 export default function ProductCard({ product }: Props) {
-  const imgSrc = getImageUrl(product.images?.[0]) || 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400';
+  const defaultImg = 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400';
+  const [imgSrc, setImgSrc] = useState(getImageUrl(product.images?.[0]) || defaultImg);
+
   return (
     <Link href={`/products/${product._id}`} className="group block product-card">
       <div className="relative bg-[#F2F0F1] rounded-2xl overflow-hidden aspect-square mb-3">
@@ -19,6 +22,7 @@ export default function ProductCard({ product }: Props) {
           fill
           className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+          onError={() => setImgSrc(defaultImg)}
         />
         {product.isOnSale && product.salePercent > 0 && (
           <div className="absolute top-3 left-3">

@@ -14,6 +14,9 @@ export default function CartPage() {
   const [promoCode, setPromoCode] = useState('');
   const [discount, setDiscount] = useState(0);
   const [promoApplied, setPromoApplied] = useState(false);
+  const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
+
+  const defaultFallback = 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400';
 
   const subtotal = getSubtotal();
   const deliveryFee = subtotal > 200 ? 0 : 15;
@@ -55,7 +58,13 @@ export default function CartPage() {
             <div key={item._id} className="flex gap-4 py-5 first:pt-0 last:pb-0">
               <div className="relative w-24 h-24 sm:w-28 sm:h-28 bg-[#F2F0F1] rounded-xl overflow-hidden flex-shrink-0">
                 {item.image && (
-                  <Image src={getImageUrl(item.image)} alt={item.name} fill className="object-cover" />
+                  <Image 
+                    src={failedImages[item.image] ? defaultFallback : (getImageUrl(item.image) || defaultFallback)} 
+                    alt={item.name} 
+                    fill 
+                    className="object-cover" 
+                    onError={() => setFailedImages(p => ({ ...p, [item.image]: true }))}
+                  />
                 )}
               </div>
               <div className="flex-1 min-w-0">
