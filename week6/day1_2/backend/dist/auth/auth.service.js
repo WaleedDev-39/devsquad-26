@@ -63,7 +63,7 @@ let AuthService = class AuthService {
             throw new common_1.ConflictException('Email already registered');
         const hashed = await bcrypt.hash(dto.password, 10);
         const user = await this.userModel.create({ ...dto, password: hashed });
-        const token = this.signToken(user);
+        const token = this.signToken(user, 'local');
         return { token, user: this.sanitize(user) };
     }
     async login(dto) {
@@ -73,7 +73,7 @@ let AuthService = class AuthService {
         const valid = await bcrypt.compare(dto.password, user.password);
         if (!valid)
             throw new common_1.UnauthorizedException('Invalid credentials');
-        const token = this.signToken(user);
+        const token = this.signToken(user, 'local');
         return { token, user: this.sanitize(user) };
     }
     async getMe(userId) {
@@ -103,17 +103,17 @@ let AuthService = class AuthService {
                 isActive: true,
             });
         }
-        const token = this.signToken(user);
+        const token = this.signToken(user, provider);
         return { token, user: this.sanitize(user) };
     }
-    signToken(user) {
+    signToken(user, currentProvider) {
         return this.jwtService.sign({
             sub: user._id.toString(),
             email: user.email,
             role: user.role,
             name: user.name,
             avatar: user.avatar || null,
-            provider: user.provider || 'local',
+            provider: currentProvider || user.provider || 'local',
             loyaltyPoints: user.loyaltyPoints || 0,
         });
     }

@@ -21,7 +21,7 @@ export class AuthService {
     const hashed = await bcrypt.hash(dto.password, 10);
     const user = await this.userModel.create({ ...dto, password: hashed });
 
-    const token = this.signToken(user);
+    const token = this.signToken(user, 'local');
     return { token, user: this.sanitize(user) };
   }
 
@@ -32,7 +32,7 @@ export class AuthService {
     const valid = await bcrypt.compare(dto.password, user.password);
     if (!valid) throw new UnauthorizedException('Invalid credentials');
 
-    const token = this.signToken(user);
+    const token = this.signToken(user, 'local');
     return { token, user: this.sanitize(user) };
   }
 
@@ -68,18 +68,18 @@ export class AuthService {
       });
     }
 
-    const token = this.signToken(user);
+    const token = this.signToken(user, provider);
     return { token, user: this.sanitize(user) };
   }
 
-  private signToken(user: UserDocument) {
+  private signToken(user: UserDocument, currentProvider?: string) {
     return this.jwtService.sign({ 
       sub: user._id.toString(), 
       email: user.email, 
       role: user.role,
       name: user.name,
       avatar: user.avatar || null,
-      provider: user.provider || 'local',
+      provider: currentProvider || user.provider || 'local',
       loyaltyPoints: user.loyaltyPoints || 0,
     });
   }
