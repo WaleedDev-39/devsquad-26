@@ -1,4 +1,4 @@
-import { Document, Types } from 'mongoose';
+import { Document, Schema as MongooseSchema, Types } from 'mongoose';
 export type ReviewDocument = Review & Document;
 export declare class Review {
     productId: Types.ObjectId;
@@ -8,7 +8,7 @@ export declare class Review {
     comment: string;
     isVerified: boolean;
 }
-export declare const ReviewSchema: import("mongoose").Schema<Review, import("mongoose").Model<Review, any, any, any, Document<unknown, any, Review, any, {}> & Review & {
+export declare const ReviewSchema: MongooseSchema<Review, import("mongoose").Model<Review, any, any, any, Document<unknown, any, Review, any, {}> & Review & {
     _id: Types.ObjectId;
 } & {
     __v: number;

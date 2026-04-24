@@ -23,39 +23,64 @@ let CartService = class CartService {
         this.cartModel = cartModel;
         this.productsService = productsService;
     }
+    toObjectId(id) {
+        try {
+            return new mongoose_2.Types.ObjectId(id);
+        }
+        catch {
+            throw new common_1.BadRequestException(`Invalid ID: ${id}`);
+        }
+    }
     async getCart(userId) {
-        let cart = await this.cartModel.findOne({ userId }).populate('items.productId');
+        let cart = await this.cartModel.findOne({ userId: this.toObjectId(userId) });
         if (!cart)
-            cart = await this.cartModel.create({ userId, items: [] });
+            cart = await this.cartModel.create({ userId: this.toObjectId(userId), items: [] });
         return cart;
     }
     async addItem(userId, body) {
+        console.log(`[CartService.addItem] userId=${userId} productId=${body.productId} size=${body.size} color=${body.color} qty=${body.quantity}`);
+        if (!body.productId) {
+            throw new common_1.BadRequestException('Product ID is required');
+        }
         const product = await this.productsService.findOne(body.productId);
-        if (product.stock < body.quantity)
+        if (!product)
+            throw new common_1.NotFoundException('Product not found');
+        const qty = Number(body.quantity) || 1;
+        if (product.stock < qty)
             throw new common_1.BadRequestException('Insufficient stock');
-        let cart = await this.cartModel.findOne({ userId });
-        if (!cart)
-            cart = await this.cartModel.create({ userId, items: [] });
-        const existingIdx = cart.items.findIndex((i) => i.productId.toString() === body.productId && i.size === body.size && i.color === body.color);
+        const userObjectId = this.toObjectId(userId);
+        console.log("meri id ", userObjectId);
+        let cart = await this.cartModel.findOneAndUpdate({ userId: userObjectId }, { $setOnInsert: { userId: userObjectId, items: [] } }, { upsert: true, new: true });
+        const existingIdx = cart.items.findIndex((item) => {
+            const pId = item.productId?.toString();
+            return pId === String(body.productId) && item.size === String(body.size) && item.color === String(body.color);
+        });
         if (existingIdx > -1) {
-            cart.items[existingIdx].quantity += body.quantity;
+            cart.items[existingIdx].quantity += qty;
         }
         else {
             cart.items.push({
-                productId: new mongoose_2.Types.ObjectId(body.productId),
-                quantity: body.quantity,
-                size: body.size,
-                color: body.color,
-                price: product.price,
-                name: product.name,
+                productId: this.toObjectId(body.productId),
+                quantity: qty,
+                size: body.size ? String(body.size) : 'N/A',
+                color: body.color ? String(body.color) : 'N/A',
+                price: Number(product.price) || 0,
+                name: String(product.name) || 'Unknown Product',
                 image: product.images?.[0] || '',
             });
         }
-        await cart.save();
+        try {
+            await cart.save();
+        }
+        catch (err) {
+            console.error('[CartService.addItem] Error saving cart:', err);
+            throw new common_1.BadRequestException('Failed to save cart. Please check item details.');
+        }
+        console.log('[CartService.addItem] Saved cart, items count:', cart.items.length);
         return cart;
     }
     async updateItem(userId, itemId, quantity) {
-        const cart = await this.cartModel.findOne({ userId });
+        const cart = await this.cartModel.findOne({ userId: this.toObjectId(userId) });
         if (!cart)
             throw new common_1.NotFoundException('Cart not found');
         const item = cart.items.find((i) => i._id.toString() === itemId);
@@ -66,7 +91,7 @@ let CartService = class CartService {
         return cart;
     }
     async removeItem(userId, itemId) {
-        const cart = await this.cartModel.findOne({ userId });
+        const cart = await this.cartModel.findOne({ userId: this.toObjectId(userId) });
         if (!cart)
             throw new common_1.NotFoundException('Cart not found');
         cart.items = cart.items.filter((i) => i._id.toString() !== itemId);
@@ -74,7 +99,7 @@ let CartService = class CartService {
         return cart;
     }
     async clearCart(userId) {
-        return this.cartModel.findOneAndUpdate({ userId }, { items: [] }, { new: true });
+        return this.cartModel.findOneAndUpdate({ userId: this.toObjectId(userId) }, { items: [] }, { new: true });
     }
 };
 exports.CartService = CartService;

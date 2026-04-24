@@ -1,0 +1,120 @@
+
+> shopco-frontend@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.3
+  - Local:        http://localhost:3000
+  - Environments: .env.local, .env
+
+ ✓ Starting...
+ ✓ Ready in 17.1s
+ ○ Compiling / ...
+ ✓ Compiled / in 21.6s (984 modules)
+ GET / 200 in 14499ms
+ ✓ Compiled in 3.8s (451 modules)
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../typescript/lib/typescript' in e:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\next\dist\build for build dependencies doesn't lead to expected result 'E:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\typescript\lib\typescript.js', but to 'e:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\typescript\lib\typescript.js' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../typescript/lib/typescript (expected E:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\typescript\lib\typescript.js)
+<w>  at file dependencies e:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\next\dist\build\load-jsconfig.js
+<w>  at file e:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\next\dist\build\load-jsconfig.js
+<w>  at file dependencies e:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\next\dist\build\webpack-config.js
+<w>  at file e:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\next\dist\build\webpack-config.js
+<w>  at file dependencies e:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file e:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs e:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../typescript/lib/typescript' in e:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\next\dist\build for build dependencies doesn't lead to expected result 'E:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\typescript\lib\typescript.js', but to 'e:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\typescript\lib\typescript.js' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../typescript/lib/typescript (expected E:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\typescript\lib\typescript.js)
+<w>  at file dependencies e:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\next\dist\build\load-jsconfig.js
+<w>  at file e:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\next\dist\build\load-jsconfig.js
+<w>  at file dependencies e:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\next\dist\build\webpack-config.js
+<w>  at file e:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\next\dist\build\webpack-config.js
+<w>  at file dependencies e:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file e:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs e:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+ ○ Compiling /products/[id] ...
+ ✓ Compiled /products/[id] in 6.1s (979 modules)
+ GET /products/69df95ae82dfaf086fa6ed20 200 in 9071ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1844ms (982 modules)
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 2248ms
+ ⨯ upstream image response failed for http://localhost:5000/uploads/products/1776260518394-37156369.jpg 404
+ GET /products/69df95ae82dfaf086fa6ed20 200 in 72ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 113ms
+ ⨯ upstream image response failed for http://localhost:5000/uploads/products/1776260518394-37156369.jpg 404
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 2.6s (1205 modules)
+ GET /products/69df95ae82dfaf086fa6ed20 404 in 2890ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 301ms
+ ⨯ Failed to generate static paths for /products/[id]:
+Error: Cannot find module './vendor-chunks/axios.js'
+Require stack:
+- e:\my coding stuff\devsquad'26\week6\day1_2\frontend\.next\server\webpack-runtime.js
+- e:\my coding stuff\devsquad'26\week6\day1_2\frontend\.next\server\app\products\[id]\page.js
+- e:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\next\dist\server\require.js
+- e:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\next\dist\server\load-components.js
+- e:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\next\dist\build\utils.js
+- e:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\next\dist\server\dev\static-paths-worker.js
+- e:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\next\dist\compiled\jest-worker\processChild.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1383:15)
+    at e:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1025:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1030:22)
+    at Function._load (node:internal/modules/cjs/loader:1192:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1463:12)
+    at mod.require (e:\my coding stuff\devsquad'26\week6\day1_2\frontend\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:147:16) {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    "e:\\my coding stuff\\devsquad'26\\week6\\day1_2\\frontend\\.next\\server\\webpack-runtime.js",
+    "e:\\my coding stuff\\devsquad'26\\week6\\day1_2\\frontend\\.next\\server\\app\\products\\[id]\\page.js",
+    "e:\\my coding stuff\\devsquad'26\\week6\\day1_2\\frontend\\node_modules\\next\\dist\\server\\require.js",
+    "e:\\my coding stuff\\devsquad'26\\week6\\day1_2\\frontend\\node_modules\\next\\dist\\server\\load-components.js",
+    "e:\\my coding stuff\\devsquad'26\\week6\\day1_2\\frontend\\node_modules\\next\\dist\\build\\utils.js",
+    "e:\\my coding stuff\\devsquad'26\\week6\\day1_2\\frontend\\node_modules\\next\\dist\\server\\dev\\static-paths-worker.js",
+    "e:\\my coding stuff\\devsquad'26\\week6\\day1_2\\frontend\\node_modules\\next\\dist\\compiled\\jest-worker\\processChild.js"
+  ]
+}
+ ○ Compiling / ...
+ ✓ Compiled / in 534ms (583 modules)
+ GET / 200 in 853ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 75ms
+ GET /_next/static/css/app/layout.css?v=1777033949891 404 in 63ms
+ GET /_next/static/chunks/main-app.js?v=1777033949891 404 in 278ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 278ms
+ GET /_next/static/chunks/app/page.js 404 in 278ms
+ GET /_next/static/chunks/app/layout.js 404 in 279ms
+ ○ Compiling /auth/oauth-callback ...
+ ✓ Compiled /auth/oauth-callback in 667ms (1208 modules)
+ GET /auth/oauth-callback?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2OWU3NWJkM2M3NGY0MmI2NWExMGNjMTMiLCJlbWFpbCI6Im0ud2FsZWVkLmEuMDNAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJuYW1lIjoiTXVoYW1tYWQgV2FsZWVkIEFobWFkIiwiYXZhdGFyIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jTEhPV2Q5Tk1FN0ZWMWhFbWEtZDVsamNCcktaN0JJLU5qV2VrMEdldnhYYzlaMkszND1zOTYtYyIsInByb3ZpZGVyIjoiZ29vZ2xlIiwibG95YWx0eVBvaW50cyI6MCwiaWF0IjoxNzc3MDM0MTYyLCJleHAiOjE3Nzc2Mzg5NjJ9.rcDQs_Nd8nnEzNBoiHidXaB8BfUfRdfUsF2NLTFLY2c 200 in 926ms
+ ✓ Compiled / in 442ms (586 modules)
+ ⨯ Error: Could not find the module "E:\my coding stuff\devsquad'26\week6\day1_2\frontend\src\app\page.tsx#default" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>)
+digest: "2826963181"
+ ⨯ Error: Could not find the module "E:\my coding stuff\devsquad'26\week6\day1_2\frontend\src\app\page.tsx#default" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>)
+digest: "2201641999"
+ ⨯ Error: Could not find the module "E:\my coding stuff\devsquad'26\week6\day1_2\frontend\src\app\layout.tsx#default" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>)
+digest: "1505511619"
+ ⨯ Error: Could not find the module "E:\my coding stuff\devsquad'26\week6\day1_2\frontend\src\app\page.tsx#default" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>)
+digest: "2201641999"
+ GET / 500 in 146ms
+ ✓ Compiled /_not-found in 333ms (1218 modules)
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 450ms
+ ⨯ Error: Could not find the module "E:\my coding stuff\devsquad'26\week6\day1_2\frontend\src\app\page.tsx#default" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>)
+digest: "2201641999"
+ ⨯ Error: Could not find the module "E:\my coding stuff\devsquad'26\week6\day1_2\frontend\src\app\page.tsx#default" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>)
+digest: "2201641999"
+ GET / 500 in 107ms
+ ⨯ Error: Could not find the module "E:\my coding stuff\devsquad'26\week6\day1_2\frontend\src\app\page.tsx#default" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>)
+digest: "2201641999"
+ ⨯ Error: Could not find the module "E:\my coding stuff\devsquad'26\week6\day1_2\frontend\src\app\page.tsx#default" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>)
+digest: "2201641999"
+ GET / 500 in 113ms

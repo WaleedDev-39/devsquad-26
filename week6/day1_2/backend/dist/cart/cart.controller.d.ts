@@ -2,6 +2,7 @@ import { CartService } from './cart.service';
 export declare class CartController {
     private cartService;
     constructor(cartService: CartService);
+    private getUserId;
     getCart(req: any): Promise<import("mongoose").Document<unknown, {}, import("./schemas/cart.schema").CartDocument, {}, {}> & import("./schemas/cart.schema").Cart & import("mongoose").Document<import("mongoose").Types.ObjectId, any, any, Record<string, any>, {}> & Required<{
         _id: import("mongoose").Types.ObjectId;
     }> & {

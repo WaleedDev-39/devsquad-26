@@ -10,8 +10,24 @@ const api = axios.create({
 // Attach JWT token to every request if present
 api.interceptors.request.use((config) => {
   if (typeof window !== 'undefined') {
-    const token = localStorage.getItem('shopco_token');
-    if (token) config.headers.Authorization = `Bearer ${token}`;
+    let token = localStorage.getItem('shopco_token');
+    
+    // Fallback to Zustand persisted state if shopco_token is somehow missing
+    if (!token) {
+      const authStorage = localStorage.getItem('shopco-auth');
+      if (authStorage) {
+        try {
+          const parsed = JSON.parse(authStorage);
+          token = parsed?.state?.token;
+        } catch (e) {}
+      }
+    }
+
+    if (token) {
+      // Remove quotes in case it was stringified incorrectly
+      token = token.replace(/^"(.*)"$/, '$1');
+      config.headers.Authorization = `Bearer ${token}`;
+    }
   }
   return config;
 });
@@ -42,8 +58,35 @@ export const categoriesApi = {
 // ─── Cart ──────────────────────────────
 export const cartApi = {
   getCart: () => api.get('/cart'),
-  addItem: (data: { productId: string; quantity: number; size: string; color: string }) =>
-    api.post('/cart/add', data),
+  addItem: async (data: { productId: string; quantity: number; size: string; color: string }) => {
+    let token = '';
+    if (typeof window !== 'undefined') {
+      token = localStorage.getItem('shopco_token') || '';
+      if (!token) {
+        const authStorage = localStorage.getItem('shopco-auth');
+        if (authStorage) {
+          try {
+            token = JSON.parse(authStorage)?.state?.token || '';
+          } catch (e) {}
+        }
+      }
+      token = token.replace(/^"(.*)"$/, '$1');
+    }
+
+    const payload = {
+      productId: String(data.productId),
+      quantity: Number(data.quantity),
+      size: String(data.size),
+      color: String(data.color),
+    };
+
+    return axios.post(`${API_URL}/cart/add`, payload, {
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+    });
+  },
   updateItem: (itemId: string, quantity: number) =>
     api.patch(`/cart/update/${itemId}`, { quantity }),
   removeItem: (itemId: string) => api.delete(`/cart/remove/${itemId}`),

@@ -1,6 +1,7 @@
-import { Document, Types } from 'mongoose';
+import { Document, Schema as MongooseSchema, Types } from 'mongoose';
 export type CartDocument = Cart & Document;
-export declare class CartItem {
+export interface CartItem {
+    _id?: Types.ObjectId;
     productId: Types.ObjectId;
     quantity: number;
     size: string;
@@ -13,7 +14,7 @@ export declare class Cart {
     userId: Types.ObjectId;
     items: CartItem[];
 }
-export declare const CartSchema: import("mongoose").Schema<Cart, import("mongoose").Model<Cart, any, any, any, Document<unknown, any, Cart, any, {}> & Cart & {
+export declare const CartSchema: MongooseSchema<Cart, import("mongoose").Model<Cart, any, any, any, Document<unknown, any, Cart, any, {}> & Cart & {
     _id: Types.ObjectId;
 } & {
     __v: number;

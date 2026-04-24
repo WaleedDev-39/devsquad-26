@@ -21,6 +21,7 @@ const orders_module_1 = require("./orders/orders.module");
 const reviews_module_1 = require("./reviews/reviews.module");
 const notifications_module_1 = require("./notifications/notifications.module");
 const admin_module_1 = require("./admin/admin.module");
+const stripe_module_1 = require("./stripe/stripe.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -48,6 +49,7 @@ exports.AppModule = AppModule = __decorate([
             reviews_module_1.ReviewsModule,
             notifications_module_1.NotificationsModule,
             admin_module_1.AdminModule,
+            stripe_module_1.StripeModule,
         ],
     })
 ], AppModule);

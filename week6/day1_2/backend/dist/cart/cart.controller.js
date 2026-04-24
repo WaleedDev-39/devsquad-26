@@ -21,20 +21,25 @@ let CartController = class CartController {
     constructor(cartService) {
         this.cartService = cartService;
     }
+    getUserId(req) {
+        return req.user?.userId || req.user?.sub;
+    }
     getCart(req) {
-        return this.cartService.getCart(req.user.userId);
+        return this.cartService.getCart(this.getUserId(req));
     }
     addItem(req, body) {
-        return this.cartService.addItem(req.user.userId, body);
+        console.log('[CartController.addItem] req.user:', req.user);
+        console.log('[CartController.addItem] body:', body);
+        return this.cartService.addItem(this.getUserId(req), body);
     }
     updateItem(req, itemId, quantity) {
-        return this.cartService.updateItem(req.user.userId, itemId, quantity);
+        return this.cartService.updateItem(this.getUserId(req), itemId, quantity);
     }
     removeItem(req, itemId) {
-        return this.cartService.removeItem(req.user.userId, itemId);
+        return this.cartService.removeItem(this.getUserId(req), itemId);
     }
     clearCart(req) {
-        return this.cartService.clearCart(req.user.userId);
+        return this.cartService.clearCart(this.getUserId(req));
     }
 };
 exports.CartController = CartController;

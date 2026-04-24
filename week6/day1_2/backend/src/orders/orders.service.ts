@@ -1,10 +1,11 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Order, OrderDocument, OrderStatus } from './schemas/order.schema';
+import { Order, OrderDocument, OrderStatus, PaymentStatus } from './schemas/order.schema';
 import { CartService } from '../cart/cart.service';
 import { UsersService } from '../users/users.service';
 import { ProductsService } from '../products/products.service';
+import { StripeService } from '../stripe/stripe.service';
 
 const POINTS_PER_DOLLAR = 1; // 1 point per $1 spent
 const POINTS_VALUE = 0.01; // 1 point = $0.01
@@ -16,6 +17,7 @@ export class OrdersService {
     private cartService: CartService,
     private usersService: UsersService,
     private productsService: ProductsService,
+    private stripeService: StripeService,
   ) {}
 
   async createOrder(userId: string, body: any) {
@@ -41,7 +43,8 @@ export class OrdersService {
     
     let loyaltyPointsEarned = 0;
     for (const item of cart.items) {
-      const product = await this.productsService.findOne(item.productId.toString());
+      const pId = (item.productId as any)._id || item.productId;
+      const product = await this.productsService.findOne(pId.toString());
       if (product.earnedPoints && product.earnedPoints > 0) {
         loyaltyPointsEarned += product.earnedPoints * item.quantity;
       } else {
@@ -53,7 +56,7 @@ export class OrdersService {
     const order = await this.orderModel.create({
       userId,
       items: cart.items.map((item) => ({
-        productId: item.productId,
+        productId: (item.productId as any)._id || item.productId,
         name: item.name,
         image: item.image,
         price: item.price,
@@ -69,21 +72,43 @@ export class OrdersService {
       promoCode: body.promoCode || null,
       loyaltyPointsEarned,
       loyaltyPointsSpent,
-      paymentMethod: body.paymentMethod || 'card',
-      isPaid: true,
-      status: OrderStatus.CONFIRMED,
+      paymentMethod: body.paymentMethod || 'stripe',
+      isPaid: false,
+      status: OrderStatus.PENDING,
+      paymentStatus: PaymentStatus.PENDING,
     });
 
-    // Award loyalty points, deduct spent points
-    await this.usersService.addLoyaltyPoints(userId, loyaltyPointsEarned);
     if (loyaltyPointsSpent > 0) {
       await this.usersService.deductLoyaltyPoints(userId, loyaltyPointsSpent);
     }
 
-    // Clear cart
+    let stripeUrl = null;
+
+    if (total > 0 && (body.paymentMethod === 'stripe' || !body.paymentMethod)) {
+      const user = await this.usersService.getProfile(userId);
+      try {
+        const session = await this.stripeService.createCheckoutSession(order._id.toString(), total, user.email);
+        stripeUrl = session.url;
+        order.stripeSessionId = session.sessionId;
+        await order.save();
+      } catch (error: any) {
+        await this.orderModel.findByIdAndDelete(order._id);
+        if (loyaltyPointsSpent > 0) {
+          await this.usersService.addLoyaltyPoints(userId, loyaltyPointsSpent);
+        }
+        throw new BadRequestException(error.message || 'Payment gateway error');
+      }
+    } else if (total === 0) {
+      order.isPaid = true;
+      order.status = OrderStatus.CONFIRMED;
+      order.paymentStatus = PaymentStatus.SUCCESS;
+      await order.save();
+      await this.usersService.addLoyaltyPoints(userId, loyaltyPointsEarned);
+    }
+
     await this.cartService.clearCart(userId);
 
-    return order;
+    return { order, stripeUrl };
   }
 
   async getMyOrders(userId: string) {

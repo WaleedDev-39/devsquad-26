@@ -195,7 +195,15 @@ export default function OrderDetails({ params }: { params: { id: string } }) {
                     </div>
                     <div>
                       <p className="font-bold text-sm text-gray-900 mb-1">Payment Method</p>
-                      <p className="text-xs text-gray-500">Not Provided (Mock)</p>
+                      <p className="text-xs text-gray-500 capitalize">{order.paymentMethod || 'Stripe'}</p>
+                      {order.paymentStatus && (
+                        <p className={`text-xs font-bold mt-1 uppercase ${order.paymentStatus === 'success' ? 'text-green-600' : order.paymentStatus === 'failed' ? 'text-red-600' : 'text-yellow-600'}`}>
+                          Status: {order.paymentStatus}
+                        </p>
+                      )}
+                      {order.stripeSessionId && (
+                        <p className="text-[10px] text-gray-400 mt-1 break-all">Stripe ID: {order.stripeSessionId}</p>
+                      )}
                     </div>
                  </div>
               </div>

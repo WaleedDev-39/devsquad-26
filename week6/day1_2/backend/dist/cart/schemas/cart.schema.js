@@ -9,49 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CartSchema = exports.Cart = exports.CartItem = void 0;
+exports.CartSchema = exports.Cart = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-class CartItem {
-}
-exports.CartItem = CartItem;
-__decorate([
-    (0, mongoose_1.Prop)({ type: mongoose_2.Types.ObjectId, ref: 'Product', required: true }),
-    __metadata("design:type", mongoose_2.Types.ObjectId)
-], CartItem.prototype, "productId", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true, min: 1 }),
-    __metadata("design:type", Number)
-], CartItem.prototype, "quantity", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
-], CartItem.prototype, "size", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
-], CartItem.prototype, "color", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", Number)
-], CartItem.prototype, "price", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
-], CartItem.prototype, "name", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], CartItem.prototype, "image", void 0);
+const CartItemRawSchema = new mongoose_2.Schema({
+    productId: { type: mongoose_2.Schema.Types.ObjectId, ref: 'Product', required: true },
+    quantity: { type: Number, required: true, min: 1 },
+    size: { type: String, required: true },
+    color: { type: String, required: true },
+    price: { type: Number, required: true },
+    name: { type: String, required: true },
+    image: { type: String, default: '' },
+}, { _id: true });
 let Cart = class Cart {
 };
 exports.Cart = Cart;
 __decorate([
-    (0, mongoose_1.Prop)({ type: mongoose_2.Types.ObjectId, ref: 'User', required: true, unique: true }),
+    (0, mongoose_1.Prop)({ type: mongoose_2.Schema.Types.ObjectId, ref: 'User', required: true }),
     __metadata("design:type", mongoose_2.Types.ObjectId)
 ], Cart.prototype, "userId", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ type: [CartItem], default: [] }),
+    (0, mongoose_1.Prop)({ type: [CartItemRawSchema], default: [] }),
     __metadata("design:type", Array)
 ], Cart.prototype, "items", void 0);
 exports.Cart = Cart = __decorate([

@@ -5,6 +5,7 @@ export declare class CartService {
     private cartModel;
     private productsService;
     constructor(cartModel: Model<CartDocument>, productsService: ProductsService);
+    private toObjectId;
     getCart(userId: string): Promise<import("mongoose").Document<unknown, {}, CartDocument, {}, {}> & Cart & import("mongoose").Document<Types.ObjectId, any, any, Record<string, any>, {}> & Required<{
         _id: Types.ObjectId;
     }> & {

@@ -85,6 +85,9 @@ export interface Order {
   totalAmount?: number;
   promoCode: string | null;
   status: 'pending' | 'confirmed' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
+  paymentStatus?: 'pending' | 'success' | 'failed';
+  stripeSessionId?: string;
+  stripePaymentIntentId?: string;
   loyaltyPointsEarned: number;
   loyaltyPointsSpent: number;
   paymentMethod: string;

@@ -1,38 +1,43 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
+import { Document, Schema as MongooseSchema, Types } from 'mongoose';
 
 export type CartDocument = Cart & Document;
 
-export class CartItem {
-  @Prop({ type: Types.ObjectId, ref: 'Product', required: true })
+// Define CartItem as a raw Mongoose schema (more reliable than SchemaFactory for subdocuments)
+const CartItemRawSchema = new MongooseSchema(
+  {
+    productId: { type: MongooseSchema.Types.ObjectId, ref: 'Product', required: true },
+    quantity:  { type: Number, required: true, min: 1 },
+    size:      { type: String, required: true },
+    color:     { type: String, required: true },
+    price:     { type: Number, required: true },
+    name:      { type: String, required: true },
+    image:     { type: String, default: '' },
+  },
+  { _id: true },
+);
+
+// Export interface so TypeScript knows the shape
+export interface CartItem {
+  _id?: Types.ObjectId;
   productId: Types.ObjectId;
-
-  @Prop({ required: true, min: 1 })
   quantity: number;
-
-  @Prop({ required: true })
   size: string;
-
-  @Prop({ required: true })
   color: string;
-
-  @Prop({ required: true })
   price: number;
-
-  @Prop({ required: true })
   name: string;
-
-  @Prop()
   image: string;
 }
 
 @Schema({ timestamps: true })
 export class Cart {
-  @Prop({ type: Types.ObjectId, ref: 'User', required: true, unique: true })
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true})
   userId: Types.ObjectId;
 
-  @Prop({ type: [CartItem], default: [] })
+  @Prop({ type: [CartItemRawSchema], default: [] })
   items: CartItem[];
+
+  
 }
 
 export const CartSchema = SchemaFactory.createForClass(Cart);

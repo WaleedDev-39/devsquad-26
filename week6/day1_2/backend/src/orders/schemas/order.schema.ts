@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
+import { Document, Schema as MongooseSchema, Types } from 'mongoose';
 
 export type OrderDocument = Order & Document;
 
@@ -12,58 +12,66 @@ export enum OrderStatus {
   CANCELLED = 'cancelled',
 }
 
-export class OrderItem {
-  @Prop({ type: Types.ObjectId, ref: 'Product' })
-  productId: Types.ObjectId;
-
-  @Prop({ required: true })
-  name: string;
-
-  @Prop()
-  image: string;
-
-  @Prop({ required: true })
-  price: number;
-
-  @Prop({ required: true })
-  quantity: number;
-
-  @Prop()
-  size: string;
-
-  @Prop()
-  color: string;
+export enum PaymentStatus {
+  PENDING = 'pending',
+  SUCCESS = 'success',
+  FAILED = 'failed',
 }
 
-export class ShippingAddress {
-  @Prop({ required: true })
+// Raw Mongoose subdocument schemas (more reliable than SchemaFactory for nested docs)
+const OrderItemRawSchema = new MongooseSchema(
+  {
+    productId: { type: MongooseSchema.Types.ObjectId, ref: 'Product' },
+    name:      { type: String, required: true },
+    image:     { type: String },
+    price:     { type: Number, required: true },
+    quantity:  { type: Number, required: true },
+    size:      { type: String },
+    color:     { type: String },
+  },
+  { _id: true },
+);
+
+const ShippingAddressRawSchema = new MongooseSchema(
+  {
+    fullName:   { type: String, required: true },
+    address:    { type: String, required: true },
+    city:       { type: String, required: true },
+    postalCode: { type: String, required: true },
+    country:    { type: String, required: true },
+    phone:      { type: String },
+  },
+  { _id: false },
+);
+
+export interface OrderItem {
+  productId?: Types.ObjectId;
+  name: string;
+  image?: string;
+  price: number;
+  quantity: number;
+  size?: string;
+  color?: string;
+}
+
+export interface ShippingAddress {
   fullName: string;
-
-  @Prop({ required: true })
   address: string;
-
-  @Prop({ required: true })
   city: string;
-
-  @Prop({ required: true })
   postalCode: string;
-
-  @Prop({ required: true })
   country: string;
-
-  @Prop()
-  phone: string;
+  phone?: string;
 }
 
 @Schema({ timestamps: true })
 export class Order {
-  @Prop({ type: Types.ObjectId, ref: 'User', required: true })
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true })
   userId: Types.ObjectId;
 
-  @Prop({ type: [OrderItem], default: [] })
+  @Prop({ type: [OrderItemRawSchema], default: [] })
   items: OrderItem[];
 
-  @Prop({ type: ShippingAddress })
+  @Prop({ type: ShippingAddressRawSchema })
   shippingAddress: ShippingAddress;
 
   @Prop({ required: true, min: 0 })
@@ -90,11 +98,20 @@ export class Order {
   @Prop({ default: 0 })
   loyaltyPointsSpent: number;
 
-  @Prop({ default: 'card' })
+  @Prop({ default: 'stripe' })
   paymentMethod: string;
+
+  @Prop({ type: String, enum: PaymentStatus, default: PaymentStatus.PENDING })
+  paymentStatus: PaymentStatus;
 
   @Prop({ default: false })
   isPaid: boolean;
+
+  @Prop()
+  stripeSessionId: string;
+
+  @Prop()
+  stripePaymentIntentId: string;
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);

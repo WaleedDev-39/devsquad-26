@@ -36,7 +36,12 @@ export const useCartStore = create<CartStore>()(
       addItem: async (product, qty, size, color, isLoggedIn) => {
         if (isLoggedIn) {
           try {
-            const res = await cartApi.addItem({ productId: product._id, quantity: qty, size, color });
+            const res = await cartApi.addItem({ 
+              productId: product._id.toString(), 
+              quantity: qty, 
+              size, 
+              color 
+            });
             const serverItems = res.data.items;
             get().syncFromServer(serverItems);
             toast.success('Added to cart!');
@@ -107,16 +112,19 @@ export const useCartStore = create<CartStore>()(
 
       syncFromServer: (serverItems) => {
         set({
-          items: serverItems.map((i) => ({
-            _id: (i as any)._id || i.productId as string,
-            productId: i.productId as string,
-            name: i.name,
-            image: i.image,
-            price: i.price,
-            quantity: i.quantity,
-            size: i.size,
-            color: i.color,
-          })),
+          items: serverItems.map((i) => {
+            const pId = (i.productId as any)?._id || i.productId;
+            return {
+              _id: (i as any)._id || pId.toString(),
+              productId: pId.toString(),
+              name: i.name,
+              image: i.image,
+              price: i.price,
+              quantity: i.quantity,
+              size: i.size,
+              color: i.color,
+            };
+          }),
         });
       },
 

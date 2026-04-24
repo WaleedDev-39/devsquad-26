@@ -1,4 +1,4 @@
-import { Document, Types } from 'mongoose';
+import { Document, Schema as MongooseSchema, Types } from 'mongoose';
 export type OrderDocument = Order & Document;
 export declare enum OrderStatus {
     PENDING = "pending",
@@ -8,22 +8,27 @@ export declare enum OrderStatus {
     DELIVERED = "delivered",
     CANCELLED = "cancelled"
 }
-export declare class OrderItem {
-    productId: Types.ObjectId;
+export declare enum PaymentStatus {
+    PENDING = "pending",
+    SUCCESS = "success",
+    FAILED = "failed"
+}
+export interface OrderItem {
+    productId?: Types.ObjectId;
     name: string;
-    image: string;
+    image?: string;
     price: number;
     quantity: number;
-    size: string;
-    color: string;
+    size?: string;
+    color?: string;
 }
-export declare class ShippingAddress {
+export interface ShippingAddress {
     fullName: string;
     address: string;
     city: string;
     postalCode: string;
     country: string;
-    phone: string;
+    phone?: string;
 }
 export declare class Order {
     userId: Types.ObjectId;
@@ -38,9 +43,12 @@ export declare class Order {
     loyaltyPointsEarned: number;
     loyaltyPointsSpent: number;
     paymentMethod: string;
+    paymentStatus: PaymentStatus;
     isPaid: boolean;
+    stripeSessionId: string;
+    stripePaymentIntentId: string;
 }
-export declare const OrderSchema: import("mongoose").Schema<Order, import("mongoose").Model<Order, any, any, any, Document<unknown, any, Order, any, {}> & Order & {
+export declare const OrderSchema: MongooseSchema<Order, import("mongoose").Model<Order, any, any, any, Document<unknown, any, Order, any, {}> & Order & {
     _id: Types.ObjectId;
 } & {
     __v: number;

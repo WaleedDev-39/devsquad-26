@@ -10,28 +10,35 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 export class CartController {
   constructor(private cartService: CartService) {}
 
+  private getUserId(req: any): string {
+    // Support both userId (from JwtStrategy.validate) and sub (raw JWT field)
+    return req.user?.userId || req.user?.sub;
+  }
+
   @Get()
   getCart(@Request() req) {
-    return this.cartService.getCart(req.user.userId);
+    return this.cartService.getCart(this.getUserId(req));
   }
 
   @Post('add')
   addItem(@Request() req, @Body() body: any) {
-    return this.cartService.addItem(req.user.userId, body);
+    console.log('[CartController.addItem] req.user:', req.user);
+    console.log('[CartController.addItem] body:', body);
+    return this.cartService.addItem(this.getUserId(req), body);
   }
 
   @Patch('update/:itemId')
   updateItem(@Request() req, @Param('itemId') itemId: string, @Body('quantity') quantity: number) {
-    return this.cartService.updateItem(req.user.userId, itemId, quantity);
+    return this.cartService.updateItem(this.getUserId(req), itemId, quantity);
   }
 
   @Delete('remove/:itemId')
   removeItem(@Request() req, @Param('itemId') itemId: string) {
-    return this.cartService.removeItem(req.user.userId, itemId);
+    return this.cartService.removeItem(this.getUserId(req), itemId);
   }
 
   @Delete('clear')
   clearCart(@Request() req) {
-    return this.cartService.clearCart(req.user.userId);
+    return this.cartService.clearCart(this.getUserId(req));
   }
 }

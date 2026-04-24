@@ -20,14 +20,16 @@ const order_schema_1 = require("./schemas/order.schema");
 const cart_service_1 = require("../cart/cart.service");
 const users_service_1 = require("../users/users.service");
 const products_service_1 = require("../products/products.service");
+const stripe_service_1 = require("../stripe/stripe.service");
 const POINTS_PER_DOLLAR = 1;
 const POINTS_VALUE = 0.01;
 let OrdersService = class OrdersService {
-    constructor(orderModel, cartService, usersService, productsService) {
+    constructor(orderModel, cartService, usersService, productsService, stripeService) {
         this.orderModel = orderModel;
         this.cartService = cartService;
         this.usersService = usersService;
         this.productsService = productsService;
+        this.stripeService = stripeService;
     }
     async createOrder(userId, body) {
         const cart = await this.cartService.getCart(userId);
@@ -48,7 +50,8 @@ let OrdersService = class OrdersService {
         const total = Math.max(0, subtotal - discount + deliveryFee);
         let loyaltyPointsEarned = 0;
         for (const item of cart.items) {
-            const product = await this.productsService.findOne(item.productId.toString());
+            const pId = item.productId._id || item.productId;
+            const product = await this.productsService.findOne(pId.toString());
             if (product.earnedPoints && product.earnedPoints > 0) {
                 loyaltyPointsEarned += product.earnedPoints * item.quantity;
             }
@@ -59,7 +62,7 @@ let OrdersService = class OrdersService {
         const order = await this.orderModel.create({
             userId,
             items: cart.items.map((item) => ({
-                productId: item.productId,
+                productId: item.productId._id || item.productId,
                 name: item.name,
                 image: item.image,
                 price: item.price,
@@ -75,16 +78,40 @@ let OrdersService = class OrdersService {
             promoCode: body.promoCode || null,
             loyaltyPointsEarned,
             loyaltyPointsSpent,
-            paymentMethod: body.paymentMethod || 'card',
-            isPaid: true,
-            status: order_schema_1.OrderStatus.CONFIRMED,
+            paymentMethod: body.paymentMethod || 'stripe',
+            isPaid: false,
+            status: order_schema_1.OrderStatus.PENDING,
+            paymentStatus: order_schema_1.PaymentStatus.PENDING,
         });
-        await this.usersService.addLoyaltyPoints(userId, loyaltyPointsEarned);
         if (loyaltyPointsSpent > 0) {
             await this.usersService.deductLoyaltyPoints(userId, loyaltyPointsSpent);
         }
+        let stripeUrl = null;
+        if (total > 0 && (body.paymentMethod === 'stripe' || !body.paymentMethod)) {
+            const user = await this.usersService.getProfile(userId);
+            try {
+                const session = await this.stripeService.createCheckoutSession(order._id.toString(), total, user.email);
+                stripeUrl = session.url;
+                order.stripeSessionId = session.sessionId;
+                await order.save();
+            }
+            catch (error) {
+                await this.orderModel.findByIdAndDelete(order._id);
+                if (loyaltyPointsSpent > 0) {
+                    await this.usersService.addLoyaltyPoints(userId, loyaltyPointsSpent);
+                }
+                throw new common_1.BadRequestException(error.message || 'Payment gateway error');
+            }
+        }
+        else if (total === 0) {
+            order.isPaid = true;
+            order.status = order_schema_1.OrderStatus.CONFIRMED;
+            order.paymentStatus = order_schema_1.PaymentStatus.SUCCESS;
+            await order.save();
+            await this.usersService.addLoyaltyPoints(userId, loyaltyPointsEarned);
+        }
         await this.cartService.clearCart(userId);
-        return order;
+        return { order, stripeUrl };
     }
     async getMyOrders(userId) {
         return this.orderModel.find({ userId }).sort({ createdAt: -1 });
@@ -160,6 +187,7 @@ exports.OrdersService = OrdersService = __decorate([
     __metadata("design:paramtypes", [mongoose_2.Model,
         cart_service_1.CartService,
         users_service_1.UsersService,
-        products_service_1.ProductsService])
+        products_service_1.ProductsService,
+        stripe_service_1.StripeService])
 ], OrdersService);
 //# sourceMappingURL=orders.service.js.map

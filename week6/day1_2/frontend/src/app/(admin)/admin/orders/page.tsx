@@ -82,6 +82,17 @@ export default function AdminOrders() {
                      >
                         {order.status}
                      </span>
+                     {order.paymentStatus && (
+                       <div className="mt-1">
+                         <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase
+                           ${order.paymentStatus === 'success' ? 'bg-green-100 text-green-700' : 
+                             order.paymentStatus === 'failed' ? 'bg-red-100 text-red-700' : 
+                             'bg-yellow-100 text-yellow-700'}`}
+                         >
+                           PAY: {order.paymentStatus}
+                         </span>
+                       </div>
+                     )}
                   </td>
                   <td className="px-6 py-4 text-center">
                     <Link href={`/admin/orders/${order._id}`} className="inline-flex items-center justify-center p-2 text-gray-400 hover:text-black hover:bg-gray-100 rounded-lg transition-colors">

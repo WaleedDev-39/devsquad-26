@@ -21,7 +21,7 @@ export default function CheckoutPage() {
     country: '',
     phone: '',
   });
-  const [paymentMethod, setPaymentMethod] = useState('card');
+  const [paymentMethod, setPaymentMethod] = useState('stripe');
   const [usePoints, setUsePoints] = useState(false);
 
   const subtotal = getSubtotal();
@@ -34,13 +34,21 @@ export default function CheckoutPage() {
         shippingAddress: form,
         paymentMethod,
         usePoints,
+        pointsToSpend: usePoints && user ? user.loyaltyPoints : undefined,
       }),
     onSuccess: (res) => {
       clearCart();
-      toast.success('Order placed successfully! 🎉');
-      router.push(`/orders/${res.data._id}`);
+      if (res.data.stripeUrl) {
+        window.location.href = res.data.stripeUrl;
+      } else {
+        toast.success('Order placed successfully! 🎉');
+        router.push(`/orders/${res.data.order._id}`);
+      }
     },
-    onError: () => toast.error('Failed to place order. Please try again.'),
+    onError: (err: any) => {
+      const message = err?.response?.data?.message || 'Failed to place order. Please try again.';
+      toast.error(message);
+    },
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -98,7 +106,7 @@ export default function CheckoutPage() {
             <h2 className="font-bold text-lg mb-5">Payment Method</h2>
             <div className="space-y-3">
               {[
-                { value: 'card', label: '💳 Credit / Debit Card' },
+                { value: 'stripe', label: '💳 Credit / Debit Card (Stripe)' },
                 { value: 'paypal', label: '🟡 PayPal' },
                 { value: 'cash', label: '💵 Cash on Delivery' },
               ].map((opt) => (

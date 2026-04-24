@@ -70,9 +70,16 @@ export default function OrderDetailPage() {
             {new Date(order.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
           </p>
         </div>
-        <span className={`text-sm font-medium px-4 py-2 rounded-full capitalize ${STATUS_COLORS[order.status] || 'bg-gray-100 text-gray-600'}`}>
-          {order.status}
-        </span>
+        <div className="flex flex-col items-end gap-2">
+          <span className={`text-sm font-medium px-4 py-2 rounded-full capitalize ${STATUS_COLORS[order.status] || 'bg-gray-100 text-gray-600'}`}>
+            {order.status}
+          </span>
+          {order.paymentStatus && (
+            <span className={`text-xs font-bold px-3 py-1 rounded-full uppercase ${order.paymentStatus === 'success' ? 'bg-green-100 text-green-700' : order.paymentStatus === 'failed' ? 'bg-red-100 text-red-700' : 'bg-yellow-100 text-yellow-700'}`}>
+              PAYMENT {order.paymentStatus}
+            </span>
+          )}
+        </div>
       </div>
 
       {/* Progress tracker */}
@@ -138,6 +145,12 @@ export default function OrderDetailPage() {
           </div>
           {order.loyaltyPointsEarned > 0 && (
             <p className="text-xs text-yellow-600 mt-3 font-medium">🪙 +{order.loyaltyPointsEarned} points earned</p>
+          )}
+          {order.loyaltyPointsSpent > 0 && (
+            <p className="text-xs text-yellow-600 mt-1 font-medium">🪙 -{order.loyaltyPointsSpent} points used</p>
+          )}
+          {order.stripeSessionId && (
+            <p className="text-xs text-gray-400 mt-3 break-all">Stripe ID: {order.stripeSessionId}</p>
           )}
         </div>
 
