@@ -34,17 +34,9 @@ export default function MarketTrendSection() {
           Market Trend
         </Typography>
 
-        <Grid container spacing={3} alignitems="stretch" sx={{
-          display: 'grid', gridTemplateColumns: {
-            xs: 'repeat(1, 1fr)',
-            sm: 'repeat(1, 1fr)',
-            md: 'repeat(2, 1fr)',
-            lg: 'repeat(4, 1fr)',
-            xl: 'repeat(4, 1fr)'
-          }, gap: 2
-        }}>
+        <Grid container spacing={3}>
           {allCards.map((coin, idx) => (
-            <Grid item xs={12} sm={6} md={3} lg={3} key={idx} sx={{ display: 'flex' }}>
+            <Grid size={{ xs: 12, md: 6, lg: 3 }} key={idx} sx={{ display: 'flex' }}>
               <Box sx={{ width: '100%', height: '100%' }}>
                 <CryptoCard
                   icon={coin.icon}

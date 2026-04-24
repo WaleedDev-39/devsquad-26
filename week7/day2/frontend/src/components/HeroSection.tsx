@@ -68,7 +68,7 @@ export default function HeroSection() {
             </Typography>
             <Typography
               sx={{
-                color: '#fffff',
+                color: '#ffffff',
                 fontSize: { xs: '15px', md: '20px' },
                 lineHeight: 1.7,
                 mb: 4,
@@ -85,7 +85,7 @@ export default function HeroSection() {
               <Button
                 variant="contained"
                 size="large"
-                id="start-trading-btn"
+                id="connect-wallet-btn"
                 component={Link}
                 href="/dashboard"
                 sx={{

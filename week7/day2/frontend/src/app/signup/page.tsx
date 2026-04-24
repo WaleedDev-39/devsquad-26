@@ -51,8 +51,7 @@ export default function SignupPage() {
         >
           {/* Logo */}
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, mb: 3 }}>
-            <Image src="/assets/Logo.png" alt="Circlechain" width={40} height={40} style={{ objectFit: 'contain' }} />
-            <Typography sx={{ fontWeight: 800, fontSize: '22px', color: '#fff' }}>Circlechain</Typography>
+            <Image src="/assets/Logo.png" alt="Circlechain" width={180} height={180} style={{ objectFit: 'contain' }} />
           </Box>
 
           <Typography variant="h4" sx={{ color: '#fff', fontWeight: 700, textAlign: 'center', mb: 0.5 }}>

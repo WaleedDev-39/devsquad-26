@@ -91,7 +91,7 @@ export default function LoginPage() {
           {/* Footer links */}
           <Box sx={{ textAlign: 'center' }}>
             <Typography sx={{ color: '#6B7280', fontSize: '13px' }}>
-              Don't have an account?{' '}
+              Don&apos;t have an account?{' '}
               <Typography
                 component={Link}
                 href="/signup"

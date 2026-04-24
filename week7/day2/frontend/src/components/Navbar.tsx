@@ -99,7 +99,7 @@ export default function Navbar() {
                     component="a"
                     href={link.href}
                     sx={{
-                      color: '#fffff', fontSize: '18px', fontWeight: 400,
+                      color: '#ffffff', fontSize: '18px', fontWeight: 400,
                       textDecoration: 'none', cursor: 'pointer',
                       transition: 'color 0.2s',
                       '&:hover': { textDecoration: 'underline', textDecorationColor: '#00E676', textDecorationThickness: '2px', textUnderlineOffset: '10px' },
@@ -163,7 +163,7 @@ export default function Navbar() {
         anchor="right"
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
-        PaperProps={{ sx: { backgroundColor: '#0D1117', width: 280, borderLeft: '1px solid #1a2332' } }}
+        sx={{ '& .MuiDrawer-paper': { backgroundColor: '#0D1117', width: 280, borderLeft: '1px solid #1a2332' } }}
       >
         <Box sx={{ p: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #1a2332' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>

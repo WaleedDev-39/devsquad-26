@@ -7,7 +7,7 @@ import { useGetCurrentUserQuery, useUpdateProfileMutation } from '@/services/api
 import {
   Box, Typography, Container, Card, CardContent, Avatar,
   TextField, Button, CircularProgress, Snackbar, Alert,
-  Divider, Chip, Grid,
+  Divider, Chip,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import CheckIcon from '@mui/icons-material/Check';

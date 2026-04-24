@@ -15,8 +15,32 @@ async function bootstrap() {
         forbidNonWhitelisted: true,
         transform: true,
     }));
-    await app.listen(process.env.PORT || 3001);
-    console.log(`🚀 Backend running on http://localhost:${process.env.PORT || 3001}`);
+    if (process.env.NODE_ENV !== 'production') {
+        await app.listen(process.env.PORT || 3001);
+        console.log(`🚀 Backend running on http://localhost:${process.env.PORT || 3001}`);
+    }
+    await app.init();
 }
-bootstrap();
+let cachedApp;
+if (process.env.NODE_ENV !== 'production') {
+    bootstrap();
+}
+exports.default = async (req, res) => {
+    if (!cachedApp) {
+        const app = await core_1.NestFactory.create(app_module_1.AppModule);
+        app.setGlobalPrefix('api');
+        app.enableCors({
+            origin: process.env.FRONTEND_URL || '*',
+            credentials: true,
+        });
+        app.useGlobalPipes(new common_1.ValidationPipe({
+            whitelist: true,
+            forbidNonWhitelisted: true,
+            transform: true,
+        }));
+        await app.init();
+        cachedApp = app.getHttpAdapter().getInstance();
+    }
+    return cachedApp(req, res);
+};
 //# sourceMappingURL=main.js.map

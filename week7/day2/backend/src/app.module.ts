@@ -7,6 +7,8 @@ import { UsersModule } from './users/users.module';
 import { User } from './users/user.entity';
 import { Subscriber } from './newsletter/subscriber.entity';
 
+import { join } from 'path';
+
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -15,7 +17,7 @@ import { Subscriber } from './newsletter/subscriber.entity';
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         type: 'better-sqlite3',
-        database: 'circlechain.sqlite',
+        database: join(process.cwd(), 'circlechain.sqlite'),
         entities: [User, Subscriber],
         synchronize: true,
       }),

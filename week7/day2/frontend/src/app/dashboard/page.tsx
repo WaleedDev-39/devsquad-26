@@ -90,7 +90,7 @@ function DashboardContent() {
           {/* Stats Row */}
           <Grid container spacing={3} sx={{ mb: 5 }}>
             {stats.map((stat) => (
-              <Grid item xs={12} sm={4} key={stat.label}>
+              <Grid size={{ xs: 12, sm: 4 }} key={stat.label}>
                 <Card sx={{ background: 'linear-gradient(135deg, #0D1117, #111827)', border: '1px solid #1a2332', borderRadius: '16px', p: 1 }}>
                   <CardContent>
                     <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', mb: 1 }}>
@@ -141,7 +141,7 @@ function DashboardContent() {
                 { label: 'Sell Crypto', color: 'transparent', textColor: '#00E676', border: '1px solid #00E676' },
                 { label: 'Transfer', color: 'transparent', textColor: '#9CA3AF', border: '1px solid #1a2332' },
               ].map((action) => (
-                <Grid item xs={12} sm={4} key={action.label}>
+                <Grid size={{ xs: 12, sm: 4 }} key={action.label}>
                   <Button
                     fullWidth
                     size="large"
@@ -166,7 +166,7 @@ function DashboardContent() {
             </Box>
             <Grid container spacing={2}>
               {portfolioItems.map((coin, idx) => (
-                <Grid item xs={6} sm={3} key={idx}>
+                <Grid size={{ xs: 6, sm: 3 }} key={idx}>
                   <CryptoCard icon={coin.icon} ticker={coin.ticker} name={coin.name} price={coin.price} change={coin.change} positive />
                 </Grid>
               ))}

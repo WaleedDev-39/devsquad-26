@@ -47,22 +47,30 @@ const theme = createTheme({
           fontWeight: 600,
           borderRadius: 8,
         },
-        containedPrimary: {
-          backgroundColor: '#00E676',
-          color: '#000000',
-          '&:hover': {
-            backgroundColor: '#00c764',
-          },
-        },
-        outlinedPrimary: {
-          borderColor: '#00E676',
-          color: '#00E676',
-          '&:hover': {
-            borderColor: '#00c764',
-            backgroundColor: 'rgba(0,230,118,0.08)',
-          },
-        },
       },
+      variants: [
+        {
+          props: { variant: 'contained', color: 'primary' },
+          style: {
+            backgroundColor: '#00E676',
+            color: '#000000',
+            '&:hover': {
+              backgroundColor: '#00c764',
+            },
+          },
+        },
+        {
+          props: { variant: 'outlined', color: 'primary' },
+          style: {
+            borderColor: '#00E676',
+            color: '#00E676',
+            '&:hover': {
+              borderColor: '#00c764',
+              backgroundColor: 'rgba(0,230,118,0.08)',
+            },
+          },
+        },
+      ],
     },
     MuiCard: {
       styleOverrides: {

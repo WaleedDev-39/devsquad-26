@@ -21,7 +21,7 @@ export class AuthController {
   @UseGuards(GoogleAuthGuard)
   async googleAuthCallback(@Req() req: any, @Res() res: Response) {
     const result = await this.authService.login(req.user);
-    const frontendUrl = this.configService.get<string>('FRONTEND_URL');
+    const frontendUrl = this.configService.get<string>('FRONTEND_URL') || 'http://localhost:3000';
     res.redirect(
       `${frontendUrl}/dashboard?token=${result.access_token}&user=${encodeURIComponent(JSON.stringify(result.user))}`,
     );
