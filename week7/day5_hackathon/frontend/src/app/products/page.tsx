@@ -18,8 +18,10 @@ import { useGetRawMaterialsQuery } from '@/store/apis/rawMaterialsApi';
 const EMPTY_PRODUCT = { name: '', price: 0, description: '', category: '', recipe: [] as any[] };
 
 export default function ProductsPage() {
-  const { data: products = [], isLoading } = useGetProductsQuery(undefined);
-  const { data: rawMaterials = [] } = useGetRawMaterialsQuery(undefined);
+  const { data: rawProductsData = [], isLoading } = useGetProductsQuery(undefined);
+  const products = Array.isArray(rawProductsData) ? rawProductsData : [];
+  const { data: rawRMData = [] } = useGetRawMaterialsQuery(undefined);
+  const rawMaterials = Array.isArray(rawRMData) ? rawRMData : [];
   const [create] = useCreateProductMutation();
   const [update] = useUpdateProductMutation();
   const [remove] = useDeleteProductMutation();
@@ -84,7 +86,7 @@ export default function ProductsPage() {
     <AppShell>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
         <Box>
-          <Typography variant="h4" fontWeight={800} color="primary.dark">Products & Recipes</Typography>
+          <Typography variant="h4" sx={{ fontWeight: 800 }} color="primary.dark">Products & Recipes</Typography>
           <Typography color="text.secondary">Define products and their raw material composition</Typography>
         </Box>
         <Button variant="contained" startIcon={<AddIcon />} onClick={openAdd} size="large">Add Product</Button>
@@ -96,7 +98,7 @@ export default function ProductsPage() {
 
       <Grid container spacing={2.5}>
         {products.map((p: any) => (
-          <Grid item xs={12} sm={6} lg={4} key={p._id}>
+          <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={p._id}>
             <Card sx={{ height: '100%', position: 'relative' }}>
               <CardContent>
                 {/* Header */}
@@ -106,7 +108,7 @@ export default function ProductsPage() {
                       <BlenderIcon fontSize="small" />
                     </Avatar>
                     <Box>
-                      <Typography fontWeight={700} lineHeight={1.2}>{p.name}</Typography>
+                          <Typography sx={{ fontWeight: 700, lineHeight: 1.2 }}>{p.name}</Typography>
                       {p.category && <Chip label={p.category} size="small" sx={{ mt: 0.5, bgcolor: '#F0FDFA', color: '#0891B2' }} />}
                     </Box>
                   </Box>
@@ -118,7 +120,7 @@ export default function ProductsPage() {
 
                 {/* Price + Stock */}
                 <Box sx={{ display: 'flex', gap: 1, mb: 2 }}>
-                  <Chip label={`$${p.price.toFixed(2)}`} sx={{ bgcolor: '#EEF2FF', color: '#4F46E5', fontWeight: 700 }} />
+                  <Chip label={`$${(p.price || 0).toFixed(2)}`} sx={{ bgcolor: '#EEF2FF', color: '#4F46E5', fontWeight: 700 }} />
                   <Chip
                     label={p.availableStock > 0 ? `${p.availableStock} available` : 'Out of stock'}
                     color={p.availableStock > 0 ? 'success' : 'error'}
@@ -126,18 +128,18 @@ export default function ProductsPage() {
                   />
                 </Box>
 
-                {p.description && <Typography variant="body2" color="text.secondary" mb={1.5}>{p.description}</Typography>}
+                {p.description && <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>{p.description}</Typography>}
 
                 {/* Recipe */}
                 <Divider sx={{ mb: 1.5 }} />
-                <Typography variant="caption" fontWeight={700} color="text.secondary" sx={{ textTransform: 'uppercase', letterSpacing: 0.5 }}>
+                <Typography variant="caption" sx={{ fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }} color="text.secondary">
                   Recipe ({p.recipe?.length || 0} ingredients)
                 </Typography>
                 <Box sx={{ mt: 1 }}>
                   {p.recipe?.map((r: any, i: number) => (
                     <Box key={i} sx={{ display: 'flex', justifyContent: 'space-between', py: 0.4 }}>
                       <Typography variant="body2" color="text.secondary">{r.rawMaterial?.name || 'Unknown'}</Typography>
-                      <Typography variant="body2" fontWeight={600}>{r.quantity} {r.rawMaterial?.unit}</Typography>
+                      <Typography variant="body2" sx={{ fontWeight: 600 }}>{r.quantity} {r.rawMaterial?.unit}</Typography>
                     </Box>
                   ))}
                   {(!p.recipe || p.recipe.length === 0) && <Typography variant="caption" color="text.disabled">No ingredients defined</Typography>}
@@ -150,27 +152,27 @@ export default function ProductsPage() {
 
       {/* Add/Edit Dialog */}
       <Dialog open={open} onClose={() => setOpen(false)} maxWidth="md" fullWidth>
-        <DialogTitle fontWeight={700}>{editing ? 'Edit Product' : 'Create Product'}</DialogTitle>
+        <DialogTitle sx={{ fontWeight: 700 }}>{editing ? 'Edit Product' : 'Create Product'}</DialogTitle>
         <DialogContent>
           <Grid container spacing={2} sx={{ mt: 0.5 }}>
-            {error && <Grid item xs={12}><Alert severity="error">{error}</Alert></Grid>}
-            <Grid item xs={12} sm={6}>
+            {error && <Grid size={{ xs: 12 }}><Alert severity="error">{error}</Alert></Grid>}
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField label="Product Name" fullWidth value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
             </Grid>
-            <Grid item xs={6} sm={3}>
+            <Grid size={{ xs: 6, sm: 3 }}>
               <TextField label="Price ($)" type="number" fullWidth value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} />
             </Grid>
-            <Grid item xs={6} sm={3}>
+            <Grid size={{ xs: 6, sm: 3 }}>
               <TextField label="Category" fullWidth value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <TextField label="Description (optional)" fullWidth multiline rows={2} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
             </Grid>
 
             {/* Recipe */}
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-                <Typography fontWeight={700}>Recipe / Ingredients</Typography>
+                <Typography sx={{ fontWeight: 700 }}>Recipe / Ingredients</Typography>
                 <Button startIcon={<AddCircleOutlinedIcon />} size="small" onClick={addIngredient}>Add Ingredient</Button>
               </Box>
               <Stack spacing={1.5}>

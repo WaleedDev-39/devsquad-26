@@ -21,9 +21,9 @@ function StatCard({ label, value, icon, color, sub }: any) {
         <Avatar sx={{ bgcolor: `${color}22`, width: 52, height: 52 }}>
           <Box sx={{ color }}>{icon}</Box>
         </Avatar>
-        <Box flex={1}>
-          <Typography variant="body2" color="text.secondary" fontWeight={500}>{label}</Typography>
-          <Typography variant="h5" fontWeight={800} color="text.primary">{value}</Typography>
+        <Box sx={{ flex: 1 }}>
+          <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>{label}</Typography>
+          <Typography variant="h5" sx={{ fontWeight: 800 }} color="text.primary">{value}</Typography>
           {sub && <Typography variant="caption" color="text.secondary">{sub}</Typography>}
         </Box>
       </CardContent>
@@ -46,49 +46,50 @@ export default function DashboardPage() {
     </AppShell>
   );
 
-  const { stats, lowStockMaterials, topProducts, dailySales, recentOrders } = data;
+  const { stats, lowStockMaterials = [], topProducts = [], dailySales = [], recentOrders = [] } = data || {};
 
-  const chartData = dailySales.map((d: any) => ({
-    date: d._id.slice(5),
-    revenue: d.revenue,
-    orders: d.orders,
+  const safeDailySales = Array.isArray(dailySales) ? dailySales : [];
+  const chartData = safeDailySales.map((d: any) => ({
+    date: (d._id || '').slice(5),
+    revenue: d.revenue || 0,
+    orders: d.orders || 0,
   }));
 
   return (
     <AppShell>
       <Box sx={{ mb: 3 }}>
-        <Typography variant="h4" fontWeight={800} color="primary.dark">Dashboard</Typography>
+        <Typography variant="h4" sx={{ fontWeight: 800 }} color="primary.dark">Dashboard</Typography>
         <Typography color="text.secondary">Real-time business overview</Typography>
       </Box>
 
       {/* Stats */}
       <Grid container spacing={2.5} sx={{ mb: 3 }}>
-        <Grid item xs={12} sm={6} lg={3}>
-          <StatCard label="Total Revenue" value={`$${stats.totalRevenue.toFixed(2)}`} icon={<TrendingUpIcon />} color="#4F46E5" />
+        <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
+          <StatCard label="Total Revenue" value={`$${(stats?.totalRevenue || 0).toFixed(2)}`} icon={<TrendingUpIcon />} color="#4F46E5" />
         </Grid>
-        <Grid item xs={12} sm={6} lg={3}>
-          <StatCard label="Total Orders" value={stats.totalOrders} icon={<ShoppingCartIcon />} color="#06B6D4" />
+        <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
+          <StatCard label="Total Orders" value={stats?.totalOrders || 0} icon={<ShoppingCartIcon />} color="#06B6D4" />
         </Grid>
-        <Grid item xs={12} sm={6} lg={3}>
-          <StatCard label="Products" value={stats.totalProducts} icon={<InventoryIcon />} color="#10B981" />
+        <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
+          <StatCard label="Products" value={stats?.totalProducts || 0} icon={<InventoryIcon />} color="#10B981" />
         </Grid>
-        <Grid item xs={12} sm={6} lg={3}>
+        <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
           <StatCard
             label="Low Stock Alerts"
-            value={stats.lowStockCount}
+            value={stats?.lowStockCount || 0}
             icon={<WarningAmberIcon />}
             color="#F59E0B"
-            sub={stats.lowStockCount > 0 ? 'Action required' : 'All good!'}
+            sub={(stats?.lowStockCount || 0) > 0 ? 'Action required' : 'All good!'}
           />
         </Grid>
       </Grid>
 
       <Grid container spacing={2.5} sx={{ mb: 3 }}>
         {/* Revenue Chart */}
-        <Grid item xs={12} lg={8}>
+        <Grid size={{ xs: 12, lg: 8 }}>
           <Card>
             <CardContent>
-              <Typography variant="h6" mb={2}>Revenue (Last 14 days)</Typography>
+              <Typography variant="h6" sx={{ mb: 2 }}>Revenue (Last 14 days)</Typography>
               {chartData.length === 0 ? (
                 <Typography color="text.secondary" sx={{ py: 4, textAlign: 'center' }}>No sales data yet — make your first sale!</Typography>
               ) : (
@@ -107,24 +108,24 @@ export default function DashboardPage() {
         </Grid>
 
         {/* Top Products */}
-        <Grid item xs={12} lg={4}>
+        <Grid size={{ xs: 12, lg: 4 }}>
           <Card sx={{ height: '100%' }}>
             <CardContent>
-              <Typography variant="h6" mb={2}>Top Products</Typography>
-              {topProducts.length === 0 ? (
-                <Typography color="text.secondary" textAlign="center" py={4}>No sales yet</Typography>
+              <Typography variant="h6" sx={{ mb: 2 }}>Top Products</Typography>
+              {Array.isArray(topProducts) && topProducts.length === 0 ? (
+                <Typography color="text.secondary" sx={{ textAlign: 'center', py: 4 }}>No sales yet</Typography>
               ) : (
                 <Box>
-                  {topProducts.map((p: any, i: number) => (
+                  {(topProducts || []).map((p: any, i: number) => (
                     <Box key={p._id} sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1.5 }}>
                       <Avatar sx={{ width: 28, height: 28, bgcolor: i === 0 ? '#4F46E5' : '#E8EAFF', color: i === 0 ? '#fff' : '#4F46E5', fontSize: 13, fontWeight: 700 }}>
                         {i + 1}
                       </Avatar>
-                      <Box flex={1}>
-                        <Typography variant="body2" fontWeight={600} noWrap>{p.productName}</Typography>
+                      <Box sx={{ flex: 1 }}>
+                        <Typography variant="body2" sx={{ fontWeight: 600 }} noWrap>{p.productName}</Typography>
                         <Typography variant="caption" color="text.secondary">{p.totalSold} sold</Typography>
                       </Box>
-                      <Typography variant="body2" fontWeight={700} color="primary">${p.totalRevenue.toFixed(0)}</Typography>
+                      <Typography variant="body2" sx={{ fontWeight: 700 }} color="primary">${(p.totalRevenue || 0).toFixed(0)}</Typography>
                     </Box>
                   ))}
                 </Box>
@@ -136,10 +137,10 @@ export default function DashboardPage() {
 
       <Grid container spacing={2.5}>
         {/* Orders Bar Chart */}
-        <Grid item xs={12} lg={6}>
+        <Grid size={{ xs: 12, lg: 6 }}>
           <Card>
             <CardContent>
-              <Typography variant="h6" mb={2}>Daily Orders</Typography>
+              <Typography variant="h6" sx={{ mb: 2 }}>Daily Orders</Typography>
               {chartData.length === 0 ? (
                 <Typography color="text.secondary" sx={{ py: 4, textAlign: 'center' }}>No orders yet</Typography>
               ) : (
@@ -158,11 +159,11 @@ export default function DashboardPage() {
         </Grid>
 
         {/* Low Stock */}
-        <Grid item xs={12} lg={6}>
+        <Grid size={{ xs: 12, lg: 6 }}>
           <Card>
             <CardContent>
-              <Typography variant="h6" mb={2}>⚠️ Low Stock Alerts</Typography>
-              {lowStockMaterials.length === 0 ? (
+              <Typography variant="h6" sx={{ mb: 2 }}>⚠️ Low Stock Alerts</Typography>
+              {Array.isArray(lowStockMaterials) && lowStockMaterials.length === 0 ? (
                 <Alert severity="success">All raw materials are sufficiently stocked.</Alert>
               ) : (
                 <Table size="small">
@@ -175,7 +176,7 @@ export default function DashboardPage() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {lowStockMaterials.map((m: any) => (
+                    {(lowStockMaterials || []).map((m: any) => (
                       <TableRow key={m._id}>
                         <TableCell>{m.name}</TableCell>
                         <TableCell>{m.currentStock} {m.unit}</TableCell>
@@ -193,12 +194,12 @@ export default function DashboardPage() {
         </Grid>
 
         {/* Recent Orders */}
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <Card>
             <CardContent>
-              <Typography variant="h6" mb={2}>Recent Orders</Typography>
-              {recentOrders.length === 0 ? (
-                <Typography color="text.secondary" textAlign="center" py={4}>No orders placed yet. Head to POS to make your first sale!</Typography>
+              <Typography variant="h6" sx={{ mb: 2 }}>Recent Orders</Typography>
+              {Array.isArray(recentOrders) && recentOrders.length === 0 ? (
+                <Typography color="text.secondary" sx={{ textAlign: 'center', py: 4 }}>No orders placed yet. Head to POS to make your first sale!</Typography>
               ) : (
                 <Table size="small">
                   <TableHead>
@@ -211,11 +212,11 @@ export default function DashboardPage() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {recentOrders.map((o: any) => (
+                    {(recentOrders || []).map((o: any) => (
                       <TableRow key={o._id}>
-                        <TableCell><Typography fontWeight={700} color="primary">{o.orderNumber}</Typography></TableCell>
-                        <TableCell>{o.items.map((i: any) => `${i.productName} ×${i.quantity}`).join(', ')}</TableCell>
-                        <TableCell fontWeight={700}>${o.totalAmount.toFixed(2)}</TableCell>
+                        <TableCell><Typography sx={{ fontWeight: 700 }} color="primary">{o.orderNumber}</Typography></TableCell>
+                        <TableCell>{(o.items || []).map((i: any) => `${i.productName} ×${i.quantity}`).join(', ')}</TableCell>
+                        <TableCell sx={{ fontWeight: 700 }}>${(o.totalAmount || 0).toFixed(2)}</TableCell>
                         <TableCell><Chip label={o.status} color="success" size="small" /></TableCell>
                         <TableCell>{new Date(o.createdAt).toLocaleDateString()}</TableCell>
                       </TableRow>

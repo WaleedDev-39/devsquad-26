@@ -21,11 +21,11 @@ function OrderRow({ order }: { order: any }) {
           </IconButton>
         </TableCell>
         <TableCell>
-          <Typography fontWeight={700} color="primary">{order.orderNumber}</Typography>
+          <Typography sx={{ fontWeight: 700 }} color="primary">{order.orderNumber}</Typography>
         </TableCell>
-        <TableCell>{order.items.length} item{order.items.length !== 1 ? 's' : ''}</TableCell>
+        <TableCell>{(order.items || []).length} item{(order.items || []).length !== 1 ? 's' : ''}</TableCell>
         <TableCell>
-          <Typography fontWeight={700}>${order.totalAmount.toFixed(2)}</Typography>
+          <Typography sx={{ fontWeight: 700 }}>${(order.totalAmount || 0).toFixed(2)}</Typography>
         </TableCell>
         <TableCell>
           <Chip label={order.status} color="success" size="small" sx={{ fontWeight: 600 }} />
@@ -37,7 +37,7 @@ function OrderRow({ order }: { order: any }) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ m: 2, p: 2, bgcolor: '#F8FAFF', borderRadius: 2, border: '1px solid #E8EAFF' }}>
-              <Typography variant="subtitle2" fontWeight={700} mb={1.5} color="primary">
+              <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1.5 }} color="primary">
                 Order Items
               </Typography>
               <Table size="small">
@@ -50,12 +50,12 @@ function OrderRow({ order }: { order: any }) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {order.items.map((item: any, i: number) => (
+                  {(order.items || []).map((item: any, i: number) => (
                     <TableRow key={i}>
-                      <TableCell fontWeight={600}>{item.productName}</TableCell>
-                      <TableCell>${item.unitPrice.toFixed(2)}</TableCell>
+                      <TableCell sx={{ fontWeight: 600 }}>{item.productName}</TableCell>
+                      <TableCell>${(item.unitPrice || 0).toFixed(2)}</TableCell>
                       <TableCell>{item.quantity}</TableCell>
-                      <TableCell fontWeight={700} color="primary.main">${item.subtotal.toFixed(2)}</TableCell>
+                      <TableCell sx={{ fontWeight: 700, color: 'primary.main' }}>${(item.subtotal || 0).toFixed(2)}</TableCell>
                     </TableRow>
                   ))}
                   <TableRow>
@@ -63,7 +63,7 @@ function OrderRow({ order }: { order: any }) {
                       Total
                     </TableCell>
                     <TableCell sx={{ fontWeight: 800, borderTop: '2px solid #E8EAFF', color: '#4F46E5' }}>
-                      ${order.totalAmount.toFixed(2)}
+                      ${(order.totalAmount || 0).toFixed(2)}
                     </TableCell>
                   </TableRow>
                 </TableBody>
@@ -79,7 +79,8 @@ function OrderRow({ order }: { order: any }) {
 export default function OrdersPage() {
   const { data: orders = [], isLoading, isError } = useGetOrdersQuery(undefined);
 
-  const totalRevenue = orders.reduce((s: number, o: any) => s + o.totalAmount, 0);
+  const safeOrders = Array.isArray(orders) ? orders : [];
+  const totalRevenue = safeOrders.reduce((s: number, o: any) => s + (o.totalAmount || 0), 0);
 
   if (isLoading) return (
     <AppShell>
@@ -91,17 +92,17 @@ export default function OrdersPage() {
     <AppShell>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
         <Box>
-          <Typography variant="h4" fontWeight={800} color="primary.dark">Orders History</Typography>
+          <Typography variant="h4" sx={{ fontWeight: 800 }} color="primary.dark">Orders History</Typography>
           <Typography color="text.secondary">All completed sales transactions</Typography>
         </Box>
         <Box sx={{ display: 'flex', gap: 2 }}>
           <Card sx={{ px: 2.5, py: 1.5 }}>
-            <Typography variant="caption" color="text.secondary" display="block">Total Orders</Typography>
-            <Typography variant="h5" fontWeight={800} color="primary">{orders.length}</Typography>
+            <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>Total Orders</Typography>
+            <Typography variant="h5" sx={{ fontWeight: 800 }} color="primary">{safeOrders.length}</Typography>
           </Card>
           <Card sx={{ px: 2.5, py: 1.5 }}>
-            <Typography variant="caption" color="text.secondary" display="block">Total Revenue</Typography>
-            <Typography variant="h5" fontWeight={800} color="success.main">${totalRevenue.toFixed(2)}</Typography>
+            <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>Total Revenue</Typography>
+            <Typography variant="h5" sx={{ fontWeight: 800 }} color="success.main">${totalRevenue.toFixed(2)}</Typography>
           </Card>
         </Box>
       </Box>
@@ -114,8 +115,9 @@ export default function OrdersPage() {
             <Avatar sx={{ width: 64, height: 64, bgcolor: '#EEF2FF', mx: 'auto', mb: 2 }}>
               <ReceiptLongIcon sx={{ color: '#4F46E5', fontSize: 32 }} />
             </Avatar>
-            <Typography variant="h6" color="text.secondary" fontWeight={600}>No Orders Yet</Typography>
-            <Typography color="text.disabled" mt={1}>Head over to the POS screen to make your first sale!</Typography>
+            <Typography variant="h6" color="text.secondary" sx=
+            {{ fontWeight: 600 }}>No Orders Yet</Typography>
+            <Typography color="text.disabled" sx={{ mt: 1 }}>Head over to the POS screen to make your first sale!</Typography>
           </Box>
         ) : (
           <Table>
@@ -131,7 +133,7 @@ export default function OrdersPage() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {orders.map((order: any) => (
+              {safeOrders.map((order: any) => (
                 <OrderRow key={order._id} order={order} />
               ))}
             </TableBody>

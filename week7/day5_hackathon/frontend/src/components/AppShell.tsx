@@ -25,7 +25,8 @@ const navItems = [
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const { data: lowStock = [] } = useGetLowStockMaterialsQuery(undefined);
+  const { data: rawLowStock = [] } = useGetLowStockMaterialsQuery(undefined);
+  const lowStock = Array.isArray(rawLowStock) ? rawLowStock : [];
 
   return (
     <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: 'background.default' }}>
@@ -86,8 +87,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                 >
                   <ListItemIcon sx={{ color: 'inherit', minWidth: 40 }}>{icon}</ListItemIcon>
                   <ListItemText
-                    primary={label}
-                    primaryTypographyProps={{ fontWeight: active ? 700 : 500, fontSize: 14 }}
+                    primary={<Typography sx={{ fontWeight: active ? 700 : 500, fontSize: 14 }}>{label}</Typography>}
                   />
                   {label === 'Raw Materials' && lowStock.length > 0 && (
                     <Chip

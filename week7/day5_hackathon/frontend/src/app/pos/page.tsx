@@ -22,7 +22,8 @@ import { useState } from 'react';
 export default function POSPage() {
   const dispatch = useDispatch();
   const cartItems = useSelector((s: RootState) => s.cart.items);
-  const { data: products = [], isLoading, refetch } = useGetProductsQuery(undefined);
+  const { data: rawProductsData = [], isLoading, refetch } = useGetProductsQuery(undefined);
+  const products = Array.isArray(rawProductsData) ? rawProductsData : [];
   const [createOrder, { isLoading: placing }] = useCreateOrderMutation();
 
   const [search, setSearch] = useState('');
@@ -52,7 +53,7 @@ export default function POSPage() {
       }).unwrap();
       dispatch(clearCart());
       setNotes('');
-      setSuccessMsg(`✅ Order ${order.orderNumber} placed! Total: $${order.totalAmount.toFixed(2)}`);
+      setSuccessMsg(`✅ Order ${order.orderNumber} placed! Total: $${(order.totalAmount || 0).toFixed(2)}`);
       refetch(); // refresh product stock display
     } catch (e: any) {
       setErrorMsg(e?.data?.message || 'Failed to place order. Check stock availability.');
@@ -65,7 +66,7 @@ export default function POSPage() {
         {/* Product Grid — left */}
         <Box sx={{ flex: 1, overflow: 'auto', pr: 1 }}>
           <Box sx={{ mb: 2.5 }}>
-            <Typography variant="h4" fontWeight={800} color="primary.dark">Point of Sale</Typography>
+            <Typography variant="h4" sx={{ fontWeight: 800 }} color="primary.dark">Point of Sale</Typography>
             <Typography color="text.secondary">Select products to add to cart</Typography>
           </Box>
 
@@ -87,7 +88,7 @@ export default function POSPage() {
               const inCart = cartItems.find((i) => i.productId === p._id);
               const outOfStock = p.availableStock <= 0;
               return (
-                <Grid item xs={12} sm={6} xl={4} key={p._id}>
+                <Grid size={{ xs: 12, sm: 6, xl: 4 }} key={p._id}>
                   <Card
                     onClick={() => !outOfStock && handleAddToCart(p)}
                     sx={{
@@ -106,11 +107,11 @@ export default function POSPage() {
                         <Avatar sx={{ bgcolor: inCart ? '#4F46E5' : '#EEF2FF', color: inCart ? '#fff' : '#4F46E5', mt: 0.5 }}>
                           <BlenderIcon fontSize="small" />
                         </Avatar>
-                        <Box flex={1}>
-                          <Typography fontWeight={700} lineHeight={1.2}>{p.name}</Typography>
+                        <Box sx={{ flex: 1 }}>
+                          <Typography sx={{ fontWeight: 700, lineHeight: 1.2 }}>{p.name}</Typography>
                           {p.category && <Typography variant="caption" color="text.secondary">{p.category}</Typography>}
                           <Box sx={{ display: 'flex', gap: 1, mt: 1, flexWrap: 'wrap' }}>
-                            <Chip label={`$${p.price.toFixed(2)}`} size="small" sx={{ bgcolor: '#EEF2FF', color: '#4F46E5', fontWeight: 700 }} />
+                            <Chip label={`$${(p.price || 0).toFixed(2)}`} size="small" sx={{ bgcolor: '#EEF2FF', color: '#4F46E5', fontWeight: 700 }} />
                             <Chip
                               label={outOfStock ? 'Out of Stock' : `${p.availableStock} avail.`}
                               size="small"
@@ -126,8 +127,8 @@ export default function POSPage() {
               );
             })}
             {filtered.length === 0 && !isLoading && (
-              <Grid item xs={12}>
-                <Typography color="text.secondary" textAlign="center" sx={{ py: 6 }}>
+              <Grid size={{ xs: 12 }}>
+                <Typography color="text.secondary" sx={{ textAlign: 'center', py: 6 }}>
                   {products.length === 0 ? 'No products. Go to Products to create some!' : 'No products match your search.'}
                 </Typography>
               </Grid>
@@ -155,7 +156,7 @@ export default function POSPage() {
               <Badge badgeContent={cartItems.reduce((s, i) => s + i.quantity, 0)} color="primary">
                 <PointOfSaleIcon color="primary" />
               </Badge>
-              <Typography variant="h6" fontWeight={700}>Current Order</Typography>
+              <Typography variant="h6" sx={{ fontWeight: 700 }}>Current Order</Typography>
             </Box>
           </Box>
 
@@ -171,7 +172,7 @@ export default function POSPage() {
               {cartItems.map((item) => (
                 <Box key={item.productId} sx={{ p: 1.5, borderRadius: 2, bgcolor: '#F8FAFF', border: '1px solid #E8EAFF' }}>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
-                    <Typography variant="body2" fontWeight={700} noWrap sx={{ maxWidth: 160 }}>{item.productName}</Typography>
+                    <Typography variant="body2" noWrap sx={{ fontWeight: 700, maxWidth: 160 }}>{item.productName}</Typography>
                     <IconButton size="small" onClick={() => dispatch(removeFromCart(item.productId))} sx={{ p: 0.3 }}>
                       <DeleteOutlinedIcon fontSize="small" color="error" />
                     </IconButton>
@@ -182,16 +183,16 @@ export default function POSPage() {
                         sx={{ bgcolor: '#EEF2FF', p: 0.5, '&:hover': { bgcolor: '#E0E7FF' } }}>
                         <RemoveIcon fontSize="small" sx={{ color: '#4F46E5' }} />
                       </IconButton>
-                      <Typography fontWeight={700} sx={{ minWidth: 28, textAlign: 'center' }}>{item.quantity}</Typography>
+                      <Typography sx={{ fontWeight: 700, minWidth: 28, textAlign: 'center' }}>{item.quantity}</Typography>
                       <IconButton size="small" onClick={() => dispatch(incrementItem(item.productId))}
                         disabled={item.quantity >= item.availableStock}
                         sx={{ bgcolor: '#EEF2FF', p: 0.5, '&:hover': { bgcolor: '#E0E7FF' } }}>
                         <AddIcon fontSize="small" sx={{ color: '#4F46E5' }} />
                       </IconButton>
                     </Box>
-                    <Typography fontWeight={700} color="primary">${(item.unitPrice * item.quantity).toFixed(2)}</Typography>
+                    <Typography sx={{ fontWeight: 700 }} color="primary">${((item.unitPrice || 0) * item.quantity).toFixed(2)}</Typography>
                   </Box>
-                  <Typography variant="caption" color="text.disabled">${item.unitPrice.toFixed(2)} each</Typography>
+                  <Typography variant="caption" color="text.disabled">${(item.unitPrice || 0).toFixed(2)} each</Typography>
                 </Box>
               ))}
             </Stack>
@@ -206,8 +207,8 @@ export default function POSPage() {
               sx={{ mb: 2, bgcolor: '#fff' }}
             />
             <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
-              <Typography variant="h6" fontWeight={700}>Total</Typography>
-              <Typography variant="h6" fontWeight={800} color="primary">${total.toFixed(2)}</Typography>
+              <Typography variant="h6" sx={{ fontWeight: 700 }}>Total</Typography>
+              <Typography variant="h6" sx={{ fontWeight: 800 }} color="primary">${(total || 0).toFixed(2)}</Typography>
             </Box>
             <Button
               variant="contained" fullWidth size="large" disabled={cartItems.length === 0 || placing}

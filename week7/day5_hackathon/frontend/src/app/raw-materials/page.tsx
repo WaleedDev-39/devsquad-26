@@ -23,7 +23,8 @@ const UNITS = ['g', 'ml', 'pcs', 'kg', 'l', 'oz'];
 const EMPTY = { name: '', unit: 'g', currentStock: 0, minimumStockAlert: 0 };
 
 export default function RawMaterialsPage() {
-  const { data: materials = [], isLoading, isError } = useGetRawMaterialsQuery(undefined);
+  const { data: rawMaterialsData = [], isLoading, isError } = useGetRawMaterialsQuery(undefined);
+  const materials = Array.isArray(rawMaterialsData) ? rawMaterialsData : [];
   const [create] = useCreateRawMaterialMutation();
   const [update] = useUpdateRawMaterialMutation();
   const [remove] = useDeleteRawMaterialMutation();
@@ -69,7 +70,7 @@ export default function RawMaterialsPage() {
     <AppShell>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
         <Box>
-          <Typography variant="h4" fontWeight={800} color="primary.dark">Raw Materials</Typography>
+          <Typography variant="h4" sx={{ fontWeight: 800 }} color="primary.dark">Raw Materials</Typography>
           <Typography color="text.secondary">Manage your inventory ingredients</Typography>
         </Box>
         <Button variant="contained" startIcon={<AddIcon />} onClick={openAdd} size="large">
@@ -99,11 +100,11 @@ export default function RawMaterialsPage() {
               const isLow = m.minimumStockAlert > 0 && m.currentStock <= m.minimumStockAlert;
               return (
                 <TableRow key={m._id} hover>
-                  <TableCell fontWeight={600}>{m.name}</TableCell>
+                  <TableCell sx={{ fontWeight: 600 }}>{m.name}</TableCell>
                   <TableCell><Chip label={m.unit} size="small" sx={{ bgcolor: '#EEF2FF', color: '#4F46E5', fontWeight: 700 }} /></TableCell>
                   <TableCell>
-                    <Typography fontWeight={700} color={m.currentStock === 0 ? 'error' : 'text.primary'}>
-                      {m.currentStock.toLocaleString()}
+                    <Typography sx={{ fontWeight: 700 }} color={m.currentStock === 0 ? 'error' : 'text.primary'}>
+                      {m.currentStock} {m.unit}
                     </Typography>
                   </TableCell>
                   <TableCell>{m.minimumStockAlert || '—'}</TableCell>
@@ -140,7 +141,7 @@ export default function RawMaterialsPage() {
 
       {/* Add/Edit Dialog */}
       <Dialog open={open} onClose={() => setOpen(false)} maxWidth="sm" fullWidth>
-        <DialogTitle fontWeight={700}>{editing ? 'Edit Raw Material' : 'Add Raw Material'}</DialogTitle>
+        <DialogTitle sx={{ fontWeight: 700 }}>{editing ? 'Edit Raw Material' : 'Add Raw Material'}</DialogTitle>
         <DialogContent>
           <Stack spacing={2} sx={{ mt: 1 }}>
             {error && <Alert severity="error">{error}</Alert>}
@@ -167,7 +168,7 @@ export default function RawMaterialsPage() {
 
       {/* Restock Dialog */}
       <Dialog open={restockOpen} onClose={() => setRestockOpen(false)} maxWidth="xs" fullWidth>
-        <DialogTitle fontWeight={700}>Restock Material</DialogTitle>
+        <DialogTitle sx={{ fontWeight: 700 }}>Restock Material</DialogTitle>
         <DialogContent>
           <TextField label="Quantity to Add" type="number" fullWidth sx={{ mt: 1 }}
             value={restockQty} onChange={(e) => setRestockQty(Number(e.target.value))} />
