@@ -19,8 +19,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={`${poppins.variable} font-sans`}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${poppins.variable} font-sans`} suppressHydrationWarning>
         <Providers>
           <div className="flex flex-col min-h-screen">
             <TopBar />

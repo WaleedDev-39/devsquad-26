@@ -19,7 +19,8 @@ export default function AuctionDetail() {
   const [bidAmount, setBidAmount] = useState<number>(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [timeLeft, setTimeLeft] = useState<string>('');
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [timeLeftStr, setTimeLeftStr] = useState('');
   
   const [activeImage, setActiveImage] = useState(0);
 
@@ -59,11 +60,12 @@ export default function AuctionDetail() {
         const h = Math.floor((difference / (1000 * 60 * 60)) % 24);
         const m = Math.floor((difference / 1000 / 60) % 60);
         const s = Math.floor((difference / 1000) % 60);
-        setTimeLeft(`${d}d ${h}h ${m}m ${s}s`);
+        setTimeLeft({ days: d, hours: h, minutes: m, seconds: s });
+        setTimeLeftStr(`${d}d ${h}h ${m}m ${s}s`);
       } else {
-        setTimeLeft('Auction Ended');
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        setTimeLeftStr('Auction Ended');
         if (car.status === 'active') {
-          // Trigger backend logic to end auction if not already ended
           api.patch(`/cars/${id}/end`).catch(console.error);
         }
       }
@@ -122,184 +124,238 @@ export default function AuctionDetail() {
     <div>
       <PageBanner 
         title={car.title} 
-        breadcrumbs={[{ label: 'Home', path: '/' }, { label: 'Auction Listing', path: '/auctions' }, { label: car.title }]} 
+        subtitle="Lorem ipsum dolor sit amet consectetur. At in pretium semper vitae eu eu mus."
+        breadcrumbs={[{ label: 'Home', path: '/' }, { label: 'Auction Detail' }]} 
       />
 
       <div className="container mx-auto max-w-7xl px-4 py-12">
+        
+        {/* Title Bar */}
+        <div className="bg-[#3B4C8A] text-white px-6 py-3 rounded mb-8 flex justify-between items-center">
+          <h1 className="text-xl font-bold">{car.title}</h1>
+          <button className="text-white hover:text-yellow-400">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.563.563 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.563.563 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+            </svg>
+          </button>
+        </div>
+
         <div className="flex flex-col lg:flex-row gap-8">
           
           {/* Left Column - Gallery & Info */}
-          <div className="lg:w-2/3">
-            {/* Main Image */}
-            <div className="relative h-[400px] md:h-[500px] w-full rounded-xl overflow-hidden mb-4 bg-gray-100">
-              <Image 
-                src={car.photos && car.photos.length > 0 ? `http://localhost:5000${car.photos[activeImage]}` : '/placeholder-car.jpg'} 
-                alt={car.title} 
-                fill 
-                className="object-cover" 
-              />
-            </div>
-            
-            {/* Thumbnails */}
-            {car.photos && car.photos.length > 1 && (
-              <div className="flex gap-4 mb-8 overflow-x-auto pb-2">
-                {car.photos.map((photo: string, idx: number) => (
-                  <div 
-                    key={idx} 
-                    onClick={() => setActiveImage(idx)}
-                    className={`relative w-24 h-16 rounded-md overflow-hidden cursor-pointer border-2 transition-colors ${activeImage === idx ? 'border-primary' : 'border-transparent'}`}
-                  >
-                    <Image src={`http://localhost:5000${photo}`} alt="" fill className="object-cover" />
+          <div className="lg:w-3/4">
+            <div className="flex flex-col md:flex-row gap-4 mb-8">
+              {/* Main Image */}
+              <div className="flex-1 relative h-[400px] md:h-[500px] rounded overflow-hidden bg-gray-100">
+                <div className="absolute top-4 left-4 z-10">
+                   <span className="bg-[#E8463A] text-white px-3 py-1 text-[10px] font-bold rounded flex items-center">
+                     Live Bid
+                   </span>
+                </div>
+                <Image 
+                  src={car.photos && car.photos[activeImage] ? (car.photos[activeImage].startsWith('http') ? car.photos[activeImage] : `http://localhost:5000${car.photos[activeImage].startsWith('/') ? '' : '/'}${car.photos[activeImage]}`) : '/placeholder-car.jpg'} 
+                  alt={car.title} 
+                  fill 
+                  unoptimized
+                  sizes="(max-width: 768px) 100vw, 75vw"
+                  className="object-cover" 
+                />
+              </div>
+              
+              {/* Thumbnails Grid */}
+              <div className="grid grid-cols-2 gap-2 w-full md:w-[350px]">
+                {[...Array(6)].map((_, idx) => (
+                  <div key={idx} className="relative h-[120px] md:h-auto rounded overflow-hidden bg-gray-100 cursor-pointer">
+                    {car.photos && car.photos[idx] ? (
+                      <Image 
+                        src={car.photos[idx].startsWith('http') ? car.photos[idx] : `http://localhost:5000${car.photos[idx].startsWith('/') ? '' : '/'}${car.photos[idx]}`} 
+                        alt="" 
+                        fill 
+                        unoptimized
+                        sizes="(max-width: 768px) 50vw, 15vw"
+                        className="object-cover hover:opacity-80 transition-opacity"
+                        onClick={() => setActiveImage(idx)}
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gray-200 flex items-center justify-center text-[10px] text-gray-400">No Image</div>
+                    )}
                   </div>
                 ))}
               </div>
-            )}
+            </div>
 
-            {/* Description Tabs */}
-            <div className="mt-8">
-              <div className="flex border-b border-gray-200">
-                <button className="px-6 py-3 border-b-2 border-primary text-primary font-bold">Description</button>
-                <button className="px-6 py-3 border-b-2 border-transparent text-gray-500 font-medium hover:text-primary transition-colors">Specifications</button>
+            {/* Quick Stats Bar */}
+            <div className="bg-[#F2F6FE] rounded p-6 flex flex-wrap gap-8 mb-8">
+               <div>
+                  <div className="flex gap-1.5 mb-1">
+                    {[
+                      { val: timeLeft.days, label: 'Days' },
+                      { val: timeLeft.hours, label: 'Hrs' },
+                      { val: timeLeft.minutes, label: 'Min' },
+                      { val: timeLeft.seconds, label: 'Sec' }
+                    ].map((t, i) => (
+                      <div key={i} className="bg-white border border-gray-200 rounded px-1 py-0.5 text-center min-w-[32px]">
+                        <p className="text-[#3B4C8A] font-bold text-xs">{String(t.val).padStart(2, '0')}</p>
+                        <p className="text-[7px] text-gray-400 uppercase">{t.label}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-[10px] text-gray-400">Time Left</p>
+               </div>
+               <div>
+                  <p className="text-[#3B4C8A] font-bold text-xs">${(car.currentBid || 0).toLocaleString()}</p>
+                  <p className="text-[10px] text-gray-400 mt-1">Current Bid</p>
+               </div>
+               <div>
+                  <p className="text-[#3B4C8A] font-bold text-xs">{new Date(car.endTime).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}</p>
+                  <p className="text-[10px] text-gray-400 mt-1">End Time</p>
+               </div>
+               <div>
+                  <p className="text-[#3B4C8A] font-bold text-xs">{car.minIncrement || 0}</p>
+                  <p className="text-[10px] text-gray-400 mt-1">Min. Increment</p>
+               </div>
+               <div>
+                  <p className="text-[#3B4C8A] font-bold text-xs">{car.totalBids || 0}</p>
+                  <p className="text-[10px] text-gray-400 mt-1">Total Bids</p>
+               </div>
+               <div>
+                  <p className="text-[#3B4C8A] font-bold text-xs">{car.lotNumber || 'N/A'}</p>
+                  <p className="text-[10px] text-gray-400 mt-1">Lot No.</p>
+               </div>
+               <div>
+                  <p className="text-[#3B4C8A] font-bold text-xs">{car.mileage?.toLocaleString() || 0} K.M</p>
+                  <p className="text-[10px] text-gray-400 mt-1">Odometer</p>
+               </div>
+            </div>
+
+            {/* Description */}
+            <div className="mb-12">
+              <h3 className="text-[17px] font-bold text-[#3B4C8A] inline-block border-b-4 border-[#F5A623] pb-1 mb-6">Description</h3>
+              <div className="space-y-4 text-gray-500 text-[13px] leading-relaxed pr-10">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur. Duis ac sodales vulputate dolor volutpat ac. Turpis ut neque eu adipiscing nibh nunc gravida. Ipsum at feugiat id dui elementum nibh nec suspendisse. Ut sapien metus elementum tincidunt euismod.
+                </p>
+                <p>
+                  In est eget turpis nulla leo amet arcu. Consequat viverra erat pellentesque ut rem placerat placerat amet vitae. Lobortis velit senectus blandit pellentesque viverra augue dolor orci. Odio leo in et in. Ac purus morbi ac vulputate amet. Ut maecenas leo venenatis aliquet a fringilla quam varius pellentesque.
+                </p>
               </div>
-              <div className="py-6 text-gray-600 leading-relaxed font-light">
-                {car.description || (
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur. Adipiscing eget quam dictum nisl pellentesque egestas. 
-                    Id elementum suspendisse arcu faucibus augue ut sit id nullam. Tellus faucibus egestas ultrices facilisis 
-                    scelerisque cursus sit arcu duis. Amet nulla morbi in proin facilisi. Tincidunt tellus ac at vulputate cras eget 
-                    aliquam. Quis facilisi arcu adipiscing elit cursus nunc. Eget mauris donec pulvinar nec quis cursus tristique.
-                  </p>
-                )}
-              </div>
+            </div>
+
+            {/* Top Bidder */}
+            <div className="bg-[#F2F6FE] rounded overflow-hidden">
+               <div className="bg-[#3B4C8A] px-6 py-2.5">
+                  <h3 className="text-white text-sm font-bold">Top Bidder</h3>
+               </div>
+               <div className="p-6 flex items-center gap-10">
+                  <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-200 relative">
+                    <Image 
+                      src={bids[0]?.bidder?.avatar || "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop"} 
+                      alt={bids[0]?.bidder?.fullName || "No Bidder"} 
+                      fill 
+                      unoptimized
+                      sizes="64px"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-wrap gap-x-20 gap-y-4">
+                    <div>
+                      <p className="text-[11px] font-bold text-[#3B4C8A]">Full Name</p>
+                      <p className="text-[11px] text-gray-500 mt-0.5">{bids[0]?.bidder?.fullName || 'N/A'}</p>
+                    </div>
+                    <div>
+                      <p className="text-[11px] font-bold text-[#3B4C8A]">Mobile Number</p>
+                      <p className="text-[11px] text-gray-500 mt-0.5">{bids[0]?.bidder?.phone || 'N/A'}</p>
+                    </div>
+                    <div>
+                      <p className="text-[11px] font-bold text-[#3B4C8A]">ID Type</p>
+                      <p className="text-[11px] text-gray-500 mt-0.5">{bids[0]?.bidder?.idType || 'N/A'}</p>
+                    </div>
+                    <div>
+                      <p className="text-[11px] font-bold text-[#3B4C8A]">Email</p>
+                      <p className="text-[11px] text-gray-500 mt-0.5">{bids[0]?.bidder?.email || 'N/A'}</p>
+                    </div>
+                    <div>
+                      <p className="text-[11px] font-bold text-[#3B4C8A]">Nationality</p>
+                      <p className="text-[11px] text-gray-500 mt-0.5">{bids[0]?.bidder?.nationality || 'N/A'}</p>
+                    </div>
+                  </div>
+               </div>
             </div>
           </div>
 
           {/* Right Column - Bidding Panel */}
-          <div className="lg:w-1/3 space-y-6">
-            
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-              
-              {/* Payment CTA if winner */}
-              {showPaymentButton && (
-                <div className="mb-6 bg-green-50 rounded-lg border border-green-200 p-4 text-center">
-                  <h3 className="font-bold text-green-800 text-lg mb-2">Congratulations! You won this auction!</h3>
-                  <button 
-                    onClick={() => router.push(`/auctions/${id}/payment`)}
-                    className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-md transition-colors"
-                  >
-                    Proceed to Payment
-                  </button>
-                </div>
-              )}
-
-              {/* Status Header */}
-              <div className="flex justify-between items-center mb-6">
-                <div>
-                  <p className="text-gray-500 text-sm mb-1 uppercase font-semibold">Ends In</p>
-                  <p className="text-xl font-bold text-accent">{timeLeft}</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-gray-500 text-sm mb-1 uppercase font-semibold">Current Bid</p>
-                  <p className="text-2xl font-bold text-primary">${car.currentBid.toLocaleString()}</p>
-                </div>
-              </div>
-
-              {/* Stats Grid */}
-              <div className="grid grid-cols-2 gap-4 mb-8 bg-[#F8F9FA] p-4 rounded-lg">
-                <div>
-                  <p className="text-xs text-gray-500 mb-1">Time Left</p>
-                  <p className="font-semibold text-sm">{timeLeft.split(' ')[0]} {timeLeft.split(' ')[1]}</p>
-                </div>
-                <div>
-                  <p className="text-xs text-gray-500 mb-1">Min. Increment</p>
-                  <p className="font-semibold text-sm">${car.minIncrement}</p>
-                </div>
-                <div>
-                  <p className="text-xs text-gray-500 mb-1">Lot No.</p>
-                  <p className="font-semibold text-sm">#{car.lotNumber}</p>
-                </div>
-                <div>
-                  <p className="text-xs text-gray-500 mb-1">Odometer</p>
-                  <p className="font-semibold text-sm">{car.mileage?.toLocaleString() || '0'} mi</p>
-                </div>
-              </div>
-
-              {/* Bidding Controls (Only show if active) */}
-              {car.status === 'active' && (
-                <div className="border-t border-gray-100 pt-6">
-                  {error && <p className="text-red-500 text-sm mb-3 text-center">{error}</p>}
-                  
-                  <div className="flex justify-between text-sm text-gray-500 mb-2">
-                    <span>${(car.currentBid + car.minIncrement).toLocaleString()}</span>
-                    <span>${(car.currentBid + car.minIncrement * 10).toLocaleString()}</span>
+          <div className="lg:w-1/4 space-y-6">
+            <div className="bg-[#F2F6FE] rounded p-6 shadow-sm">
+               <div className="flex justify-between items-center mb-4">
+                  <div>
+                    <p className="text-[#3B4C8A] font-bold text-xs">${car.startingBid?.toLocaleString() || 0}</p>
+                    <p className="text-[8px] text-gray-400 mt-0.5">Starting From</p>
                   </div>
-                  
-                  <div className="flex items-center mb-6">
-                    <button 
-                      onClick={() => setBidAmount(Math.max(car.currentBid + car.minIncrement, bidAmount - car.minIncrement))}
-                      className="w-10 h-10 rounded-l border border-gray-300 flex items-center justify-center bg-gray-50 hover:bg-gray-100"
-                    >
-                      -
-                    </button>
-                    <div className="flex-1 border-y border-gray-300 h-10 flex items-center justify-center font-bold text-lg">
-                      ${bidAmount.toLocaleString()}
-                    </div>
-                    <button 
-                      onClick={() => setBidAmount(bidAmount + car.minIncrement)}
-                      className="w-10 h-10 rounded-r border border-gray-300 flex items-center justify-center bg-gray-50 hover:bg-gray-100"
-                    >
-                      +
-                    </button>
+                  <div className="text-right">
+                    <p className="text-[#3B4C8A] font-bold text-xs">${car.currentBid?.toLocaleString() || 0}</p>
+                    <p className="text-[8px] text-gray-400 mt-0.5">Current Bid</p>
                   </div>
+               </div>
+               
+               <div className="relative h-1.5 bg-white rounded-full mb-6">
+                  <div 
+                    className="absolute top-0 left-0 h-full bg-[#F5A623] rounded-full" 
+                    style={{ width: `${Math.min(100, ((car.currentBid - car.startingBid) / car.startingBid) * 100) || 0}%` }}
+                  ></div>
+               </div>
 
+               <div className="mb-6">
+                  <p className="text-[#3B4C8A] font-bold text-[13px]">{car.totalBids || 0}</p>
+                  <p className="text-[10px] text-gray-400">Bids Placed</p>
+               </div>
+
+               <div className="flex items-center border border-gray-200 rounded bg-white overflow-hidden mb-2">
                   <button 
-                    onClick={handlePlaceBid}
-                    className="w-full bg-primary text-white hover:bg-primary-dark font-bold text-lg py-4 rounded-md shadow-md transition-colors"
-                  >
-                    Submit A Bid
-                  </button>
-                </div>
-              )}
+                    onClick={() => setBidAmount(prev => Math.max(car.currentBid + car.minIncrement, prev - car.minIncrement))}
+                    className="px-3 py-2 text-[#3B4C8A] hover:bg-gray-50"
+                  > - </button>
+                  <input 
+                    type="number" 
+                    value={bidAmount} 
+                    onChange={(e) => setBidAmount(Number(e.target.value))}
+                    className="flex-1 text-center font-bold text-[#3B4C8A] text-xs outline-none"
+                  />
+                  <button 
+                    onClick={() => setBidAmount(prev => prev + car.minIncrement)}
+                    className="px-3 py-2 text-[#3B4C8A] hover:bg-gray-50"
+                  > + </button>
+               </div>
+               {error && <p className="text-red-500 text-[10px] mb-4 text-center">{error}</p>}
+
+               <button 
+                 onClick={handlePlaceBid}
+                 disabled={car.status !== 'active'}
+                 className="w-full bg-[#3B4C8A] text-white py-2.5 rounded font-bold text-[13px] hover:bg-[#2A3765] transition-colors shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+               >
+                 {car.status === 'active' ? 'Submit A Bid' : 'Auction Ended'}
+               </button>
             </div>
 
-            {/* Bidders List */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-              <div className="bg-[#D3E1F7] py-3 px-6">
-                <h3 className="font-bold text-primary flex justify-between">
-                  <span>Bidders</span>
-                  <span>{car.totalBids}</span>
-                </h3>
-              </div>
-              <div className="p-0 max-h-64 overflow-y-auto">
-                {bids.length === 0 ? (
-                  <p className="p-4 text-center text-gray-500 text-sm">No bids placed yet.</p>
-                ) : (
-                  <ul className="divide-y divide-gray-100">
-                    {bids.map((bid, idx) => (
-                      <li key={bid._id} className="p-4 flex justify-between items-center hover:bg-gray-50 transition-colors">
-                        <div className="flex items-center gap-3">
-                          <span className="text-gray-400 font-medium w-4">{idx + 1}.</span>
-                          <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 font-bold overflow-hidden">
-                            {bid.bidder?.avatar ? (
-                                <Image src={bid.bidder.avatar} alt={bid.bidder.username} width={32} height={32} />
-                            ) : (
-                                bid.bidder?.fullName?.charAt(0).toUpperCase()
-                            )}
-                          </div>
-                          <div>
-                            <p className="text-sm font-semibold text-gray-800">{bid.bidder?.fullName}</p>
-                            <p className="text-xs text-gray-500">{new Date(bid.createdAt).toLocaleString()}</p>
-                          </div>
-                        </div>
-                        <span className="font-bold text-primary">${bid.amount.toLocaleString()}</span>
+            {/* Bidders List Sidebar */}
+            <div className="bg-[#F2F6FE] rounded overflow-hidden">
+               <div className="bg-[#3B4C8A] px-6 py-2.5">
+                  <h3 className="text-white text-[13px] font-bold">Bidders List</h3>
+               </div>
+               <div className="p-0">
+                  <ul className="divide-y divide-gray-200/50 max-h-[300px] overflow-y-auto">
+                    {bids.length > 0 ? bids.map((b, i) => (
+                      <li key={i} className="px-6 py-3 flex justify-between items-center">
+                        <span className="text-[11px] text-gray-500">{b.bidder?.fullName || 'Unknown'}</span>
+                        <span className="text-[11px] font-bold text-[#3B4C8A]">$ {b.amount?.toLocaleString()}</span>
                       </li>
-                    ))}
+                    )) : (
+                      <li className="px-6 py-4 text-gray-400 text-[11px] text-center">No bids yet</li>
+                    )}
                   </ul>
-                )}
-              </div>
+               </div>
             </div>
-
           </div>
+
         </div>
       </div>
     </div>

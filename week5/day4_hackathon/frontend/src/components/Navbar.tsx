@@ -32,40 +32,40 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-background py-4 px-4 shadow-sm relative z-50">
+    <nav className={`py-4 px-4 z-50 w-full transition-all duration-300 ${pathname === '/' ? 'mt-10 absolute bg-transparent border-b border-white/10' : 'bg-background shadow-sm relative'}`}>
       <div className="container mx-auto flex justify-between items-center max-w-7xl">
         <Link href="/" className="flex items-center">
-          <Image src="/logo.png" alt="Car Deposit Logo" width={150} height={40} className="object-contain" />
-        </Link>
+          <Image src="/logo.png" alt="Car Deposit Logo" width={180} height={48} className="object-contain" style={{ width: 'auto', height: 'auto' }} />
+        </Link>        
 
-        <div className="hidden md:flex space-x-6 text-gray-600 font-medium">
+        <div className={`hidden md:flex space-x-8 font-medium text-sm ${pathname === '/' ? 'text-white' : 'text-gray-600'}`}>
           {navLinks.map((link) => {
             const isActive = pathname === link.path || (link.path !== '/' && pathname.startsWith(link.path));
             return (
               <Link
                 key={link.name}
                 href={link.path}
-                className={`hover:text-primary transition-colors relative ${
-                  isActive ? 'text-primary font-semibold' : ''
+                className={`transition-colors relative ${
+                  isActive ? (pathname === '/' ? 'text-white font-semibold' : 'text-primary font-semibold') : 'hover:text-secondary'
                 }`}
               >
                 {link.name}
                 {isActive && (
-                  <span className="absolute -bottom-2 left-1/4 right-1/4 h-0.5 bg-primary rounded" />
+                  <span className={`absolute -bottom-2 left-0 right-0 h-0.5 rounded ${pathname === '/' ? 'bg-secondary' : 'bg-primary'}`} />
                 )}
               </Link>
             );
           })}
         </div>
 
-        <div className="flex items-center space-x-6 text-primary">
+        <div className={`flex items-center space-x-6 ${pathname === '/' ? 'text-white' : 'text-primary'}`}>
           {!isAuthenticated ? (
-            <div className="flex space-x-4 items-center">
-              <Link href="/auth/login" className="font-semibold hover:text-secondary transition-colors">
+            <div className="flex space-x-3 items-center">
+              <Link href="/auth/login" className="font-semibold text-sm hover:text-secondary transition-colors">
                 Sign in
               </Link>
-              <span className="text-gray-400">or</span>
-              <Link href="/auth/register" className="btn-primary py-1.5 px-4 text-sm font-semibold">
+              <span className={`text-xs ${pathname === '/' ? 'text-gray-400' : 'text-gray-400'}`}>or</span>
+              <Link href="/auth/register" className="bg-[#3B4C8A] hover:bg-[#2A3765] text-white transition-colors py-2 px-5 rounded text-sm font-semibold">
                 Register now
               </Link>
             </div>
