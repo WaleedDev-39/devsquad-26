@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Vercel
+.vercel
+
+# Next.js
+.next/
+.turbo/
+
+# Misc
+.npmrc
+*.log
+npm-debug.log*

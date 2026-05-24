@@ -1,0 +1,35 @@
+// Symptom-to-product-category mapping
+// This is a curated mapping used alongside AI to improve accuracy
+export const SYMPTOM_CATEGORY_MAP: Record<string, string[]> = {
+  tired: ['Vitamin B Complex', 'Iron Supplements', 'Ashwagandha'],
+  fatigue: ['Vitamin B Complex', 'Iron Supplements', 'Ashwagandha', 'Magnesium'],
+  'low energy': ['Vitamin B Complex', 'Iron Supplements'],
+  weakness: ['Vitamin B Complex', 'Iron Supplements', 'Magnesium'],
+  'hair fall': ['Biotin', 'Zinc', 'Multivitamin'],
+  'hair loss': ['Biotin', 'Zinc', 'Multivitamin'],
+  'losing hair': ['Biotin', 'Zinc'],
+  'brittle hair': ['Biotin', 'Zinc'],
+  'weak bones': ['Calcium', 'Vitamin D'],
+  'fragile bones': ['Calcium', 'Vitamin D'],
+  'bone pain': ['Calcium', 'Vitamin D'],
+  'joint pain': ['Calcium', 'Vitamin D', 'Omega-3'],
+  stress: ['Magnesium', 'Ashwagandha'],
+  anxiety: ['Magnesium', 'Ashwagandha'],
+  'sleep problems': ['Magnesium', 'Melatonin'],
+  insomnia: ['Magnesium', 'Melatonin'],
+  immunity: ['Vitamin C', 'Zinc', 'Multivitamin'],
+  cold: ['Vitamin C', 'Zinc'],
+  flu: ['Vitamin C', 'Zinc'],
+  inflammation: ['Omega-3', 'Vitamin C'],
+  skin: ['Zinc', 'Vitamin C', 'Biotin'],
+  acne: ['Zinc', 'Vitamin C'],
+  depression: ['Vitamin D', 'Omega-3', 'Magnesium'],
+  'mood swings': ['Vitamin D', 'Magnesium'],
+  muscle: ['Magnesium', 'Calcium'],
+  cramps: ['Magnesium', 'Calcium'],
+  anemia: ['Iron Supplements', 'Vitamin B Complex'],
+  dizzy: ['Iron Supplements', 'Vitamin B Complex', 'Vitamin D'],
+  dizziness: ['Iron Supplements', 'Vitamin B Complex'],
+};
+
+export const FOLLOW_UP_TRIGGERS = ['dizzy', 'dizziness', 'pain', 'numbness'];

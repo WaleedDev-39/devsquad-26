@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navbar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="output.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="bg-[#2a2a2a] flex justify-between h-[56px] w-full relative z-50">
+        <div class="flex h-full">
+            <!-- Logo -->
+            <a href="#" class="flex items-center px-4 hover:opacity-80 transition-opacity">
+                <img src="images/logo.png" alt="Logo" class="h-8 object-contain">
+            </a>
+
+            <!-- Desktop Links -->
+            <div class="hidden md:flex h-full ml-2">
+                <a href="#"
+                    class="flex items-center px-[18px] text-white text-[11px] md:text-[13px] tracking-wider font-normal border-b-4 border-[#0074e4] pt-1">STORE</a>
+                <a href="#"
+                    class="flex items-center px-[18px] text-gray-300 hover:text-white text-[11px] md:text-[13px] tracking-wider font-normal border-b-4 border-transparent hover:border-gray-500 pt-1 transition-colors">FAQ</a>
+                <a href="#"
+                    class="flex items-center px-[18px] text-gray-300 hover:text-white text-[11px] md:text-[13px] tracking-wider font-normal border-b-4 border-transparent hover:border-gray-500 pt-1 transition-colors">HELP</a>
+                <a href="#"
+                    class="flex items-center px-[18px] text-gray-300 hover:text-white text-[11px] md:text-[13px] tracking-wider font-normal border-b-4 border-transparent hover:border-gray-500 pt-1 transition-colors">UNREAL
+                    ENGINE</a>
+            </div>
+        </div>
+
+        <div class="flex h-full items-center">
+            <!-- Icons and Sign In -->
+            <div class="hidden md:flex items-center h-full text-gray-300 px-4">
+                <a href="#" class="px-3 py-2 hover:text-white transition-colors flex items-center justify-center">
+                    <img src="images/globe_vector.png" alt="Language"
+                        class="w-[18px] h-[18px] object-contain opacity-70 hover:opacity-100">
+                </a>
+                <a href="#" class="flex items-center gap-2 hover:text-white transition-colors px-3 py-2 cursor-pointer">
+                    <img src="images/person_vector.png" alt="Sign In"
+                        class="w-[18px] h-[18px] object-contain opacity-70 hover:opacity-100">
+                    <span class="text-[13px] tracking-wide font-normal">SIGN IN</span>
+                </a>
+            </div>
+
+            <!-- Download Button -->
+            <a href="#"
+                class="hidden md:flex items-center justify-center bg-[#0074e4] hover:bg-[#005bb5] transition-colors text-white text-[13px] font-normal tracking-wide px-6 h-full cursor-pointer ml-2">
+                DOWNLOAD
+            </a>
+
+            <!-- Mobile Hamburger Menu Button -->
+            <button id="mobile-menu-btn"
+                class="md:hidden flex items-center justify-center px-4 text-gray-300 hover:text-white h-full transition-colors">
+                <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 18h16v-2H4v2zm0-5h16v-2H4v2zm0-7v2h16V6H4z" />
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu"
+        class="hidden md:hidden bg-[#2a2a2a] w-full absolute left-0 top-[56px] flex-col border-t border-gray-700 z-40 transition-all duration-300 origin-top">
+        <a href="#"
+            class="px-6 py-4 text-white text-[13px] tracking-wider font-normal bg-[#383838] border-b border-[#0074e4]">STORE</a>
+        <a href="#"
+            class="px-6 py-4 text-gray-300 hover:text-white hover:bg-[#383838] transition-colors text-[13px] tracking-wider font-normal border-b border-gray-700">FAQ</a>
+        <a href="#"
+            class="px-6 py-4 text-gray-300 hover:text-white hover:bg-[#383838] transition-colors text-[13px] tracking-wider font-normal border-b border-gray-700">HELP</a>
+        <a href="#"
+            class="px-6 py-4 text-gray-300 hover:text-white hover:bg-[#383838] transition-colors text-[13px] tracking-wider font-normal border-b border-gray-700">UNREAL
+            ENGINE</a>
+
+        <div class="flex items-center px-6 py-4 justify-between border-b border-gray-700">
+            <a href="#" class="flex items-center gap-3 text-gray-300 hover:text-white transition-colors">
+                <img src="images/person_vector.png" alt="Sign In" class="w-5 h-5 opacity-70">
+                <span class="text-[13px] tracking-wider font-normal">SIGN IN</span>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">
+                <img src="images/globe_vector.png" alt="Language" class="w-5 h-5 opacity-70">
+            </a>
+        </div>
+
+        <a href="#"
+            class="bg-[#0074e4] hover:bg-[#005bb5] transition-colors text-white text-[14px] font-normal tracking-wider px-6 py-4 text-center">
+            DOWNLOAD
+        </a>
+    </div>
+
+    <!-- Toggle logic -->
+    <script>
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+        });
+    </script>
+</body>
+
+</html>

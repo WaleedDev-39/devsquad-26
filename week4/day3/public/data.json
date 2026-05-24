@@ -1,0 +1,201 @@
+{
+  "SwiperData": {
+    "swiperCards": [
+      {
+        "id": "1",
+        "image": "./assets/sale_game_1.png",
+        "name": "Valorant",
+        "discount": "-10%",
+        "actualPrice": "₹900",
+        "discountedPrice": "₹850"
+      },
+      {
+        "id": "2",
+        "image": "./assets/sale_game_2.png",
+        "name": "Assassin’s creed Valhalla",
+        "discount": "-20%",
+        "actualPrice": "₹3,499",
+        "discountedPrice": "₹2,999"
+      },
+      {
+        "id": "3",
+        "image": "./assets/sale_game_3.png",
+        "name": "Red Dead Redemption 2",
+        "discount": "-50%",
+        "actualPrice": "₹3,199",
+        "discountedPrice": "₹1,599"
+      },
+      {
+        "id": "4",
+        "image": "./assets/sale_game_4.png",
+        "name": " The Tomb Raider",
+        "discount": "-20%",
+        "actualPrice": "₹2,195",
+        "discountedPrice": "₹2,000"
+      },
+      {
+        "id": "5",
+        "image": "./assets/sale_game_5.png",
+        "name": "Cyberpunk 2077",
+        "discount": "-50%",
+        "actualPrice": "₹4,000",
+        "discountedPrice": "₹2,000"
+      }
+    ]
+  },
+  "PremiumData": {
+    "premiumGames": [
+      {
+        "id": "1",
+        "image": "./assets/nfs_img.png",
+        "name": "NFS UNBOUND",
+        "desc": "Pre-purchase NFS Unbound and get an exclusive Driving Effect, License Plate, $150,000 Bank, and more.",
+        "price": "₹3,499"
+      },
+      {
+        "id": "2",
+        "image": "./assets/fifa_img.png",
+        "name": "FIFA 23",
+        "desc": "FIFA 23 brings The World’s Game to the pitch, with HyperMotion2 Technology, men’s and women’s FIFA World Cup",
+        "price": "₹3,699"
+      },
+      {
+        "id": "3",
+        "image": "./assets/uncharted_img.png",
+        "name": "UNCHARTED 4",
+        "desc": "Get the definitive Uncharterd 4 experience with all Season Pass content, the Ultimate Pack, and upcoming expansion.",
+        "price": "₹2,199"
+      }
+    ]
+  },
+  "FreeGamesData": {
+    "CardsData": [
+      {
+        "id": "1",
+        "image": "./assets/free_game_1.png",
+        "name": "Darkwood",
+        "desc": "Free Now - Jul 25"
+      },
+      {
+        "id": "2",
+        "image": "./assets/free_game_2.png",
+        "name": "Assassin’s Creed Black Flag",
+        "desc": "Free Now - Jul 25"
+      },
+      {
+        "id": "3",
+        "image": "./assets/free_game_3.png",
+        "name": "NFS : Shift",
+        "desc": "Free  Jul 27 - Aug 5"
+      },
+      {
+        "id": "4",
+        "image": "./assets/free_game_4.png",
+        "name": "Warface",
+        "desc": "Free  Jul 27 - Aug 5"
+      }
+    ]
+  },
+  "TopGames": {
+    "Data": [
+      {
+        "id": "1",
+        "image": "./assets/top_1.png",
+        "name": "Ghostbusters: Spirits Unleashed",
+        "price": "₹939"
+      },
+      {
+        "id": "2",
+        "image": "./assets/top_2.png",
+        "name": "GTA V : Premier edition",
+        "price": "₹2,499"
+      },
+      {
+        "id": "3",
+        "image": "./assets/top_3.png",
+        "name": "Daysgone",
+        "price": "₹2,699"
+      },
+      {
+        "id": "4",
+        "image": "./assets/top_4.png",
+        "name": "Last of Us",
+        "price": "₹1,499"
+      },
+      {
+        "id": "5",
+        "image": "./assets/top_5.png",
+        "name": "God of War 4",
+        "price": "₹2,659"
+      }
+    ]
+  },
+  "BestGames": {
+    "Data": [
+      {
+        "id": "1",
+        "image": "./assets/best_1.png",
+        "name": "Fortnite",
+        "price": "Free"
+      },
+      {
+        "id": "2",
+        "image": "./assets/best_2.png",
+        "name": "GTA V : Premier edition",
+        "price": "₹2,499"
+      },
+      {
+        "id": "3",
+        "image": "./assets/best_3.png",
+        "name": "IGI 2",
+        "price": "₹499"
+      },
+      {
+        "id": "4",
+        "image": "./assets/best_4.png",
+        "name": "Tomb Raider",
+        "price": "₹2,499"
+      },
+      {
+        "id": "5",
+        "image": "./assets/best_5.png",
+        "name": "Uncharted 4",
+        "price": "₹3,499"
+      }
+    ]
+  },
+  "UpcomingGames": {
+    "Data": [
+      {
+        "id": "1",
+        "image": "./assets/upcoming_1.png",
+        "name": "Hogwarts Legacy",
+        "price": "₹2,999"
+      },
+      {
+        "id": "2",
+        "image": "./assets/upcoming_2.png",
+        "name": "Uncharted Legacy of Thieves ",
+        "price": "₹4,499"
+      },
+      {
+        "id": "3",
+        "image": "./assets/upcoming_3.png",
+        "name": "Assassin's Creed Mirage",
+        "price": "₹3,499"
+      },
+      {
+        "id": "4",
+        "image": "./assets/upcoming_4.png",
+        "name": "Last of Us II",
+        "price": "₹3,999"
+      },
+      {
+        "id": "5",
+        "image": "./assets/upcoming_5.png",
+        "name": "Dead by Daylight",
+        "price": "coming soon"
+      }
+    ]
+  }
+}

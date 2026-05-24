@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | Age calculator app</title>
+
+    <link rel="stylesheet" href="output.css" />
+    <style>
+      .attribution {
+        font-size: 11px;
+        text-align: center;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="bg-[#F0F0F0] min-h-screen flex justify-center items-center overflow-hidden"
+    >
+      <div
+        class="bg-[#FFFFFF] lg:rounded-2xl pl-5 lg:pr-30 md:pr-20 pb-10 lg:rounded-br-[180px] md:rounded-xl md:rounded-br-[120px] rounded-lg rounded-br-[80px]"
+      >
+        <form id="inputForm" >
+          <!-- day section -->
+          <div class="flex">
+            <div>
+              <div class="flex flex-col md:ml-10 ml-5 my-12">
+                <label
+                  id="dayLabel"
+                  for="day"
+                  class="md:text-[13px] text-[10px] text-[#909090] font-semibold tracking-widest md:leading-8"
+                  >DAY</label
+                >
+                <input
+                  type="number"
+                  id="day"
+                  name="day"
+                  class="border-2 border-[#EAEAEA] hover:border-[#864CFF] focus:border-[#864CFF] transition-all outline-none font-bold md:text-2xl text-xl md:w-30 w-20 px-4 md:py-6 py-5 md:h-10 h-6 rounded-md [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-inner-spin-button]:m-0"
+                  placeholder="DD"
+                />
+                <p class="hidden error text-[10px] italic text-red-500">
+                  This field is required
+                </p>
+              </div>
+              <!-- <hr class="text-[#EAEAEA] border-[1px] w-full md:ml-10 ml-6" /> -->
+            </div>
+
+            <!-- month section -->
+            <div>
+              <div class="flex flex-col md:mx-7 mx-3 my-12">
+                <label
+                  id="monthLabel"
+                  for="month"
+                  class="md:text-[13px] text-[10px] text-[#909090] font-semibold tracking-widest md:leading-8"
+                  >MONTH</label
+                >
+                <input
+                  type="number"
+                  id="month"
+                  name="month"
+                  class="border-2 border-[#EAEAEA] hover:border-[#864CFF] focus:border-[#864CFF] transition-all outline-none font-bold md:text-2xl text-xl md:w-30 w-20 px-4 md:py-6 py-5 md:h-10 h-6 rounded-md [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-inner-spin-button]:m-0"
+                  placeholder="MM"
+                />
+                <p class="hidden error text-[10px] italic text-red-500">
+                  This field is required
+                </p>
+              </div>
+              <!-- <hr class="text-[#EAEAEA] border-[1px] w-full md:ml-10" /> -->
+            </div>
+
+            <!-- year section -->
+
+            <div>
+              <div class="flex flex-col md:mr-10 mr-5 my-12">
+                <label
+                  id="yearLabel"
+                  for="year"
+                  class="md:text-[13px] text-[10px] text-[#909090] font-semibold tracking-widest md:leading-8"
+                  >YEAR</label
+                >
+                <input
+                  type="number"
+                  id="year"
+                  name="year"
+                  class="border-2 border-[#EAEAEA] hover:border-[#864CFF] focus:border-[#864CFF] transition-all outline-none font-bold md:text-2xl text-xl md:w-30 w-20 pl-4 md:py-6 py-5 md:h-10 h-6 rounded-md [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-inner-spin-button]:m-0"
+                  placeholder="YYYY"
+                />
+                <p class="hidden error text-[10px] italic text-red-500">
+                  This field is required
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- submit button -->
+          <div class="relative">
+            <hr class="text-[#EAEAEA] md:w-full border-[1px] md:ml-10 mr-7" />
+            <button
+              id="submitButton"
+              type="submit"
+              class="absolute lg:-right-20 md:-right-10 right-[135px] lg:-top-10 md:-top-7 -top-5 bg-[#864CFF] hover:bg-black transition-colors lg:w-20 lg:h-20 md:w-15 md:h-15 w-10 h-10 rounded-full flex items-center justify-center cursor-pointer"
+            >
+              <img
+                src="./assets/images/icon-arrow.svg "
+                alt=""
+                class="md:w-[50px] md:h-[50px] w-[30px] h-[30px]"
+              />
+            </button>
+          </div>
+        </form>
+
+        <!-- output results -->
+        <div class="mx-5 mt-5">
+          <h3 class="font-bold lg:text-7xl md:text-5xl text-4xl italic">
+            <span id="yearResult" class="text-[#864CFF] fade-in">-- </span>years
+          </h3>
+          <h3 class="font-bold lg:text-7xl md:text-5xl text-4xl italic">
+            <span id="monthResult" class="text-[#864CFF] fade-in">-- </span
+            >months
+          </h3>
+          <h3 class="font-bold lg:text-7xl md:text-5xl text-4xl italic">
+            <span id="daysResult" class="text-[#864CFF] fade-in">-- </span>days
+          </h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+    Coded by <a href="#">Your Name Here</a>.
+  </div> -->
+
+    <script>
+      document
+        .getElementById("inputForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const dayBox = parseInt(document.getElementById("day").value);
+          const monthBox = parseInt(document.getElementById("month").value);
+          const yearBox = parseInt(document.getElementById("year").value);
+          const daysGiven = document.getElementById("day");
+          const monthGiven = document.getElementById("month");
+          const yearGiven = document.getElementById("year");
+          const button = document.getElementById("submitButton");
+          const yearOutput = document.getElementById("yearResult");
+          const monthOutput = document.getElementById("monthResult");
+          const daysOutput = document.getElementById("daysResult");
+
+          const dayLabel = document.getElementById("dayLabel");
+          console.log(dayLabel);
+          const monthLabel = document.getElementById("monthLabel");
+          const yearLabel = document.getElementById("yearLabel");
+
+          const errorMessage = document.getElementsByClassName("error");
+
+          console.log(
+            "day:",
+            dayBox.value,
+            "month:",
+            monthBox.value,
+            "year:",
+            yearBox.value,
+          );
+
+          if (!dayBox) {
+            daysGiven.classList.add("border-[#FF0000]");
+            dayLabel.classList.add("text-[#FF0000]");
+            errorMessage[0].classList.remove("hidden");
+          } else {
+            daysGiven.classList.remove("border-[#FF0000]");
+            dayLabel.classList.remove("text-[#FF0000]");
+            errorMessage[0].classList.add("hidden");
+          }
+
+          if (!monthBox) {
+            monthGiven.classList.add("border-[#FF0000]");
+            monthLabel.classList.add("text-[#FF0000]");
+            errorMessage[1].classList.remove("hidden");
+          } else {
+            monthGiven.classList.remove("border-[#FF0000]");
+            monthLabel.classList.remove("text-[#FF0000]");
+            errorMessage[1].classList.add("hidden");
+          }
+
+          if (!yearBox) {
+            yearGiven.classList.add("border-[#FF0000]");
+            yearLabel.classList.add("text-[#FF0000]");
+            errorMessage[2].classList.remove("hidden");
+          } else {
+            yearGiven.classList.remove("border-[#FF0000]");
+            yearLabel.classList.remove("text-[#FF0000]");
+            errorMessage[2].classList.add("hidden");
+          }
+
+          const birthDate = new Date(yearBox, monthBox - 1, dayBox); // month is 0-indexed in JS
+          const today = new Date();
+
+          let years = today.getFullYear() - birthDate.getFullYear();
+          let months = today.getMonth() - birthDate.getMonth();
+          let days = today.getDate() - birthDate.getDate();
+
+          // If days are negative, borrow days from previous month
+          if (days < 0) {
+            months--;
+            const prevMonth = new Date(
+              today.getFullYear(),
+              today.getMonth(),
+              0,
+            ); // last day of previous month
+            days += prevMonth.getDate();
+          }
+
+          // If months are negative, borrow months from previous year
+          if (months < 0) {
+            years--;
+            months += 12;
+          }
+
+          // year output animation
+          yearOutput.classList.remove("fade-in");
+          void yearOutput.offsetWidth;
+          yearOutput.classList.add("fade-in");
+          // month output animation
+          monthOutput.classList.remove("fade-in");
+          void monthOutput.offsetWidth;
+          monthOutput.classList.add("fade-in");
+
+          // days output animation
+          daysOutput.classList.remove("fade-in");
+          void daysOutput.offsetWidth;
+          daysOutput.classList.add("fade-in");
+
+          button.addEventListener("click", () => {
+            yearOutput.innerHTML = `<span class="italic">${years} </span>`;
+            monthOutput.innerHTML = `<span class="italic">${months} </span>`;
+            daysOutput.innerHTML = `<span class="italic">${days} </span>`;
+          });
+        });
+    </script>
+  </body>
+</html>

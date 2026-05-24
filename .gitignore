@@ -1,0 +1,20 @@
+# Environment variables
+.env
+.env.*
+*.env
+!.env.example
+
+# Dependencies (global catch-all for entire repo)
+node_modules/
+
+# Build outputs
+dist/
+.next/
+out/
+build/
+
+# Misc
+.vercel
+*.tsbuildinfo
+.DS_Store
+*.log

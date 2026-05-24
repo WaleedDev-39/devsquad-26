@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+/* Load Plus Jakarta Sans font */
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('../assets/fonts/static/PlusJakartaSans-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('../assets/fonts/static/PlusJakartaSans-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Unread dot hide/show logic */
+.notification:not(.unread) .unread-dot {
+    opacity: 0;
+    transform: scale(0);
+}
+
+/* Badge animation when count becomes zero */
+#unread-count.hidden {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+/* Read state: remove unread background */
+.notification:not(.unread) {
+    background-color: transparent;
+}

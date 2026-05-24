@@ -1,0 +1,10 @@
+ Volume in drive E is New Volume
+ Volume Serial Number is C869-30A5
+
+ Directory of e:\my coding stuff\devsquad'26\week5\day1\backend
+
+31-Mar-26  10:46 PM    <DIR>          .
+31-Mar-26  10:44 PM    <DIR>          ..
+31-Mar-26  10:46 PM                 0 out.txt
+               1 File(s)              0 bytes
+               2 Dir(s)   1,948,495,872 bytes free
