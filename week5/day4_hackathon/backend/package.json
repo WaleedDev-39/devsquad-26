@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "dist/main.js",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "node --max-old-space-size=2048 node_modules/.bin/tsc -p tsconfig.build.json",
     "prestart": "npm run build",
     "start": "node dist/main.js",
     "start:dev": "ts-node -r dotenv/config src/main.ts",
