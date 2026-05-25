@@ -90,10 +90,11 @@ export default function SellCar() {
       });
 
       try {
-        await api.post('/cars', formData, {
+        const response = await api.post('/cars', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
-        router.push('/profile?tab=my-cars');
+        const carId = response.data._id || response.data.id;
+        router.push(`/auctions/${carId}`);
       } catch (err: any) {
         setError(err.response?.data?.message || 'Failed to submit car');
       } finally {

@@ -10,7 +10,18 @@ import { GatewayModule } from './gateway/gateway.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(process.env.MONGODB_URI || 'mongodb://localhost:27017/cardeposit'),
+    MongooseModule.forRootAsync({
+      useFactory: async () => {
+        const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/cardeposit';
+        return {
+          uri,
+          retryWrites: true,
+          serverSelectionTimeoutMS: 15000,
+          connectTimeoutMS: 15000,
+          socketTimeoutMS: 45000,
+        } as any;
+      },
+    }),
     AuthModule,
     UsersModule,
     CarsModule,
