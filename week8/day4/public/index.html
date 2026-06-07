@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Research Agent — Multi-Agent Research System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0a0a12;
+      --surface:   #11111e;
+      --card:      rgba(255,255,255,0.04);
+      --border:    rgba(255,255,255,0.08);
+      --accent:    #7c3aed;
+      --accent2:   #06b6d4;
+      --green:     #10b981;
+      --yellow:    #f59e0b;
+      --red:       #ef4444;
+      --text:      #e2e8f0;
+      --muted:     #64748b;
+      --radius:    16px;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px 80px;
+    }
+
+    /* ── Background glow ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 10%, rgba(124,58,237,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(6,182,212,0.08) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    /* ── Header ── */
+    header {
+      text-align: center;
+      margin-bottom: 48px;
+      position: relative;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(124,58,237,0.15);
+      border: 1px solid rgba(124,58,237,0.3);
+      border-radius: 99px;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #a78bfa;
+      letter-spacing: 0.04em;
+      margin-bottom: 20px;
+    }
+    .badge::before { content: '●'; font-size: 8px; color: #10b981; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    h1 {
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 700;
+      background: linear-gradient(135deg, #e2e8f0 0%, #a78bfa 50%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .subtitle {
+      color: var(--muted);
+      font-size: 16px;
+      font-weight: 400;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ── Main card ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      width: 100%;
+      max-width: 800px;
+      backdrop-filter: blur(12px);
+      margin-bottom: 24px;
+    }
+
+    /* ── Input area ── */
+    .input-group {
+      display: flex;
+      gap: 12px;
+      flex-direction: column;
+    }
+    label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    textarea {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      resize: vertical;
+      min-height: 80px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      width: 100%;
+      line-height: 1.5;
+    }
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(124,58,237,0.15);
+    }
+
+    .examples {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .example-chip {
+      background: rgba(124,58,237,0.1);
+      border: 1px solid rgba(124,58,237,0.2);
+      border-radius: 99px;
+      padding: 5px 12px;
+      font-size: 12px;
+      color: #a78bfa;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .example-chip:hover {
+      background: rgba(124,58,237,0.2);
+      border-color: rgba(124,58,237,0.4);
+    }
+
+    button#runBtn {
+      background: linear-gradient(135deg, var(--accent), #6d28d9);
+      border: none;
+      border-radius: 12px;
+      padding: 14px 32px;
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      letter-spacing: 0.02em;
+    }
+    button#runBtn:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(124,58,237,0.35);
+    }
+    button#runBtn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .spinner {
+      width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Progress panel ── */
+    #progressPanel {
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .progress-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 4px;
+    }
+    .log-entry {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      animation: slideIn 0.25s ease;
+      line-height: 1.5;
+    }
+    @keyframes slideIn { from { opacity:0; transform: translateY(6px); } to { opacity:1; transform: none; } }
+
+    .log-entry.info    { background: rgba(100,116,139,0.12); color: var(--muted); }
+    .log-entry.agent   { background: rgba(124,58,237,0.1);  color: #a78bfa; border-left: 2px solid var(--accent); }
+    .log-entry.search  { background: rgba(6,182,212,0.08);  color: #67e8f9; border-left: 2px solid var(--accent2); }
+    .log-entry.success { background: rgba(16,185,129,0.1);  color: #6ee7b7; border-left: 2px solid var(--green); }
+    .log-entry.error   { background: rgba(239,68,68,0.1);   color: #fca5a5; border-left: 2px solid var(--red); }
+    .log-entry.stat    { background: rgba(245,158,11,0.08); color: #fcd34d; border-left: 2px solid var(--yellow); }
+
+    .log-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+    .log-text { flex: 1; font-family: 'JetBrains Mono', monospace; font-size: 12.5px; }
+
+    /* ── Report output ── */
+    #reportPanel {
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .report-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .report-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    #copyBtn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 14px;
+      color: var(--muted);
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    #copyBtn:hover { background: rgba(255,255,255,0.1); color: var(--text); }
+
+    #reportContent {
+      background: rgba(0,0,0,0.2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      line-height: 1.75;
+      font-size: 15px;
+      overflow-x: auto;
+    }
+    #reportContent h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #e2e8f0;
+      margin: 28px 0 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    #reportContent h2:first-child { margin-top: 0; }
+    #reportContent p { color: #cbd5e1; margin-bottom: 12px; }
+    #reportContent ul, #reportContent ol { padding-left: 22px; margin-bottom: 12px; }
+    #reportContent li { color: #cbd5e1; margin-bottom: 6px; }
+    #reportContent strong { color: #e2e8f0; }
+    #reportContent a { color: #7dd3fc; text-decoration: none; }
+    #reportContent a:hover { text-decoration: underline; }
+    #reportContent table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+    #reportContent th {
+      background: rgba(124,58,237,0.15);
+      color: #a78bfa;
+      padding: 10px 16px;
+      text-align: left;
+      font-weight: 600;
+      border: 1px solid rgba(124,58,237,0.2);
+    }
+    #reportContent td {
+      padding: 10px 16px;
+      border: 1px solid var(--border);
+      color: #cbd5e1;
+    }
+    #reportContent tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+
+    /* ── Pipeline diagram ── */
+    .pipeline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+      margin: 8px 0 0;
+    }
+    .pipe-step {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+    .pipe-node {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+    .pipe-node.active {
+      border-color: var(--accent);
+      color: #a78bfa;
+      background: rgba(124,58,237,0.1);
+      box-shadow: 0 0 12px rgba(124,58,237,0.2);
+    }
+    .pipe-node.done {
+      border-color: var(--green);
+      color: var(--green);
+      background: rgba(16,185,129,0.1);
+    }
+    .pipe-arrow {
+      color: var(--border);
+      font-size: 18px;
+      padding: 0 6px;
+      flex-shrink: 0;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 40px;
+    }
+    footer span { color: #a78bfa; }
+
+    @media (max-width: 600px) {
+      .card { padding: 20px; }
+      h1 { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="badge">Powered by OpenAI Agents SDK + Groq + Tavily</div>
+    <h1>Multi-Agent Research System</h1>
+    <p class="subtitle">
+      Type any research question. Three specialized AI agents collaborate to search the web, analyze facts, and produce a structured report.
+    </p>
+  </header>
+
+  <!-- Pipeline indicator -->
+  <div class="pipeline" id="pipeline" style="margin-bottom:28px">
+    <div class="pipe-step">
+      <div class="pipe-node" id="node-manager">🧠 Manager Agent</div>
+      <div class="pipe-arrow">→</div>
+    </div>
+    <div class="pipe-step">
+      <div class="pipe-node" id="node-research">🔍 Research Agent</div>
+      <div class="pipe-arrow">→</div>
+    </div>
+    <div class="pipe-step">
+      <div class="pipe-node" id="node-writer">✍️ Writer Agent</div>
+    </div>
+  </div>
+
+  <!-- Input card -->
+  <div class="card">
+    <div class="input-group">
+      <label>Your Research Query</label>
+      <textarea id="queryInput" rows="3" placeholder="e.g. Compare Stripe vs Razorpay for a SaaS in Pakistan">Compare Stripe vs Razorpay for a SaaS in Pakistan</textarea>
+
+      <div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">Try an example:</div>
+        <div class="examples">
+          <div class="example-chip" onclick="setQuery(this)">Stripe vs Razorpay for SaaS in Pakistan</div>
+          <div class="example-chip" onclick="setQuery(this)">Best cloud hosting for startups in 2026</div>
+          <div class="example-chip" onclick="setQuery(this)">Compare React vs Vue for large-scale apps</div>
+          <div class="example-chip" onclick="setQuery(this)">AI tools for software developers in 2026</div>
+        </div>
+      </div>
+
+      <button id="runBtn" onclick="runResearch()">
+        <span class="spinner" id="spinner"></span>
+        <span id="btnText">🚀 Run Research</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Progress card -->
+  <div class="card" id="progressCard" style="display:none">
+    <div id="progressPanel">
+      <div class="progress-label">Live Agent Activity</div>
+    </div>
+  </div>
+
+  <!-- Report card -->
+  <div class="card" id="reportCard" style="display:none">
+    <div id="reportPanel">
+      <div class="report-header">
+        <div class="report-title">✅ Research Report Generated</div>
+        <button id="copyBtn" onclick="copyReport()">📋 Copy Markdown</button>
+      </div>
+      <div id="reportContent"></div>
+    </div>
+  </div>
+
+  <footer>Built with <span>OpenAI Agents SDK</span> · <span>Groq llama-3.3-70b</span> · <span>Tavily Search</span></footer>
+
+  <script>
+    let rawMarkdown = '';
+
+    function setQuery(el) {
+      document.getElementById('queryInput').value = el.textContent;
+    }
+
+    function setNode(name) {
+      ['manager','research','writer'].forEach(n => {
+        const el = document.getElementById('node-' + n);
+        if (n === name) el.className = 'pipe-node active';
+        else if (['manager','research','writer'].indexOf(n) < ['manager','research','writer'].indexOf(name))
+          el.className = 'pipe-node done';
+        else el.className = 'pipe-node';
+      });
+    }
+
+    function addLog(type, icon, text) {
+      const panel = document.getElementById('progressPanel');
+      const div = document.createElement('div');
+      div.className = 'log-entry ' + type;
+      div.innerHTML = `<span class="log-icon">${icon}</span><span class="log-text">${text}</span>`;
+      panel.appendChild(div);
+      div.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function runResearch() {
+      const query = document.getElementById('queryInput').value.trim();
+      if (!query) return;
+
+      // Reset UI
+      rawMarkdown = '';
+      document.getElementById('progressPanel').innerHTML = '<div class="progress-label">Live Agent Activity</div>';
+      document.getElementById('progressCard').style.display = 'block';
+      document.getElementById('reportCard').style.display = 'none';
+      document.getElementById('reportPanel').style.display = 'none';
+      document.getElementById('reportContent').innerHTML = '';
+      document.getElementById('runBtn').disabled = true;
+      document.getElementById('spinner').style.display = 'block';
+      document.getElementById('btnText').textContent = 'Running…';
+      ['manager','research','writer'].forEach(n => document.getElementById('node-' + n).className = 'pipe-node');
+
+      setNode('manager');
+      addLog('agent', '🧠', 'Manager Agent — analyzing query and delegating subtasks…');
+
+      const es = new EventSource('/research?query=' + encodeURIComponent(query));
+
+      es.addEventListener('search', e => {
+        setNode('research');
+        addLog('search', '🔍', JSON.parse(e.data));
+      });
+
+      es.addEventListener('agent', e => {
+        const msg = JSON.parse(e.data);
+        if (msg.includes('Writer') || msg.includes('writer')) setNode('writer');
+        else if (msg.includes('Research') || msg.includes('research')) setNode('research');
+        else if (msg.includes('Manager') || msg.includes('manager')) setNode('manager');
+        addLog('agent', '🤖', msg);
+      });
+
+      es.addEventListener('stat', e => {
+        addLog('stat', '📊', JSON.parse(e.data));
+      });
+
+      es.addEventListener('done', e => {
+        es.close();
+        rawMarkdown = JSON.parse(e.data);
+        setNode('writer');
+        ['manager','research','writer'].forEach(n => document.getElementById('node-' + n).className = 'pipe-node done');
+        addLog('success', '✅', 'Report generated successfully!');
+
+        document.getElementById('reportContent').innerHTML = marked.parse(rawMarkdown);
+        document.getElementById('reportCard').style.display = 'block';
+        document.getElementById('reportPanel').style.display = 'flex';
+        document.getElementById('reportCard').scrollIntoView({ behavior: 'smooth' });
+
+        document.getElementById('runBtn').disabled = false;
+        document.getElementById('spinner').style.display = 'none';
+        document.getElementById('btnText').textContent = '🚀 Run Research';
+      });
+
+      es.addEventListener('error_msg', e => {
+        es.close();
+        addLog('error', '❌', 'Error: ' + JSON.parse(e.data));
+        document.getElementById('runBtn').disabled = false;
+        document.getElementById('spinner').style.display = 'none';
+        document.getElementById('btnText').textContent = '🚀 Run Research';
+      });
+
+      es.onerror = () => {
+        if (es.readyState === EventSource.CLOSED) return;
+        es.close();
+        addLog('error', '❌', 'Connection lost. Please try again.');
+        document.getElementById('runBtn').disabled = false;
+        document.getElementById('spinner').style.display = 'none';
+        document.getElementById('btnText').textContent = '🚀 Run Research';
+      };
+    }
+
+    function copyReport() {
+      navigator.clipboard.writeText(rawMarkdown).then(() => {
+        const btn = document.getElementById('copyBtn');
+        btn.textContent = '✅ Copied!';
+        setTimeout(() => btn.textContent = '📋 Copy Markdown', 2000);
+      });
+    }
+  </script>
+</body>
+</html>

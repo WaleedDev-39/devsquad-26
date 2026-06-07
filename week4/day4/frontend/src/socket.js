@@ -1,5 +1,6 @@
 import { io } from "socket.io-client";
 
-const socket = io("https://q7rysl-4000.csb.app");
+const socket = io("https://week4-day4-score-app-backend.onrender.com");
 
 export default socket;
+ 

@@ -1,0 +1,26 @@
+{
+  "name": "multi-agent-research-system",
+  "version": "1.0.0",
+  "description": "Multi-Agent AI Research & Report System built with OpenAI Agents SDK & Tavily Search",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "dev": "ts-node src/index.ts",
+    "server": "ts-node src/server.ts"
+  },
+  "dependencies": {
+    "@openai/agents": "latest",
+    "@types/express": "^5.0.6",
+    "dotenv": "^16.4.5",
+    "express": "^5.2.1",
+    "openai": "^4.52.7",
+    "zod": "^4.0.0-beta.0"
+  },
+  "overrides": {
+    "zod": "^4.0.0-beta.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
